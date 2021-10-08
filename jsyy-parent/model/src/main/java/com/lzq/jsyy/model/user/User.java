@@ -17,6 +17,13 @@ import lombok.Data;
 @TableName("user")
 public class User extends BaseEntity {
     private static final long serialVersionUID = 1L;
+    @ApiModelProperty(value = "学号")
+    @TableField("student_number")
+    private String studentNumber;
+
+    @ApiModelProperty(value = "姓名")
+    @TableField("name")
+    private String name;
 
     @ApiModelProperty(value = "账号")
     @TableField("username")
@@ -26,4 +33,11 @@ public class User extends BaseEntity {
     @TableField("password")
     private String password;
 
+    @ApiModelProperty(value = "用户类型")
+    @TableField("type")
+    private String type;
+
+    @ApiModelProperty(value = "权限")
+    @TableField("permissions")
+    private String permissions;
 }

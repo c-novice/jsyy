@@ -15,6 +15,8 @@ public enum ResultCodeEnum {
     PARAM_ERROR(202, "参数不正确"),
     SERVICE_ERROR(203, "服务异常"),
     DATA_ERROR(204, "数据异常"),
+    USER_REPEAT(205, "该用户已存在"),
+    DELETE_FAIL(206, "删除失败"),
     LOGIN_AUTH(208, "未登陆"),
     PERMISSION(209, "没有权限"),
     CODE_ERROR(210, "验证码错误"),

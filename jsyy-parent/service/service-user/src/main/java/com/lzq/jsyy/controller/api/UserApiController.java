@@ -6,6 +6,7 @@ import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.impl.UserServiceImpl;
 import com.lzq.jsyy.vo.user.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Map;
 
@@ -24,6 +25,7 @@ public class UserApiController {
      * @param loginVo
      * @return
      */
+    @GetMapping("/loginByPassword")
     public Result loginByPassword(LoginVo loginVo) {
         Map<String, Object> map = userService.loginByPassword(loginVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
@@ -37,6 +39,7 @@ public class UserApiController {
      * @param loginVo
      * @return
      */
+    @GetMapping("/loginByCode")
     public Result loginByCode(LoginVo loginVo) {
         Map<String, Object> map = userService.loginByCode(loginVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");

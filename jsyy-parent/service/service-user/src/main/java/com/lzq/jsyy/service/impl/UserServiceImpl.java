@@ -1,15 +1,18 @@
 package com.lzq.jsyy.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzq.jsyy.mapper.UserMapper;
 import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.UserService;
 import com.lzq.jsyy.vo.user.LoginVo;
+import com.lzq.jsyy.vo.user.UserQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,6 +82,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         return map;
+    }
+
+    @Override
+    public Page<User> selectPage(Page<User> pageParam, UserQueryVo userQueryVo) {
+        if (userQueryVo == null) {
+            return null;
+        }
+
+        String name = userQueryVo.getName();
+        String type = userQueryVo.getType();
+        String studentNumber = userQueryVo.getStudentNumber();
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(name)) {
+            wrapper.like("name", name);
+        }
+        if (!StringUtils.isEmpty(type)) {
+            wrapper.eq("type", type);
+        }
+        if (!StringUtils.isEmpty(studentNumber)) {
+            wrapper.like("studentNumber", studentNumber);
+        }
+
+        Page<User> users = baseMapper.selectPage(pageParam, wrapper);
+
+        return users;
     }
 
 }
