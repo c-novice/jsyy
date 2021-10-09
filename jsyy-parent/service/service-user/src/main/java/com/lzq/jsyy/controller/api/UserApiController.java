@@ -1,6 +1,5 @@
 package com.lzq.jsyy.controller.api;
 
-import com.lzq.jsyy.model.acl.User;
 import com.lzq.jsyy.result.Result;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.impl.UserServiceImpl;

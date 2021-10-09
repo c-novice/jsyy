@@ -110,4 +110,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return users;
     }
 
+    @Override
+    public Map<String, Object> add(User user) {
+        Map<String, Object> map = new HashMap<>(1);
+
+        if (StringUtils.isEmpty(user)) {
+            map.put("state", ResultCodeEnum.PERMISSION_ADD_ERROR);
+            return map;
+        }
+
+        QueryWrapper<User> wrapper1 = new QueryWrapper<>();
+        wrapper1.eq("name", user.getName());
+        User user1 = baseMapper.selectOne(wrapper1);
+
+        if (StringUtils.isEmpty(user)) {
+            map.put("state", ResultCodeEnum.PERMISSION_EXIST);
+            return map;
+        }
+
+        save(user);
+        map.put("state", ResultCodeEnum.SUCCESS);
+
+        return map;
+    }
+
 }

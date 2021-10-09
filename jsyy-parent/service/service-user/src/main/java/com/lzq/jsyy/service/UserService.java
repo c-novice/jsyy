@@ -36,4 +36,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     Page<User> selectPage(Page<User> pageParam, UserQueryVo userQueryVo);
+
+    /**
+     * 添加用户
+     *
+     *
+     * @param user@return
+     */
+    Map<String, Object> add(User user);
 }

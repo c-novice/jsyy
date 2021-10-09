@@ -11,6 +11,7 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/service-cmn/pom.xml" />
+        <option value="$PROJECT_DIR$/service/service-room/pom.xml" />
       </set>
     </option>
   </component>

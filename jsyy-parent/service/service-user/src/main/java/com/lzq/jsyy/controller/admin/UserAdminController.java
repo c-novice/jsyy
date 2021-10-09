@@ -1,12 +1,13 @@
 package com.lzq.jsyy.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lzq.jsyy.model.cmn.Permission;
 import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.result.Result;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.UserService;
-import com.lzq.jsyy.vo.user.UserQueryVo;
 import com.lzq.jsyy.vo.user.LoginVo;
+import com.lzq.jsyy.vo.user.UserQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class UserAdminController {
         return Result.build(null, resultCodeEnum);
     }
 
-    @GetMapping("/{page},{limit}")
+    @GetMapping("/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, UserQueryVo userQueryVo) {
         Page<User> pageParam = new Page<>(page, limit);
         Page<User> pageModel = userService.selectPage(pageParam, userQueryVo);
@@ -41,9 +42,9 @@ public class UserAdminController {
 
     @PostMapping("/add")
     public Result add(User user) {
-        boolean save = userService.save(user);
-
-        return save ? Result.ok() : Result.build(null, ResultCodeEnum.USER_REPEAT);
+        Map<String, Object> map = userService.add(user);
+        ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
+        return Result.build(null, resultCodeEnum);
     }
 
     @PutMapping("/update")

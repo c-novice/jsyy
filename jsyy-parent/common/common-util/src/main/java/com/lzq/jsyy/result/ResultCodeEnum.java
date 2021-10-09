@@ -24,7 +24,9 @@ public enum ResultCodeEnum {
     LOGIN_PHONE_ERROR(212, "该手机号未注册"),
     REGISTER_MOBLE_ERROR(213, "手机号已被使用"),
     LOGIN_ERROR_MULTI(214, "最近登录失败次数过多，请稍后再试"),
-    LOGIN_ACL(215, "没有权限");
+    LOGIN_ACL(215, "没有权限"),
+    PERMISSION_ADD_ERROR(216, "添加权限失败"),
+    PERMISSION_EXIST(217, "该权限已存在");
 
 
     private final Integer code;

@@ -38,6 +38,6 @@ public class User extends BaseEntity {
     private String type;
 
     @ApiModelProperty(value = "权限")
-    @TableField("permissions")
-    private String permissions;
+    @TableField("permission")
+    private String permission;
 }

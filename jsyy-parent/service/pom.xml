@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>service-room</module>
         <module>service-cmn</module>
         <module>service-msm</module>
         <module>service-order</module>
