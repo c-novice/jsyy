@@ -51,6 +51,7 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
 
         String facilityId = facility.getFacilityId();
         String name = facility.getName();
+        String id = facility.getId();
 
         QueryWrapper<Facility> wrapper1 = new QueryWrapper<>();
         if (!StringUtils.isEmpty(facilityId)) {
@@ -61,6 +62,7 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
             map.put("state", ResultCodeEnum.FACILITY_ADD_ERROR);
             return map;
         }
+        wrapper1.ne("id", id);
 
         QueryWrapper<Facility> wrapper2 = new QueryWrapper<>();
         if (!StringUtils.isEmpty(name)) {
@@ -71,6 +73,7 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
             map.put("state", ResultCodeEnum.FACILITY_ADD_ERROR);
             return map;
         }
+        wrapper2.ne("id", id);
 
         baseMapper.insert(facility);
         map.put("state", ResultCodeEnum.SUCCESS);
@@ -87,6 +90,7 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
 
         String facilityId = facility.getFacilityId();
         String name = facility.getName();
+        String id = facility.getId();
 
         QueryWrapper<Facility> wrapper1 = new QueryWrapper<>();
         if (!StringUtils.isEmpty(facilityId)) {
@@ -97,11 +101,13 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
             map.put("state", ResultCodeEnum.FACILITY_CHANGE_ERROR);
             return map;
         }
+        wrapper1.ne("id", id);
 
         QueryWrapper<Facility> wrapper2 = new QueryWrapper<>();
         if (!StringUtils.isEmpty(name)) {
             wrapper1.eq("name", name);
         }
+        wrapper2.ne("id", id);
 
         baseMapper.updateById(facility);
         map.put("state", ResultCodeEnum.SUCCESS);

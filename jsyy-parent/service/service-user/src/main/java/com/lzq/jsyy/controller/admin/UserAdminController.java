@@ -1,7 +1,6 @@
 package com.lzq.jsyy.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lzq.jsyy.model.cmn.Permission;
 import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.result.Result;
 import com.lzq.jsyy.result.ResultCodeEnum;

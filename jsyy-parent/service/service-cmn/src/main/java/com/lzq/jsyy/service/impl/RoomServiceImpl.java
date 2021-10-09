@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzq.jsyy.mapper.RoomMapper;
-import com.lzq.jsyy.model.cmn.Facility;
 import com.lzq.jsyy.model.cmn.Room;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.RoomService;
@@ -29,11 +28,14 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
         }
 
         String roomId = room.getRoomId();
+        String id = room.getId();
 
         QueryWrapper<Room> wrapper1 = new QueryWrapper<>();
         if (!StringUtils.isEmpty(room)) {
             wrapper1.eq("room_id", roomId);
         }
+        wrapper1.ne("id", id);
+
         Room room1 = baseMapper.selectOne(wrapper1);
         if (!StringUtils.isEmpty(room1)) {
             map.put("state", ResultCodeEnum.ROOM_ADD_ERROR);
@@ -59,11 +61,14 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
         }
 
         String roomId = room.getRoomId();
+        String id = room.getId();
 
         QueryWrapper<Room> wrapper1 = new QueryWrapper<>();
         if (!StringUtils.isEmpty(room)) {
             wrapper1.eq("room_id", roomId);
         }
+        wrapper1.ne("id", id);
+
         Room room1 = baseMapper.selectOne(wrapper1);
         if (!StringUtils.isEmpty(room1)) {
             map.put("state", ResultCodeEnum.ROOM_ADD_ERROR);

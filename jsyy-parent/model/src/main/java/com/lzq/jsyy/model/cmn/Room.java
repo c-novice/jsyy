@@ -5,6 +5,7 @@ import com.lzq.jsyy.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  *
  * @author lzq
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(description = "教室")
 public class Room extends BaseEntity {
@@ -34,6 +36,7 @@ public class Room extends BaseEntity {
     @TableField("description")
     private String description;
 
-    @ApiModelProperty(value = "预约规则")
+    @ApiModelProperty(value = "预约排班")
+    @TableField(exist = false)
     private List<Schedule> schedules;
 }

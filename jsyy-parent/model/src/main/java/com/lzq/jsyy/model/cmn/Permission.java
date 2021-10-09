@@ -6,12 +6,14 @@ import com.lzq.jsyy.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 权限
  *
  * @author lzq
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(description = "权限类")
 @TableName("permission")

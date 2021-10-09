@@ -15,6 +15,7 @@ import java.util.List;
  *
  * @author lzq
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(description = "设施类")
 @TableName("facility")
@@ -38,6 +39,7 @@ public class Facility extends BaseEntity {
     private Integer roomCount;
 
     @ApiModelProperty(value = "教室")
+    @TableField(exist = false)
     private List<Room> rooms;
 
 }

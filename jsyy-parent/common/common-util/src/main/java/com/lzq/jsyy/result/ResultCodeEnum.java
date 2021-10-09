@@ -30,7 +30,9 @@ public enum ResultCodeEnum {
     FACILITY_ADD_ERROR(218, "添加设施失败"),
     FACILITY_CHANGE_ERROR(219, "修改设施失败"),
     ROOM_ADD_ERROR(220, "添加房间失败"),
-    ROOM_CHANGE_ERROR(221, "修改房间失败");
+    ROOM_CHANGE_ERROR(221, "修改房间失败"),
+    SCHEDULE_ADD_ERROR(222, "添加排班失败"),
+    SCHEDULE_CHANGE_ERROR(223, "修改排班失败");
 
 
     private final Integer code;

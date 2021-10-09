@@ -29,7 +29,7 @@ public class JwtHelper {
      */
     public static String createToken(Long userId, String userName) {
         String token = Jwts.builder()
-                .setSubject("YYGH-USER")
+                .setSubject("JSYY-USER")
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION))
                 .claim("userId", userId)
                 .claim("userName", userName)

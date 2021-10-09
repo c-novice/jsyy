@@ -6,14 +6,14 @@ import com.lzq.jsyy.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.util.Date;
+import lombok.EqualsAndHashCode;
 
 /**
  * 预约排班
  *
  * @author lzq
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "预约排班")
 @Data
 public class Schedule extends BaseEntity {
@@ -25,28 +25,28 @@ public class Schedule extends BaseEntity {
 
     @ApiModelProperty(value = "开放预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date openDate;
+    private String openDate;
 
     @ApiModelProperty(value = "截止预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date closeDate;
+    private String closeDate;
 
     @ApiModelProperty(value = "预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date workDate;
+    private String workDate;
 
     @ApiModelProperty(value = "预约开始时间段")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField("begin_time")
-    private Date beginTime;
+    private String beginTime;
 
     @ApiModelProperty(value = "预约结束时间段")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField("end_time")
-    private Date endTime;
+    private String endTime;
 
     @ApiModelProperty(value = "退预约截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField("quit_time")
-    private Date quitTime;
+    private String quitTime;
 }
