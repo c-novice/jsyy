@@ -5,20 +5,21 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
- *
+ * http请求发送工具类
  */
 @Slf4j
 public final class HttpUtil {
 
     static final String POST = "POST";
     static final String GET = "GET";
-    static final int CONN_TIMEOUT = 30000;// ms
-    static final int READ_TIMEOUT = 30000;// ms
+    static final int CONN_TIMEOUT = 30000;
+    static final int READ_TIMEOUT = 30000;
 
     /**
-     * post 方式发送http请求.
+     * post 方式发送http请求
      *
      * @param strUrl
      * @param reqData
@@ -29,7 +30,7 @@ public final class HttpUtil {
     }
 
     /**
-     * get方式发送http请求.
+     * get方式发送http请求
      *
      * @param strUrl
      * @return
@@ -40,11 +41,11 @@ public final class HttpUtil {
 
     /**
      * @param strUrl
-     * @param reqmethod
+     * @param reqMethod
      * @param reqData
      * @return
      */
-    public static byte[] send(String strUrl, String reqmethod, byte[] reqData) {
+    public static byte[] send(String strUrl, String reqMethod, byte[] reqData) {
         try {
             URL url = new URL(strUrl);
             HttpURLConnection httpcon = (HttpURLConnection) url.openConnection();
@@ -54,15 +55,15 @@ public final class HttpUtil {
             httpcon.setInstanceFollowRedirects(true);
             httpcon.setConnectTimeout(CONN_TIMEOUT);
             httpcon.setReadTimeout(READ_TIMEOUT);
-            httpcon.setRequestMethod(reqmethod);
+            httpcon.setRequestMethod(reqMethod);
             httpcon.connect();
-            if (reqmethod.equalsIgnoreCase(POST)) {
+            if (reqMethod.equalsIgnoreCase(POST)) {
                 OutputStream os = httpcon.getOutputStream();
                 os.write(reqData);
                 os.flush();
                 os.close();
             }
-            BufferedReader in = new BufferedReader(new InputStreamReader(httpcon.getInputStream(), "utf-8"));
+            BufferedReader in = new BufferedReader(new InputStreamReader(httpcon.getInputStream(), StandardCharsets.UTF_8));
             String inputLine;
             StringBuilder bankXmlBuffer = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
@@ -87,11 +88,12 @@ public final class HttpUtil {
     public static byte[] readInputStream(InputStream inStream) throws Exception {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
-        int len = 0;
+        int len;
         while ((len = inStream.read(buffer)) != -1) {
             outStream.write(buffer, 0, len);
         }
-        byte[] data = outStream.toByteArray();// 网页的二进制数据
+        // 网页的二进制数据
+        byte[] data = outStream.toByteArray();
         outStream.close();
         inStream.close();
         return data;

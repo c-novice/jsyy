@@ -22,11 +22,15 @@ public enum ResultCodeEnum {
     CODE_ERROR(210, "验证码错误"),
     LOGIN_USER_ERROR(211, "账号或密码错误"),
     LOGIN_PHONE_ERROR(212, "该手机号未注册"),
-    REGISTER_MOBLE_ERROR(213, "手机号已被使用"),
+    REGISTER_PHONE_ERROR(213, "手机号已被使用"),
     LOGIN_ERROR_MULTI(214, "最近登录失败次数过多，请稍后再试"),
     LOGIN_ACL(215, "没有权限"),
     PERMISSION_ADD_ERROR(216, "添加权限失败"),
-    PERMISSION_EXIST(217, "该权限已存在");
+    PERMISSION_EXIST(217, "该权限已存在"),
+    FACILITY_ADD_ERROR(218, "添加设施失败"),
+    FACILITY_CHANGE_ERROR(219, "修改设施失败"),
+    ROOM_ADD_ERROR(220, "添加房间失败"),
+    ROOM_CHANGE_ERROR(221, "修改房间失败");
 
 
     private final Integer code;

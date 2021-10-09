@@ -4,19 +4,31 @@ import com.lzq.jsyy.helper.JwtHelper;
 
 import javax.servlet.http.HttpServletRequest;
 
-//获取当前用户信息工具类
+/**
+ * 获取当前用户信息工具类
+ *
+ * @author lzq
+ */
 public class AuthContextHolder {
-
-    //获取当前用户id
-    public static Long getUserId(HttpServletRequest request) {
+    /**
+     * 获取当前用户id
+     *
+     * @param request
+     * @return
+     */
+    public static String getUserId(HttpServletRequest request) {
         //从header获取token
         String token = request.getHeader("token");
         //jwt从token获取userid
-        Long userId = JwtHelper.getUserId(token);
-        return userId;
+        return JwtHelper.getUserId(token);
     }
 
-    //获取当前用户名称
+    /**
+     * 获取当前用户名称
+     *
+     * @param request
+     * @return
+     */
     public static String getUserName(HttpServletRequest request) {
         //从header获取token
         String token = request.getHeader("token");

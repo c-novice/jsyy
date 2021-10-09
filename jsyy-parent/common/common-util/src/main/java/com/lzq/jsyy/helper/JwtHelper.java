@@ -5,43 +5,66 @@ import io.jsonwebtoken.*;
 
 import java.util.Date;
 
+/**
+ * JWT工具类
+ *
+ * @author lzq
+ */
 public class JwtHelper {
-    //过期时间 ms
-    private static long tokenExpiration = 24 * 60 * 60 * 1000;
-    //签名密钥
-    private static final String tokenSignKey = "123456";
+    /**
+     * 过期时间 ms
+     */
+    private static final long TOKEN_EXPIRATION = 24 * 60 * 60 * 1000;
+    /**
+     * 签名密钥
+     */
+    private static final String TOKEN_SIGN_KEY = "123456";
 
-    //生成token
+    /**
+     * 生成token
+     *
+     * @param userId
+     * @param userName
+     * @return
+     */
     public static String createToken(Long userId, String userName) {
         String token = Jwts.builder()
                 .setSubject("YYGH-USER")
-                .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration))
+                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION))
                 .claim("userId", userId)
                 .claim("userName", userName)
-                .signWith(SignatureAlgorithm.HS512, tokenSignKey)
+                .signWith(SignatureAlgorithm.HS512, TOKEN_SIGN_KEY)
                 .compressWith(CompressionCodecs.GZIP)
                 .compact();
         return token;
     }
 
-    //根据token字符串得到用户id
-    public static Long getUserId(String token) {
+    /**
+     * 根据token字符串得到用户id
+     *
+     * @param token
+     * @return
+     */
+    public static String getUserId(String token) {
         if (StringUtils.isEmpty(token)) {
             return null;
         }
-        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(TOKEN_SIGN_KEY).parseClaimsJws(token);
         Claims claims = claimsJws.getBody();
-        Integer userId = (Integer) claims.get("userId");
-        return userId.longValue();
+        return (String) claims.get("userId");
     }
 
-    //根据token字符串得到用户名称
+    /**
+     * 根据token字符串得到用户名称
+     *
+     * @param token
+     * @return
+     */
     public static String getUserName(String token) {
         if (StringUtils.isEmpty(token)) {
             return "";
         }
-        Jws<Claims> claimsJws
-                = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(TOKEN_SIGN_KEY).parseClaimsJws(token);
         Claims claims = claimsJws.getBody();
         return (String) claims.get("userName");
     }

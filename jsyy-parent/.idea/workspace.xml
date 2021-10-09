@@ -5,31 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90333272-ae51-4386-8b2a-01465e1410d4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/common/common-util/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/exception/YyghException.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/exception/jsyyException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/helper/JwtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/helper/JwtHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/result/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/result/Result.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/result/ResultCodeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/result/ResultCodeEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/acl/Permission.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/acl/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/acl/RolePermission.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/acl/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/acl/UserRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/user/UserInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/user/UserLoginRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/DictEeVo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/user/LoginAdminVo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/user/RegisterVo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/user/UserAuthVo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/user/UserInfoQueryVo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-room/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-room/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-room/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-room/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-room/target/service-room-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/controller/admin/UserAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/controller/admin/UserAdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/controller/api/UserApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/controller/api/UserApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/utils/AuthContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/utils/AuthContextHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/config/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/config/Swagger2Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/config/Swagger2Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/handler/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/helper/HttpRequestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/helper/HttpRequestHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/utils/HttpUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/utils/HttpUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/utils/MD5.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/utils/MD5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/utils/WeekUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/utils/WeekUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/enums/AuthStatusEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/enums/AuthStatusEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/enums/DictEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/enums/OrderStatusEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/enums/PaymentStatusEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/enums/PaymentTypeEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/enums/RefundStatusEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Dict.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cms/Banner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/order/OrderInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/order/PaymentInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/order/RefundInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/hosp/BookingScheduleRuleVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/hosp/DepartmentQueryVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/hosp/DepartmentVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/hosp/HospitalQueryVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/hosp/HospitalSetQueryVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/hosp/ScheduleOrderVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/hosp/ScheduleQueryVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/msm/MsmVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/msm/MsmVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/order/OrderCountQueryVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/order/OrderCountVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/order/OrderMqVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/order/OrderQueryVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/order/SignInfoVo.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +51,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Kotlin Class" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -140,6 +153,7 @@
       <workItem from="1633702010126" duration="6587000" />
       <workItem from="1633714517196" duration="3477000" />
       <workItem from="1633762934818" duration="4648000" />
+      <workItem from="1633770579647" duration="8187000" />
     </task>
     <servers />
   </component>

@@ -5,14 +5,19 @@ import com.lzq.jsyy.utils.HttpUtil;
 import com.lzq.jsyy.utils.MD5;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * http请求辅助类
+ *
+ * @author lzq
+ */
 @Slf4j
 public class HttpRequestHelper {
-
 
     /**
      * @param paramMap
@@ -71,7 +76,7 @@ public class HttpRequestHelper {
      * @return
      */
     public static long getTimestamp() {
-        return new Date().getTime();
+        return System.currentTimeMillis();
     }
 
     /**
@@ -91,9 +96,9 @@ public class HttpRequestHelper {
                         .append(param.getValue()).append("&");
             }
             log.info(String.format("--> 发送请求：post data %1s", postdata));
-            byte[] reqData = postdata.toString().getBytes("utf-8");
-            byte[] respdata = HttpUtil.doPost(url, reqData);
-            result = new String(respdata);
+            byte[] reqData = postdata.toString().getBytes(StandardCharsets.UTF_8);
+            byte[] respData = HttpUtil.doPost(url, reqData);
+            result = new String(respData);
             log.info(String.format("--> 应答结果：result data %1s", result));
         } catch (Exception ex) {
             ex.printStackTrace();

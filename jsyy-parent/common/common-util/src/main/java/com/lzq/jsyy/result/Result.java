@@ -6,6 +6,8 @@ import lombok.Data;
 
 /**
  * 全局统一返回结果类
+ *
+ * @author lzq
  */
 @Data
 @ApiModel(value = "全局统一返回结果")
@@ -61,39 +63,10 @@ public class Result<T> {
     }
 
     public static <T> Result<T> fail() {
-        return Result.fail(null);
-    }
-
-    /**
-     * 操作失败
-     *
-     * @param data
-     * @param <T>
-     * @return
-     */
-    public static <T> Result<T> fail(T data) {
-        Result<T> result = build(data);
-        return build(data, ResultCodeEnum.FAIL);
+        return build(null, ResultCodeEnum.FAIL);
     }
 
     public static <T> Result<T> fail(ResultCodeEnum resultCodeEnum) {
         return build(null, resultCodeEnum);
-    }
-
-    public Result<T> message(String msg) {
-        this.setMessage(msg);
-        return this;
-    }
-
-    public Result<T> code(Integer code) {
-        this.setCode(code);
-        return this;
-    }
-
-    public boolean isOk() {
-        if (this.getCode().intValue() == ResultCodeEnum.SUCCESS.getCode().intValue()) {
-            return true;
-        }
-        return false;
     }
 }

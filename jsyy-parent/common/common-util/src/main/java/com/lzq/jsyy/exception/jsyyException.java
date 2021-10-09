@@ -4,15 +4,17 @@ import com.lzq.jsyy.result.ResultCodeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 自定义全局异常类
  *
- * @author qy
+ * @author lzq
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(value = "自定义全局异常类")
-public class YyghException extends RuntimeException {
+public class jsyyException extends RuntimeException {
 
     @ApiModelProperty(value = "异常状态码")
     private Integer code;
@@ -23,7 +25,7 @@ public class YyghException extends RuntimeException {
      * @param message
      * @param code
      */
-    public YyghException(String message, Integer code) {
+    public jsyyException(String message, Integer code) {
         super(message);
         this.code = code;
     }
@@ -33,16 +35,16 @@ public class YyghException extends RuntimeException {
      *
      * @param resultCodeEnum
      */
-    public YyghException(ResultCodeEnum resultCodeEnum) {
+    public jsyyException(ResultCodeEnum resultCodeEnum) {
         super(resultCodeEnum.getMessage());
         this.code = resultCodeEnum.getCode();
     }
 
+
     @Override
     public String toString() {
-        return "YyghException{" +
+        return "jsyyException{" +
                 "code=" + code +
-                ", message=" + this.getMessage() +
                 '}';
     }
 }

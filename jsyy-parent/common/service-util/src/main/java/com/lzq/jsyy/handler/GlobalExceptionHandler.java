@@ -1,12 +1,17 @@
 package com.lzq.jsyy.handler;
 
 
-import com.lzq.jsyy.exception.YyghException;
+import com.lzq.jsyy.exception.jsyyException;
 import com.lzq.jsyy.result.Result;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 全局异常处理器
+ *
+ * @author lzq
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -29,9 +34,9 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(YyghException.class)
+    @ExceptionHandler(jsyyException.class)
     @ResponseBody
-    public Result error(YyghException e) {
+    public Result error(jsyyException e) {
         e.printStackTrace();
         return Result.build(e.getCode(), e.getMessage());
     }

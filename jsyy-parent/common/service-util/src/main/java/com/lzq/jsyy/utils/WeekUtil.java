@@ -3,10 +3,16 @@ package com.lzq.jsyy.utils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 
+/**
+ * 周工具类
+ *
+ * @author lzq
+ */
 public class WeekUtil {
 
     /**
      * 根据日期获取周几数据
+     *
      * @param dateTime
      * @return
      */
