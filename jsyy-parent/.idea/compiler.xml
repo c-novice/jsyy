@@ -13,6 +13,7 @@
         <module name="service-msm" />
         <module name="service-gateway" />
         <module name="service-user" />
+        <module name="rabbit-util" />
         <module name="service-task" />
         <module name="model" />
         <module name="service-util" />
@@ -27,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common-util" options="-parameters" />
       <module name="model" options="-parameters" />
+      <module name="rabbit-util" options="-parameters" />
       <module name="service" options="-parameters" />
       <module name="service-client" options="-parameters" />
       <module name="service-cmn" options="-parameters" />
