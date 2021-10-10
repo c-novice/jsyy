@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-import static springfox.documentation.swagger2.mappers.SerializableParameterFactories.factory;
-
 /**
  * 权限
  *

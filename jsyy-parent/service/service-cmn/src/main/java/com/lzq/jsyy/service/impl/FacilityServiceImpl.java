@@ -37,6 +37,7 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
         }
 
         Page<Facility> page = baseMapper.selectPage(pageParam, wrapper);
+        // TODO 补充教室数
 
         return page;
     }
@@ -112,5 +113,20 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
         baseMapper.updateById(facility);
         map.put("state", ResultCodeEnum.SUCCESS);
         return map;
+    }
+
+    @Override
+    public Facility get(FacilityQueryVo facilityQueryVo) {
+        if (StringUtils.isEmpty(facilityQueryVo)) {
+            return null;
+        }
+
+        String facilityId = facilityQueryVo.getFacilityId();
+
+        QueryWrapper<Facility> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(facilityId)) {
+            wrapper.eq("facility_id", facilityId);
+        }
+        return baseMapper.selectOne(wrapper);
     }
 }

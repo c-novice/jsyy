@@ -35,7 +35,10 @@ public enum ResultCodeEnum {
     SCHEDULE_CHANGE_ERROR(223, "修改排班失败"),
     REGISTER_USERNAME_ERROR(224, "注册用户已存在"),
     REGISTER_ERROR(225, "修改排班失败"),
-    BINDING_ERROR(226, "绑定失败");;
+    BINDING_ERROR(226, "绑定失败"),
+    FACILITY_GET_ERROR(227, "设施信息获取失败"),
+    ROOM_GET_ERROR(228, "教室信息获取失败"),
+    SCHEDULE_GET_ERROR(229, "预约信息获取失败");
 
     private final Integer code;
     private final String message;

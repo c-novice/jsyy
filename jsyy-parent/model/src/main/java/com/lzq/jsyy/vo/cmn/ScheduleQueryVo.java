@@ -15,6 +15,9 @@ public class ScheduleQueryVo {
     @ApiModelProperty(value = "教室编号")
     private String roomId;
 
+    @ApiModelProperty(value = "预约编号")
+    private String scheduleId;
+
     @ApiModelProperty("预约日期")
     private Date workDate;
 }

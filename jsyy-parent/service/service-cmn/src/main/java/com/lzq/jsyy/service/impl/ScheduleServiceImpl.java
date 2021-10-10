@@ -9,6 +9,7 @@ import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.ScheduleService;
 import com.lzq.jsyy.vo.cmn.ScheduleQueryVo;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
@@ -118,5 +119,18 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         }
 
         return map;
+    }
+
+    @Override
+    public Schedule get(ScheduleQueryVo scheduleQueryVo) {
+        if (ObjectUtils.isEmpty(scheduleQueryVo)) {
+            return null;
+        }
+
+        String scheduleId = scheduleQueryVo.getScheduleId();
+        QueryWrapper<Schedule> query = new QueryWrapper<>();
+        query.eq("schedule_id", scheduleId);
+
+        return baseMapper.selectOne(query);
     }
 }

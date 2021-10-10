@@ -35,4 +35,12 @@ public interface RoomService extends IService<Room> {
      * @return
      */
     Map<String, Object> change(Room room);
+
+    /**
+     * 获取一个教室
+     *
+     * @param roomQueryVo
+     * @return
+     */
+    Room get(RoomQueryVo roomQueryVo);
 }

@@ -23,6 +23,9 @@ public class Schedule extends BaseEntity {
     @TableField("room_id")
     private String roomId;
 
+    @ApiModelProperty(value = "预约编号")
+    private String scheduleId;
+
     @ApiModelProperty(value = "开放预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private String openDate;

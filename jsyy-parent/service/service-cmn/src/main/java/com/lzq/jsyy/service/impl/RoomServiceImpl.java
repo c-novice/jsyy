@@ -20,6 +20,40 @@ import java.util.Map;
 @Service
 public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements RoomService {
     @Override
+    public Page<Room> selectPage(Page<Room> pageParam, RoomQueryVo roomQueryVo) {
+        if (StringUtils.isEmpty(roomQueryVo)) {
+            return null;
+        }
+
+        String facilityId = roomQueryVo.getFacilityId();
+        String roomId = roomQueryVo.getRoomId();
+        String type = roomQueryVo.getType();
+        Integer seatingLow = roomQueryVo.getSeatingLow();
+        Integer seatingHigh = roomQueryVo.getSeatingHigh();
+
+        QueryWrapper<Room> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(facilityId)) {
+            wrapper.eq("facility_id", facilityId);
+        }
+        if (!StringUtils.isEmpty(roomId)) {
+            wrapper.eq("room_id", roomId);
+        }
+        if (!StringUtils.isEmpty(type)) {
+            wrapper.eq("type", type);
+        }
+        if (!StringUtils.isEmpty(seatingLow)) {
+            wrapper.ge("seating_low", seatingLow);
+        }
+        if (!StringUtils.isEmpty(seatingHigh)) {
+            wrapper.le("seating_high", seatingHigh);
+        }
+
+        Page<Room> page = baseMapper.selectPage(pageParam, wrapper);
+        return page;
+    }
+
+
+    @Override
     public Map<String, Object> add(Room room) {
         Map<String, Object> map = new HashMap<>(1);
         if (StringUtils.isEmpty(room)) {
@@ -48,11 +82,6 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
     }
 
     @Override
-    public Page<Room> selectPage(Page<Room> pageParam, RoomQueryVo roomQueryVo) {
-        return null;
-    }
-
-    @Override
     public Map<String, Object> change(Room room) {
         Map<String, Object> map = new HashMap<>(1);
         if (StringUtils.isEmpty(room)) {
@@ -78,5 +107,20 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
         baseMapper.updateById(room);
         map.put("state", ResultCodeEnum.SUCCESS);
         return map;
+    }
+
+    @Override
+    public Room get(RoomQueryVo roomQueryVo) {
+        if (StringUtils.isEmpty(roomQueryVo)) {
+            return null;
+        }
+
+        String roomId = roomQueryVo.getRoomId();
+
+        QueryWrapper<Room> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(roomId)) {
+            wrapper.eq("room_id", roomId);
+        }
+        return baseMapper.selectOne(wrapper);
     }
 }

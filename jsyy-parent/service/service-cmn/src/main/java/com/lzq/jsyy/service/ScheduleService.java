@@ -23,7 +23,7 @@ public interface ScheduleService extends IService<Schedule> {
     /**
      * 添加预约排班
      *
-     * @param Schedule
+     * @param schedule
      * @return
      */
     Map<String, Object> add(Schedule schedule);
@@ -31,8 +31,16 @@ public interface ScheduleService extends IService<Schedule> {
     /**
      * 修改预约排班
      *
-     * @param Schedule
+     * @param schedule
      * @return
      */
     Map<String, Object> change(Schedule schedule);
+
+    /**
+     * 获取预约信息
+     *
+     * @param scheduleQueryVo
+     * @return
+     */
+    Schedule get(ScheduleQueryVo scheduleQueryVo);
 }

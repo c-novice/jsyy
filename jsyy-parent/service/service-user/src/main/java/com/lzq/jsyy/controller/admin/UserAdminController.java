@@ -57,7 +57,7 @@ public class UserAdminController {
     public Result delete(User user) {
         boolean delete = userService.removeById(user);
 
-        return delete ? Result.ok() : Result.build(null, ResultCodeEnum.DELETE_FAIL);
+        return delete ? Result.ok() : Result.fail( ResultCodeEnum.DELETE_FAIL);
     }
 
 }

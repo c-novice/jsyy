@@ -35,4 +35,12 @@ public interface FacilityService extends IService<Facility> {
      * @return
      */
     Map<String, Object> change(Facility facility);
+
+    /**
+     * 查询一个设施
+     *
+     * @param facilityQueryVo
+     * @return
+     */
+    Facility get(FacilityQueryVo facilityQueryVo);
 }

@@ -10,6 +10,9 @@ import lombok.Data;
 @Data
 @ApiModel(description = "教室条件查询")
 public class RoomQueryVo {
+    @ApiModelProperty(value = "设施编号")
+    private String facilityId;
+
     @ApiModelProperty(value = "房间编号")
     private String roomId;
 
