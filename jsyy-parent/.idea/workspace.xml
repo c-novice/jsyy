@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90333272-ae51-4386-8b2a-01465e1410d4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-msm/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-msm/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/msm/MsmVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/msm/MsmVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-msm/src/main/java/com/atguigu/yygh/msm/controller/MsmApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-msm/src/main/java/com/atguigu/yygh/msm/controller/MsmApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-msm/src/main/java/com/atguigu/yygh/msm/service/impl/MsmServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-msm/src/main/java/com/atguigu/yygh/msm/service/impl/MsmServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-msm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-msm/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +122,8 @@
       <workItem from="1633762934818" duration="4648000" />
       <workItem from="1633770579647" duration="8187000" />
       <workItem from="1633793969337" duration="5290000" />
-      <workItem from="1633834444646" duration="3476000" />
+      <workItem from="1633834444646" duration="3567000" />
+      <workItem from="1633844136015" duration="1094000" />
     </task>
     <servers />
   </component>

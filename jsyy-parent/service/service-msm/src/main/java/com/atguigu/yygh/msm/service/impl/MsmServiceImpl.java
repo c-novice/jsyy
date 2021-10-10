@@ -30,20 +30,16 @@ public class MsmServiceImpl implements MsmService {
             return false;
         }
 
-        // 容联云发送短信
         String serverIp = "app.cloopen.com";
-        //请求端口
         String serverPort = "8883";
         CCPRestSmsSDK sdk = new CCPRestSmsSDK();
         sdk.init(serverIp, serverPort);
 
-        //主账号,登陆云通讯网站后,可在控制台首页看到开发者主账号ACCOUNT SID和主账号令牌AUTH TOKEN
         sdk.setAccount(ConstantPropertiesUtils.ACCOUNT_SID, ConstantPropertiesUtils.ACCOUNT_TOKEN);
-        //请使用管理控制台中已创建应用的APPID
         sdk.setAppId(ConstantPropertiesUtils.APP_ID);
         sdk.setBodyType(BodyType.Type_JSON);
+
         String templateId = "1";
-        //传入验证码
         String[] datas = {sixBitRandom, "2"};
 
         HashMap<String, Object> result = sdk.sendTemplateSMS(phone, templateId, datas);
@@ -59,10 +55,20 @@ public class MsmServiceImpl implements MsmService {
     @Override
     public boolean send(MsmVo msmVo) {
         if (!StringUtils.isEmpty(msmVo.getPhone())) {
-            boolean isSend = this.send(msmVo.getPhone(), "11111");
-            return isSend;
+            return false;
         }
-        return false;
+
+        String serverIp = "app.cloopen.com";
+        String serverPort = "8883";
+        CCPRestSmsSDK sdk = new CCPRestSmsSDK();
+        sdk.init(serverIp, serverPort);
+
+        sdk.setAccount(ConstantPropertiesUtils.ACCOUNT_SID, ConstantPropertiesUtils.ACCOUNT_TOKEN);
+        sdk.setAppId(ConstantPropertiesUtils.APP_ID);
+        sdk.setBodyType(BodyType.Type_JSON);
+
+        HashMap<String, Object> result = sdk.sendTemplateSMS(msmVo.getPhone(), msmVo.getTemplateId(), msmVo.getParams());
+        return "000000".equals(result.get("statusCode"));
     }
 
 }
