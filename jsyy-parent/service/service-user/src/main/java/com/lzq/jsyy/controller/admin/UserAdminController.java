@@ -28,10 +28,10 @@ public class UserAdminController {
         Map<String, Object> map = userService.loginByPassword(loginVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
 
-        return Result.build(null, resultCodeEnum);
+        return Result.build(map, resultCodeEnum);
     }
 
-    @GetMapping("/{page}/{limit}")
+    @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, UserQueryVo userQueryVo) {
         Page<User> pageParam = new Page<>(page, limit);
         Page<User> pageModel = userService.selectPage(pageParam, userQueryVo);
@@ -39,21 +39,21 @@ public class UserAdminController {
         return Result.ok(pageModel);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/auth/add")
     public Result add(User user) {
         Map<String, Object> map = userService.add(user);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         return Result.build(null, resultCodeEnum);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/auth/update")
     public Result update(User user) {
         boolean update = userService.updateById(user);
 
         return update ? Result.ok() : Result.build(null, ResultCodeEnum.USER_REPEAT);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/auth/delete")
     public Result delete(User user) {
         boolean delete = userService.removeById(user);
 

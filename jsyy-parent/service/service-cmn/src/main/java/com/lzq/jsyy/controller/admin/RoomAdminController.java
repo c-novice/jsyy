@@ -17,12 +17,12 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/admin/room")
+@RequestMapping("/auth/admin/room")
 public class RoomAdminController {
     @Autowired
     private RoomService roomService;
 
-    @GetMapping("/{page}/{limit}")
+    @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, RoomQueryVo roomQueryVo) {
         Page<Room> pageParam = new Page<>(page, limit);
         Page<Room> pageModel = roomService.selectPage(pageParam, roomQueryVo);
@@ -30,21 +30,21 @@ public class RoomAdminController {
         return Result.ok(pageModel);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/auth/add")
     public Result add(Room room) {
         Map<String, Object> map = roomService.add(room);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         return Result.build(null, resultCodeEnum);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/auth/update")
     public Result update(Room room) {
         Map<String, Object> map = roomService.change(room);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         return Result.build(null, resultCodeEnum);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/auth/delete")
     public Result delete(Room room) {
         boolean delete = roomService.removeById(room);
 

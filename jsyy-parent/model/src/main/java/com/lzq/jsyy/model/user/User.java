@@ -37,7 +37,14 @@ public class User extends BaseEntity {
     @TableField("type")
     private String type;
 
+    /**
+     * 用户认证后分配
+     */
     @ApiModelProperty(value = "权限")
     @TableField("permission")
     private String permission;
+
+    @ApiModelProperty(value = "是否认证")
+    @TableField("is_auth")
+    private boolean isAuth;
 }

@@ -22,7 +22,7 @@ public class PermissionAdminController {
     @Autowired
     private PermissionService permissionService;
 
-    @GetMapping("/{page}/{limit}")
+    @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, PermissionQueryVo permissionQueryVo) {
         Page<Permission> pageParam = new Page<>(page, limit);
         Page<Permission> pageModel = permissionService.selectPage(pageParam, permissionQueryVo);
@@ -30,21 +30,21 @@ public class PermissionAdminController {
         return Result.ok(pageModel);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/auth/add")
     public Result add(Permission permission) {
         Map<String, Object> map = permissionService.add(permission);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         return Result.build(null, resultCodeEnum);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/auth/update")
     public Result update(Permission permission) {
         boolean update = permissionService.updateById(permission);
 
         return update ? Result.ok() : Result.fail();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/auth/delete")
     public Result delete(Permission permission) {
         boolean delete = permissionService.removeById(permission);
 

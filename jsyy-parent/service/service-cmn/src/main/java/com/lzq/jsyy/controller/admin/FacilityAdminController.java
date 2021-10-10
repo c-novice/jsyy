@@ -22,7 +22,7 @@ public class FacilityAdminController {
     @Autowired
     private FacilityService facilityService;
 
-    @GetMapping("/{page}/{limit}")
+    @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, FacilityQueryVo facilityQueryVo) {
         Page<Facility> pageParam = new Page<>(page, limit);
         Page<Facility> pageModel = facilityService.selectPage(pageParam, facilityQueryVo);
@@ -30,7 +30,7 @@ public class FacilityAdminController {
         return Result.ok(pageModel);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/auth/add")
     public Result add(Facility facility) {
         Map<String, Object> map = facilityService.add(facility);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
@@ -38,7 +38,7 @@ public class FacilityAdminController {
         return Result.build(null, resultCodeEnum);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/auth/update")
     public Result update(Facility facility) {
         Map<String, Object> map = facilityService.change(facility);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
@@ -46,7 +46,7 @@ public class FacilityAdminController {
         return Result.build(null, resultCodeEnum);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/auth/delete")
     public Result delete(Facility facility) {
         boolean delete = facilityService.removeById(facility);
 

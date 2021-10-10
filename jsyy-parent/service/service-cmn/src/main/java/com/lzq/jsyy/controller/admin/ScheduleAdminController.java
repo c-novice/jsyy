@@ -20,7 +20,7 @@ public class ScheduleAdminController {
     @Autowired
     private ScheduleService scheduleService;
 
-    @GetMapping("/{page}/{limit}")
+    @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, ScheduleQueryVo scheduleQueryVo) {
         Page<Schedule> pageParam = new Page<>(page, limit);
         Page<Schedule> pageModel = scheduleService.selectPage(pageParam, scheduleQueryVo);
@@ -28,21 +28,21 @@ public class ScheduleAdminController {
         return Result.ok(pageModel);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/auth/add")
     public Result add(Schedule schedule) {
         Map<String, Object> map = scheduleService.add(schedule);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         return Result.build(null, resultCodeEnum);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/auth/update")
     public Result update(Schedule schedule) {
         Map<String, Object> map = scheduleService.change(schedule);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         return Result.build(null, resultCodeEnum);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/auth/delete")
     public Result delete(Schedule schedule) {
         boolean delete = scheduleService.removeById(schedule);
 

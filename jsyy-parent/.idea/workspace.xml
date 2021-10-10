@@ -6,24 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="90333272-ae51-4386-8b2a-01465e1410d4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/helper/JwtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/helper/JwtHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/result/ResultCodeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/result/ResultCodeEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/helper/HttpRequestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/lzq/jsyy/helper/HttpRequestHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/base/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/base/BaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Facility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Permission.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Permission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Schedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/ScheduleQueryVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/ScheduleQueryVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/user/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/FacilityAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/FacilityAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/PermissionAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/PermissionAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/RoomAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/RoomAdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/ScheduleAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/ScheduleAdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/ScheduleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/ScheduleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/FacilityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/FacilityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/PermissionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/PermissionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/RoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/RoomServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/ScheduleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/ScheduleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/controller/admin/UserAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/controller/admin/UserAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/service/impl/UserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +126,7 @@
       <workItem from="1633762934818" duration="4648000" />
       <workItem from="1633770579647" duration="8187000" />
       <workItem from="1633793969337" duration="5290000" />
+      <workItem from="1633834444646" duration="2278000" />
     </task>
     <servers />
   </component>

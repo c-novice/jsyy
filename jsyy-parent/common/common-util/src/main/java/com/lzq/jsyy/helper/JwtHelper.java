@@ -27,7 +27,7 @@ public class JwtHelper {
      * @param userName
      * @return
      */
-    public static String createToken(Long userId, String userName) {
+    public static String createToken(String userId, String userName) {
         String token = Jwts.builder()
                 .setSubject("JSYY-USER")
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION))

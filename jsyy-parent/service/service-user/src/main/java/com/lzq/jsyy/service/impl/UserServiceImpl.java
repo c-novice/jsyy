@@ -3,6 +3,7 @@ package com.lzq.jsyy.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lzq.jsyy.helper.JwtHelper;
 import com.lzq.jsyy.mapper.UserMapper;
 import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.result.ResultCodeEnum;
@@ -28,7 +29,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Map<String, Object> loginByPassword(LoginVo loginVo) {
-        Map<String, Object> map = new HashMap<>(1);
+        Map<String, Object> map = new HashMap<>(2);
 
         String username = loginVo.getUsername();
         String password = loginVo.getPassword();
@@ -52,6 +53,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             redisTemplate.opsForValue().set(username, String.valueOf(newCount), 3600, TimeUnit.SECONDS);
         } else {
             map.put("state", ResultCodeEnum.SUCCESS);
+            String token = JwtHelper.createToken(user.getId(), user.getUsername());
+            map.put("token", token);
             redisTemplate.opsForValue().set(username, String.valueOf(0), 3600, TimeUnit.SECONDS);
         }
 
@@ -78,6 +81,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 map.put("state", ResultCodeEnum.CODE_ERROR);
             } else {
                 map.put("state", ResultCodeEnum.SUCCESS);
+                String token = JwtHelper.createToken(user.getId(), user.getUsername());
+                map.put("token", token);
             }
         }
 
