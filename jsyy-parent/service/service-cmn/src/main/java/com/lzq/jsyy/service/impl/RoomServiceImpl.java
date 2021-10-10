@@ -123,4 +123,16 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
         }
         return baseMapper.selectOne(wrapper);
     }
+
+    @Override
+    public Integer count(String facilityId) {
+        if (StringUtils.isEmpty(facilityId)) {
+            return null;
+        }
+
+        QueryWrapper<Room> wrapper = new QueryWrapper<>();
+        wrapper.eq("facility_id", facilityId);
+
+        return baseMapper.selectCount(wrapper);
+    }
 }

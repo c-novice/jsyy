@@ -43,4 +43,12 @@ public interface RoomService extends IService<Room> {
      * @return
      */
     Room get(RoomQueryVo roomQueryVo);
+
+    /**
+     * 查询设施的教室数量
+     *
+     * @param facilityId
+     * @return
+     */
+    Integer count(String facilityId);
 }

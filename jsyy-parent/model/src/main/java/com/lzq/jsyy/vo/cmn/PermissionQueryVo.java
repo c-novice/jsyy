@@ -10,6 +10,9 @@ import lombok.Data;
 @Data
 @ApiModel(description = "权限查询条件")
 public class PermissionQueryVo {
+    @ApiModelProperty(value = "用户类型")
+    private String type;
+
     @ApiModelProperty(value = "权限名称")
     private String name;
 

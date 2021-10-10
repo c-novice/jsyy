@@ -8,10 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="service-cmn" />
-        <module name="service-client" />
         <module name="common-util" />
         <module name="service-msm" />
         <module name="service-gateway" />
+        <module name="service-cmn-client" />
         <module name="service-user" />
         <module name="rabbit-util" />
         <module name="service-task" />
@@ -32,6 +32,7 @@
       <module name="service" options="-parameters" />
       <module name="service-client" options="-parameters" />
       <module name="service-cmn" options="-parameters" />
+      <module name="service-cmn-client" options="-parameters" />
       <module name="service-gateway" options="-parameters" />
       <module name="service-msm" options="-parameters" />
       <module name="service-order" options="-parameters" />

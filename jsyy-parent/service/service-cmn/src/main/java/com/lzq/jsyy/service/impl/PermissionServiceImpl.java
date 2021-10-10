@@ -9,6 +9,7 @@ import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.PermissionService;
 import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -25,11 +26,15 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             return null;
         }
 
+        String type = permissionQueryVo.getType();
         String name = permissionQueryVo.getName();
         String father = permissionQueryVo.getFather();
 
         QueryWrapper<Permission> wrapper = new QueryWrapper<>();
 
+        if (!StringUtils.isEmpty(type)) {
+            wrapper.like("type", type);
+        }
         if (!StringUtils.isEmpty(name)) {
             wrapper.like("name", name);
         }
@@ -67,5 +72,25 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         map.put("state", ResultCodeEnum.SUCCESS);
 
         return map;
+    }
+
+    @Override
+    public Permission get(PermissionQueryVo permissionVo) {
+        if (ObjectUtils.isEmpty(permissionVo)) {
+            return null;
+        }
+
+        String type = permissionVo.getType();
+        String name = permissionVo.getName();
+
+        QueryWrapper<Permission> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(type)) {
+            wrapper.eq("type", type);
+        }
+        if (StringUtils.isEmpty(name)) {
+            wrapper.eq("name", name);
+        }
+
+        return baseMapper.selectOne(wrapper);
     }
 }

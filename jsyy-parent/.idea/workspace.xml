@@ -6,19 +6,77 @@
   <component name="ChangeListManager">
     <list default="true" id="90333272-ae51-4386-8b2a-01465e1410d4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/result/ResultCodeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/common-util/src/main/java/com/lzq/jsyy/result/ResultCodeEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Schedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/RoomQueryVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/RoomQueryVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/ScheduleQueryVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/ScheduleQueryVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/model/cmn/Facility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/PermissionQueryVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/lzq/jsyy/vo/cmn/PermissionQueryVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/enums/AuthStatusEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/enums/DictEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/enums/OrderStatusEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/enums/PaymentStatusEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/enums/PaymentTypeEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/enums/RefundStatusEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/acl/Permission.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/acl/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/acl/RolePermission.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/acl/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/acl/UserRole.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/base/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/base/BaseMongoEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/cmn/Dict.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/cms/Banner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/hosp/BookingRule.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/hosp/Department.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/hosp/Hospital.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/hosp/HospitalSet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/hosp/Schedule.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/order/OrderInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/order/PaymentInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/order/RefundInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/user/Patient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/user/UserInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/model/user/UserLoginRecord.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/acl/AssignVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/acl/RoleQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/acl/UserQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/cmn/DictEeVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/hosp/BookingScheduleRuleVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/hosp/DepartmentQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/hosp/DepartmentVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/hosp/HospitalQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/hosp/HospitalSetQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/hosp/ScheduleOrderVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/hosp/ScheduleQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/msm/MsmVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/order/OrderCountQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/order/OrderCountVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/order/OrderMqVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/order/OrderQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/order/SignInfoVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/user/LoginAdminVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/user/LoginVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/user/RegisterVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/user/UserAuthVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/classes/com/lzq/jsyy/vo/user/UserInfoQueryVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/target/model-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service-client/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/PermissionAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/admin/PermissionAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/api/FacilityApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/api/FacilityApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/api/PermissionApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/api/PermissionApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/api/ScheduleApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/controller/api/ScheduleApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/FacilityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/FacilityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/PermissionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/PermissionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/RoomService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/ScheduleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/ScheduleService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/FacilityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/FacilityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/PermissionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/PermissionServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/RoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/RoomServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/ScheduleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/java/com/lzq/jsyy/service/impl/ScheduleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/controller/admin/UserAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/controller/admin/UserAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-cmn/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-cmn/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-msm/src/main/java/com/atguigu/yygh/msm/receiver/MsmReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-msm/src/main/java/com/atguigu/yygh/msm/receiver/MsmReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-msm/src/main/java/com/atguigu/yygh/msm/utils/RandomUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-msm/src/main/java/com/atguigu/yygh/msm/utils/RandomUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/lzq/jsyy/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/resources/logback-spring.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +122,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/common/rabbit-util" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/service-gateway/src/main/resources" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.18945312" />
@@ -73,16 +131,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\common\rabbit-util" />
-      <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\service\service-msm" />
-      <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\service-gateway" />
+      <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\service-gateway\src\main\resources" />
       <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\service\service-cmn\src\main\resources" />
-      <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\service\service-user\src\main\resources" />
+      <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\service\service-msm\src\main\resources" />
+      <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\service\service-order\src\main\resources" />
+      <recent name="D:\Others\智能终端软件开发\jsyy\jsyy-parent\service\service-task\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lzq\IdeaProjects\jsyy-parent\service" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.lzq.jsyy.cmn.client" />
       <recent name="com.lzq.jsyy" />
     </key>
   </component>
@@ -137,6 +196,8 @@
       <workItem from="1633844136015" duration="1364000" />
       <workItem from="1633851504954" duration="4480000" />
       <workItem from="1633859784756" duration="7880000" />
+      <workItem from="1633870222314" duration="471000" />
+      <workItem from="1633873420228" duration="3834000" />
     </task>
     <servers />
   </component>

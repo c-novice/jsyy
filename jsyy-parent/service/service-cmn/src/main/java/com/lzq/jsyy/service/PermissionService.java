@@ -28,4 +28,11 @@ public interface PermissionService extends IService<Permission> {
      */
     Map<String, Object> add(Permission permission);
 
+    /**
+     * 获取权限
+     *
+     * @param permissionVo
+     * @return
+     */
+    Permission get(PermissionQueryVo permissionVo);
 }

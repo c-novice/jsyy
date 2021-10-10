@@ -3,6 +3,7 @@ package com.lzq.jsyy.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lzq.jsyy.cmn.client.PermissionFeignClient;
 import com.lzq.jsyy.helper.JwtHelper;
 import com.lzq.jsyy.mapper.UserMapper;
 import com.lzq.jsyy.model.user.Account;
@@ -10,6 +11,7 @@ import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.repository.AccountRepository;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.UserService;
+import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
@@ -34,6 +36,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+
+    @Autowired
+    private PermissionFeignClient permissionFeignClient;
 
     @Override
     public Map<String, Object> loginByPassword(LoginVo loginVo) {
@@ -208,9 +213,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             map.put("state", ResultCodeEnum.BINDING_ERROR);
             return map;
         }
+
         user.setStudentNumber(account.getStudentNumber());
-        // TODO 获取默认权限
-        user.setPermission(account.getPermission());
+        // 获取用户类型默认权限
+        PermissionQueryVo permissionQueryVo = new PermissionQueryVo();
+        permissionQueryVo.setType(account.getType());
+        user.setPermission(permissionFeignClient.getPermissionVo(permissionQueryVo).getName());
 
         user.setType(account.getType());
         user.setAuth(true);

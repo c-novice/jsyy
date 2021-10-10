@@ -2,19 +2,17 @@ package com.lzq.jsyy.controller.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lzq.jsyy.model.cmn.Facility;
-import com.lzq.jsyy.model.cmn.Room;
 import com.lzq.jsyy.result.Result;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.FacilityService;
-import com.lzq.jsyy.service.RoomService;
 import com.lzq.jsyy.vo.cmn.FacilityQueryVo;
-import com.lzq.jsyy.vo.cmn.RoomQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 /**
  * @author lzq
@@ -24,9 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class FacilityApiController {
     @Autowired
     private FacilityService facilityService;
-
-    @Autowired
-    private RoomService roomService;
 
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, FacilityQueryVo facilityQueryVo) {
@@ -43,11 +38,6 @@ public class FacilityApiController {
         if (ObjectUtils.isEmpty(facility)) {
             return Result.fail(ResultCodeEnum.FACILITY_GET_ERROR);
         } else {
-            Page<Room> pageParam = new Page<>(1, Integer.MAX_VALUE);
-            RoomQueryVo roomQueryVo = new RoomQueryVo();
-            roomQueryVo.setFacilityId(facility.getFacilityId());
-
-            facility.setRooms(roomService.selectPage(pageParam, roomQueryVo).getRecords());
             return Result.ok(facility);
         }
     }

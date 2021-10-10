@@ -35,7 +35,7 @@ public class Facility extends BaseEntity {
     private String description;
 
     @ApiModelProperty(value = "教室数")
-    @TableField("room_count")
+    @TableField(exist = false)
     private Integer roomCount;
 
     @ApiModelProperty(value = "教室")

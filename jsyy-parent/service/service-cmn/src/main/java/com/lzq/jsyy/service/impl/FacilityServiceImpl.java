@@ -5,9 +5,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzq.jsyy.mapper.FacilityMapper;
 import com.lzq.jsyy.model.cmn.Facility;
+import com.lzq.jsyy.model.cmn.Room;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.FacilityService;
+import com.lzq.jsyy.service.RoomService;
 import com.lzq.jsyy.vo.cmn.FacilityQueryVo;
+import com.lzq.jsyy.vo.cmn.RoomQueryVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,6 +23,9 @@ import java.util.Map;
  */
 @Service
 public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> implements FacilityService {
+    @Autowired
+    private RoomService roomService;
+
     @Override
     public Page<Facility> selectPage(Page<Facility> pageParam, FacilityQueryVo facilityQueryVo) {
         if (StringUtils.isEmpty(facilityQueryVo)) {
@@ -37,8 +44,15 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
         }
 
         Page<Facility> page = baseMapper.selectPage(pageParam, wrapper);
-        // TODO 补充教室数
-
+        // 补充教室
+        Page<Room> pageParam2 = new Page<>(1, Integer.MAX_VALUE);
+        for (int i = 0; i < page.getRecords().size(); i++) {
+            Facility facility = page.getRecords().get(i);
+            RoomQueryVo roomQueryVo = new RoomQueryVo();
+            roomQueryVo.setFacilityId(facility.getFacilityId());
+            facility.setRooms(roomService.selectPage(pageParam2, roomQueryVo).getRecords());
+            facility.setRoomCount(roomService.count(facility.getFacilityId()));
+        }
         return page;
     }
 
@@ -127,6 +141,17 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
         if (!StringUtils.isEmpty(facilityId)) {
             wrapper.eq("facility_id", facilityId);
         }
-        return baseMapper.selectOne(wrapper);
+        Facility facility = baseMapper.selectOne(wrapper);
+        if (StringUtils.isEmpty(facility)) {
+            return null;
+        }
+
+        Page<Room> pageParam = new Page<>(1, Integer.MAX_VALUE);
+        RoomQueryVo roomQueryVo = new RoomQueryVo();
+        roomQueryVo.setFacilityId(facility.getFacilityId());
+
+        facility.setRooms(roomService.selectPage(pageParam, roomQueryVo).getRecords());
+        facility.setRoomCount(roomService.count(facility.getFacilityId()));
+        return facility;
     }
 }

@@ -51,4 +51,5 @@ public class PermissionAdminController {
         return delete ? Result.ok() : Result.fail();
     }
 
+
 }

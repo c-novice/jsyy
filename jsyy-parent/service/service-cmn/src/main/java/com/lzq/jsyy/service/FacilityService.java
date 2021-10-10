@@ -11,6 +11,7 @@ import java.util.Map;
  * @author lzq
  */
 public interface FacilityService extends IService<Facility> {
+
     /**
      * 条件分页查询设施
      *

@@ -11,6 +11,9 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author lzq
+ */
 @Service
 public class MsmReceiver {
     @Autowired
@@ -29,5 +32,4 @@ public class MsmReceiver {
     public void send(MsmVo msmVo) {
         msmService.send(msmVo);
     }
-
 }

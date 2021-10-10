@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lzq
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/schedule")
 public class ScheduleApiController {
     @Autowired
     private ScheduleService scheduleService;
