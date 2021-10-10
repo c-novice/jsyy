@@ -20,6 +20,9 @@ import lombok.EqualsAndHashCode;
 public class Permission extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "用户类型")
+    private String type;
+
     @ApiModelProperty(value = "权限名称")
     @TableField("name")
     private String name;

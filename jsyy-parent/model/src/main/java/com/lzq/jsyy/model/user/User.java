@@ -6,24 +6,21 @@ import com.lzq.jsyy.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * 用户
  *
  * @author lzq
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
 @ApiModel(description = "用户")
 @TableName("user")
 public class User extends BaseEntity {
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "学号")
-    @TableField("student_number")
-    private String studentNumber;
-
-    @ApiModelProperty(value = "姓名")
-    @TableField("name")
-    private String name;
 
     @ApiModelProperty(value = "账号")
     @TableField("username")
@@ -33,10 +30,6 @@ public class User extends BaseEntity {
     @TableField("password")
     private String password;
 
-    @ApiModelProperty(value = "用户类型")
-    @TableField("type")
-    private String type;
-
     /**
      * 用户认证后分配
      */
@@ -44,7 +37,25 @@ public class User extends BaseEntity {
     @TableField("permission")
     private String permission;
 
+    @ApiModelProperty(value = "学号")
+    @TableField("student_number")
+    private String studentNumber;
+
+    @ApiModelProperty(value = "姓名")
+    @TableField("name")
+    private String name;
+
+    @ApiModelProperty(value = "用户类型")
+    @TableField("type")
+    private String type;
+
     @ApiModelProperty(value = "是否认证")
     @TableField("is_auth")
     private boolean isAuth;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
 }

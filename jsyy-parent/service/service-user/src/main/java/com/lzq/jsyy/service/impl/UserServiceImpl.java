@@ -5,16 +5,22 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzq.jsyy.helper.JwtHelper;
 import com.lzq.jsyy.mapper.UserMapper;
+import com.lzq.jsyy.model.user.Account;
 import com.lzq.jsyy.model.user.User;
+import com.lzq.jsyy.repository.AccountRepository;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.UserService;
+import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
+import com.lzq.jsyy.vo.user.RegisterVo;
 import com.lzq.jsyy.vo.user.UserQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +30,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+    @Autowired
+    private AccountRepository accountRepository;
+
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
@@ -55,6 +64,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             map.put("state", ResultCodeEnum.SUCCESS);
             String token = JwtHelper.createToken(user.getId(), user.getUsername());
             map.put("token", token);
+            map.put("user", user);
             redisTemplate.opsForValue().set(username, String.valueOf(0), 3600, TimeUnit.SECONDS);
         }
 
@@ -83,6 +93,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 map.put("state", ResultCodeEnum.SUCCESS);
                 String token = JwtHelper.createToken(user.getId(), user.getUsername());
                 map.put("token", token);
+                map.put("user", user);
             }
         }
 
@@ -128,7 +139,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         wrapper1.eq("name", user.getName());
         User user1 = baseMapper.selectOne(wrapper1);
 
-        if (StringUtils.isEmpty(user)) {
+        if (StringUtils.isEmpty(user1)) {
             map.put("state", ResultCodeEnum.PERMISSION_EXIST);
             return map;
         }
@@ -136,6 +147,78 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         save(user);
         map.put("state", ResultCodeEnum.SUCCESS);
 
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> register(RegisterVo registerVo) {
+        Map<String, Object> map = new HashMap<>(2);
+
+        if (StringUtils.isEmpty(registerVo)) {
+            map.put("state", ResultCodeEnum.REGISTER_ERROR);
+            return map;
+        }
+
+        String username = registerVo.getUsername();
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(username)) {
+            wrapper.eq("username", username);
+            User user1 = baseMapper.selectOne(wrapper);
+            if (StringUtils.isEmpty(user1)) {
+                map.put("state", ResultCodeEnum.REGISTER_USERNAME_ERROR);
+                return map;
+            }
+        }
+
+        User user = new User(registerVo.getUsername(), registerVo.getPassword());
+        baseMapper.insert(user);
+
+        map.put("state", ResultCodeEnum.SUCCESS);
+        map.put("user", user);
+        return map;
+    }
+
+
+    @Override
+    public User getUser(String userId) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", userId);
+        User user = baseMapper.selectOne(wrapper);
+        return user;
+    }
+
+    @Override
+    public Map<String, Object> binding(User user, BindingVo bindingVo) {
+        Map<String, Object> map = new HashMap<>(2);
+
+        if (StringUtils.isEmpty(user) || StringUtils.isEmpty(bindingVo)) {
+            map.put("state", ResultCodeEnum.BINDING_ERROR);
+            return map;
+        }
+
+        String studentNumber = bindingVo.getStudentNumber();
+        String password = bindingVo.getPassword();
+        if (StringUtils.isEmpty(studentNumber) || StringUtils.isEmpty(password)) {
+            map.put("state", ResultCodeEnum.BINDING_ERROR);
+            return map;
+        }
+
+        Account account = accountRepository.getAccountByStudentNumberAndPassword(studentNumber, password);
+        if (ObjectUtils.isEmpty(account)) {
+            map.put("state", ResultCodeEnum.BINDING_ERROR);
+            return map;
+        }
+        user.setStudentNumber(account.getStudentNumber());
+        // TODO 获取默认权限
+        user.setPermission(account.getPermission());
+
+        user.setType(account.getType());
+        user.setAuth(true);
+
+        map.put("state", ResultCodeEnum.SUCCESS);
+        map.put("user", user);
+        baseMapper.updateById(user);
         return map;
     }
 

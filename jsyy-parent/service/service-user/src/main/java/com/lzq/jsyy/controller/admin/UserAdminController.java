@@ -43,14 +43,14 @@ public class UserAdminController {
     public Result add(User user) {
         Map<String, Object> map = userService.add(user);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(null, resultCodeEnum);
+        return Result.build(user, resultCodeEnum);
     }
 
     @PutMapping("/auth/update")
     public Result update(User user) {
         boolean update = userService.updateById(user);
 
-        return update ? Result.ok() : Result.build(null, ResultCodeEnum.USER_REPEAT);
+        return update ? Result.ok() : Result.build(user, ResultCodeEnum.USER_REPEAT);
     }
 
     @DeleteMapping("/auth/delete")

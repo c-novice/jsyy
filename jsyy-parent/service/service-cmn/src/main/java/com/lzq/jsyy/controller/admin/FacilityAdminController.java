@@ -35,7 +35,7 @@ public class FacilityAdminController {
         Map<String, Object> map = facilityService.add(facility);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
 
-        return Result.build(null, resultCodeEnum);
+        return Result.build(facility, resultCodeEnum);
     }
 
     @PutMapping("/auth/update")
@@ -43,7 +43,7 @@ public class FacilityAdminController {
         Map<String, Object> map = facilityService.change(facility);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
 
-        return Result.build(null, resultCodeEnum);
+        return Result.build(facility, resultCodeEnum);
     }
 
     @DeleteMapping("/auth/delete")

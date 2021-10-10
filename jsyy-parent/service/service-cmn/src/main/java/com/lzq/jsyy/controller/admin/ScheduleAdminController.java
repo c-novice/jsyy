@@ -32,14 +32,14 @@ public class ScheduleAdminController {
     public Result add(Schedule schedule) {
         Map<String, Object> map = scheduleService.add(schedule);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(null, resultCodeEnum);
+        return Result.build(schedule, resultCodeEnum);
     }
 
     @PutMapping("/auth/update")
     public Result update(Schedule schedule) {
         Map<String, Object> map = scheduleService.change(schedule);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(null, resultCodeEnum);
+        return Result.build(schedule, resultCodeEnum);
     }
 
     @DeleteMapping("/auth/delete")

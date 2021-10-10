@@ -52,7 +52,9 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         }
 
         QueryWrapper<Permission> wrapper1 = new QueryWrapper<>();
-        wrapper1.eq("name", permission.getName());
+        wrapper1.eq("name", permission.getName())
+                .or()
+                .eq("type", permission.getType());
         wrapper1.ne("id", permission.getId());
         Permission permission1 = baseMapper.selectOne(wrapper1);
 

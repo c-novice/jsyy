@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static springfox.documentation.swagger2.mappers.SerializableParameterFactories.factory;
+
 /**
  * 权限
  *
@@ -34,14 +36,14 @@ public class PermissionAdminController {
     public Result add(Permission permission) {
         Map<String, Object> map = permissionService.add(permission);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(null, resultCodeEnum);
+        return Result.build(permission, resultCodeEnum);
     }
 
     @PutMapping("/auth/update")
     public Result update(Permission permission) {
         boolean update = permissionService.updateById(permission);
 
-        return update ? Result.ok() : Result.fail();
+        return update ? Result.ok(permission) : Result.fail();
     }
 
     @DeleteMapping("/auth/delete")

@@ -34,14 +34,14 @@ public class RoomAdminController {
     public Result add(Room room) {
         Map<String, Object> map = roomService.add(room);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(null, resultCodeEnum);
+        return Result.build(room, resultCodeEnum);
     }
 
     @PutMapping("/auth/update")
     public Result update(Room room) {
         Map<String, Object> map = roomService.change(room);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(null, resultCodeEnum);
+        return Result.build(room, resultCodeEnum);
     }
 
     @DeleteMapping("/auth/delete")
