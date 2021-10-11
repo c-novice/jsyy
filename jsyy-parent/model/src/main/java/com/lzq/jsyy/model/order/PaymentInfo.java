@@ -39,7 +39,6 @@ public class PaymentInfo extends BaseEntity {
     @TableField("callback_time")
     private Date callbackTime;
 
-
     @ApiModelProperty(value = "回调信息")
     @TableField("callback_content")
     private String callbackContent;

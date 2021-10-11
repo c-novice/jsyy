@@ -1,8 +1,8 @@
 package com.atguigu.yygh.task.scheduled;
 
 
-import com.atguigu.common.rabbit.constant.MqConst;
-import com.atguigu.common.rabbit.service.RabbitService;
+import com.lzq.jsyy.rabbit.constant.MqConst;
+import com.lzq.jsyy.rabbit.service.RabbitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

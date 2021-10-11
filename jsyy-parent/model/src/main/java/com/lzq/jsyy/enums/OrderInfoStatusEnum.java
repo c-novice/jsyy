@@ -9,7 +9,7 @@ public enum OrderInfoStatusEnum {
     OVER_TIME(1, "已过期"),
     PAYING(2, "支付中"),
     ORDERED(3, "已预约"),
-    CURRENT(4, "使用中");
+    CURRENT(4, "使用中"),;
 
     private Integer status;
     private String name;
