@@ -27,12 +27,11 @@ public class RefundInfo extends BaseEntity {
 
     @ApiModelProperty(value = "订单编号")
     @TableField("order_id")
-    private Long orderId;
+    private String orderId;
 
     @ApiModelProperty(value = "退款金额")
     @TableField("total_amount")
     private BigDecimal totalAmount;
-
 
     @ApiModelProperty(value = "退款状态")
     @TableField("refund_status")
@@ -40,7 +39,7 @@ public class RefundInfo extends BaseEntity {
 
     @ApiModelProperty(value = "回调时间")
     @TableField("callback_time")
-    private Date callbackTime;
+    private String callbackTime;
 
     @ApiModelProperty(value = "回调信息")
     @TableField("callback_content")

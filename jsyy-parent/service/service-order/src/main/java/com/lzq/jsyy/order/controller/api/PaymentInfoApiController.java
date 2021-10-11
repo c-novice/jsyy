@@ -1,6 +1,7 @@
 package com.lzq.jsyy.order.controller.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.model.order.PaymentInfo;
 import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
@@ -25,16 +26,16 @@ public class PaymentInfoApiController {
         return Result.ok(pageModel);
     }
 
-    @PostMapping("/auth/add")
-    public Result add(PaymentInfo paymentInfo) {
-        Map<String, Object> map = paymentInfoService.add(paymentInfo);
+    @PostMapping("/auth/order")
+    public Result order(PaymentInfo paymentInfo) {
+        Map<String, Object> map = paymentInfoService.order(paymentInfo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         return Result.build(paymentInfo, resultCodeEnum);
     }
 
-    @DeleteMapping("/auth/delete")
-    public Result delete(String id) {
-        boolean delete = paymentInfoService.delete(id);
-        return delete ? Result.ok() : Result.fail();
+    @PutMapping("/auth/cancel")
+    public Result cancel(String id) {
+        boolean cancel = paymentInfoService.cancel(id);
+        return cancel ? Result.ok() : Result.fail();
     }
 }

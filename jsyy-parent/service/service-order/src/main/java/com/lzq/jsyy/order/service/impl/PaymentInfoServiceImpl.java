@@ -10,7 +10,7 @@ import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.model.order.PaymentInfo;
 import com.lzq.jsyy.order.mapper.PaymentInfoMapper;
 import com.lzq.jsyy.order.service.PaymentInfoService;
-import com.lzq.jsyy.common.exception.jsyyException;
+import com.lzq.jsyy.common.exception.JsyyException;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
@@ -56,9 +56,9 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         return page;
     }
 
-    @Transactional(rollbackFor = jsyyException.class)
+    @Transactional(rollbackFor = JsyyException.class)
     @Override
-    public Map<String, Object> add(PaymentInfo paymentInfo) {
+    public Map<String, Object> order(PaymentInfo paymentInfo) {
         Map<String, Object> map = new HashMap<>(2);
         if (ObjectUtils.isEmpty(paymentInfo)) {
             map.put("state", ResultCodeEnum.PAYMENT_ADD_ERROR);
@@ -82,7 +82,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean cancel(String id) {
         if (StringUtils.isEmpty(id)) {
             return false;
         }

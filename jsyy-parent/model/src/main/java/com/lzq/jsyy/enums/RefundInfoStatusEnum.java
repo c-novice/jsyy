@@ -1,26 +1,16 @@
 package com.lzq.jsyy.enums;
 
 /**
- * 认证枚举类
+ * 退单枚举类
  *
  * @author lzq
  */
-
-public enum AuthStatusEnum {
-    // 认证状态
-    NO_AUTH(0, "未认证"),
-    AUTH_RUN(1, "认证中"),
-    AUTH_SUCCESS(2, "认证成功"),
-    AUTH_FAIL(-1, "认证失败"),
-    ;
+public enum RefundInfoStatusEnum {
+    // 退款状态
+    REFUNDING(1, "退款中"),
+    REFUNDED(2, "已退款");
 
     private Integer status;
-    private String name;
-
-    AuthStatusEnum(Integer status, String name) {
-        this.status = status;
-        this.name = name;
-    }
 
     public Integer getStatus() {
         return status;
@@ -37,4 +27,12 @@ public enum AuthStatusEnum {
     public void setName(String name) {
         this.name = name;
     }
+
+    private String name;
+
+    RefundInfoStatusEnum(Integer status, String name) {
+        this.status = status;
+        this.name = name;
+    }
+
 }

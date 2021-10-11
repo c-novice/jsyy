@@ -1,7 +1,7 @@
 package com.lzq.jsyy.common.handler;
 
 
-import com.lzq.jsyy.common.exception.jsyyException;
+import com.lzq.jsyy.common.exception.JsyyException;
 import com.lzq.jsyy.common.result.Result;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,9 +34,9 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(jsyyException.class)
+    @ExceptionHandler(JsyyException.class)
     @ResponseBody
-    public Result error(jsyyException e) {
+    public Result error(JsyyException e) {
         e.printStackTrace();
         return Result.build(e.getCode(), e.getMessage());
     }

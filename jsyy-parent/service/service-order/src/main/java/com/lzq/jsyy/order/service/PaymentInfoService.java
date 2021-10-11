@@ -21,18 +21,18 @@ public interface PaymentInfoService extends IService<PaymentInfo> {
     Page<PaymentInfo> selectPage(Page<PaymentInfo> pageParam, PaymentInfoQueryVo paymentInfoQuery);
 
     /**
-     * 添加订单
+     * 下订单
      *
      * @param paymentInfo
      * @return
      */
-    Map<String, Object> add(PaymentInfo paymentInfo);
+    Map<String, Object> order(PaymentInfo paymentInfo);
 
     /**
-     * 删除订单
+     * 取消订单
      *
      * @param id
      * @return
      */
-    boolean delete(String id);
+    boolean cancel(String id);
 }

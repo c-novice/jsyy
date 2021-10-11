@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(value = "自定义全局异常类")
-public class jsyyException extends RuntimeException {
+public class JsyyException extends RuntimeException {
 
     @ApiModelProperty(value = "异常状态码")
     private Integer code;
@@ -25,7 +25,7 @@ public class jsyyException extends RuntimeException {
      * @param message
      * @param code
      */
-    public jsyyException(String message, Integer code) {
+    public JsyyException(String message, Integer code) {
         super(message);
         this.code = code;
     }
@@ -35,7 +35,7 @@ public class jsyyException extends RuntimeException {
      *
      * @param resultCodeEnum
      */
-    public jsyyException(ResultCodeEnum resultCodeEnum) {
+    public JsyyException(ResultCodeEnum resultCodeEnum) {
         super(resultCodeEnum.getMessage());
         this.code = resultCodeEnum.getCode();
     }

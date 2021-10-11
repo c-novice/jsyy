@@ -1,6 +1,7 @@
 package com.lzq.jsyy.order.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.model.order.PaymentInfo;
 import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
@@ -22,11 +23,5 @@ public class PaymentInfoAdminController {
         Page<PaymentInfo> pageModel = paymentInfoService.selectPage(pageParam, paymentInfoQuery);
 
         return Result.ok(pageModel);
-    }
-
-    @DeleteMapping("/auth/delete")
-    public Result delete(String id) {
-        boolean delete = paymentInfoService.delete(id);
-        return delete ? Result.ok() : Result.fail();
     }
 }

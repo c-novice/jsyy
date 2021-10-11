@@ -9,7 +9,8 @@ public enum PaymentInfoStatusEnum {
     OVER_TIME(1, "已过期"),
     PAYING(2, "支付中"),
     PAYED(3, "已支付"),
-    CANCELED(4, "已取消");
+    CANCELED(4, "已取消"),
+    REFUND(5, "已退单");
 
     private Integer status;
     private String name;

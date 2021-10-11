@@ -9,7 +9,8 @@ public enum OrderInfoStatusEnum {
     OVER_TIME(1, "已过期"),
     PAYING(2, "支付中"),
     ORDERED(3, "已预约"),
-    CURRENT(4, "使用中"),;
+    CURRENT(4, "使用中"),
+    ;
 
     private Integer status;
     private String name;
@@ -19,15 +20,6 @@ public enum OrderInfoStatusEnum {
         this.name = name;
     }
 
-    public static String getStatusNameByStatus(Integer status) {
-        AuthStatusEnum[] arrObj = AuthStatusEnum.values();
-        for (AuthStatusEnum obj : arrObj) {
-            if (status.intValue() == obj.getStatus().intValue()) {
-                return obj.getName();
-            }
-        }
-        return "";
-    }
 
     public Integer getStatus() {
         return status;
