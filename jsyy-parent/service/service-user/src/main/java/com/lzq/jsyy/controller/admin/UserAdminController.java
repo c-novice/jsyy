@@ -54,8 +54,8 @@ public class UserAdminController {
     }
 
     @DeleteMapping("/auth/delete")
-    public Result delete(User user) {
-        boolean delete = userService.removeById(user);
+    public Result delete(String id) {
+        boolean delete = userService.removeById(id);
 
         return delete ? Result.ok() : Result.fail( ResultCodeEnum.DELETE_FAIL);
     }

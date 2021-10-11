@@ -1,4 +1,4 @@
-package com.atguigu.yygh.msm.controller;
+package com.atguigu.yygh.msm.controller.api;
 
 
 import com.atguigu.yygh.msm.service.MsmService;

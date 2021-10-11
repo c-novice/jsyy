@@ -1,26 +1,23 @@
 package com.lzq.jsyy.cmn.client;
 
-
-import com.lzq.jsyy.model.cmn.Permission;
+import com.lzq.jsyy.model.cmn.Schedule;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * 权限调用
+ * 预约排班调用
  *
  * @author lzq
  */
 @Component
 @FeignClient("service-cmn")
-public interface PermissionFeignClient {
-
+public interface ScheduleFeignClient {
     /**
-     * 查询获取权限
-     *
-     * @param type
+     * 根据id查询预约排班
+     * @param id
      * @return
      */
-    @GetMapping("/api/permission/inner/get")
-    Permission getByType(String type);
+    @GetMapping("/api/schedule/inner/getById")
+    Schedule getById(String id);
 }

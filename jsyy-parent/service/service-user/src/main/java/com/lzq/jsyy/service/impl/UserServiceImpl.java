@@ -11,7 +11,6 @@ import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.repository.AccountRepository;
 import com.lzq.jsyy.result.ResultCodeEnum;
 import com.lzq.jsyy.service.UserService;
-import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
@@ -216,9 +215,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         user.setStudentNumber(account.getStudentNumber());
         // 获取用户类型默认权限
-        PermissionQueryVo permissionQueryVo = new PermissionQueryVo();
-        permissionQueryVo.setType(account.getType());
-        user.setPermission(permissionFeignClient.getPermissionVo(permissionQueryVo).getName());
+        String type = account.getType();
+        user.setPermission(permissionFeignClient.getByType(type).getName());
 
         user.setType(account.getType());
         user.setAuth(true);

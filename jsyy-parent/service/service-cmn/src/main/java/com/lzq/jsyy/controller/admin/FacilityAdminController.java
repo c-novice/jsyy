@@ -47,8 +47,8 @@ public class FacilityAdminController {
     }
 
     @DeleteMapping("/auth/delete")
-    public Result delete(Facility facility) {
-        boolean delete = facilityService.removeById(facility);
+    public Result delete(String id) {
+        boolean delete = facilityService.removeById(id);
 
         return delete ? Result.ok() : Result.fail();
     }

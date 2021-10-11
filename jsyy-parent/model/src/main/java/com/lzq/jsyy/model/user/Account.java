@@ -11,11 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * @author lzq
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-@EqualsAndHashCode
 @ApiModel(description = "校园账号")
 @Document("account")
 public class Account extends BaseMongoEntity {
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "学号")
     @Indexed
     private String studentNumber;

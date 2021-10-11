@@ -1,5 +1,6 @@
 package com.lzq.jsyy.controller.api;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lzq.jsyy.model.cmn.Permission;
 import com.lzq.jsyy.result.Result;
 import com.lzq.jsyy.result.ResultCodeEnum;
@@ -7,6 +8,7 @@ import com.lzq.jsyy.service.PermissionService;
 import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +33,13 @@ public class PermissionApiController {
         }
     }
 
-    @GetMapping("/inner/get")
-    public Permission getPermissionVo(PermissionQueryVo permissionVo) {
-        return permissionService.get(permissionVo);
+    @GetMapping("/inner/getByType")
+    public Permission getByType(String type) {
+        if (StringUtils.isEmpty(type)) {
+            return null;
+        }
+        QueryWrapper<Permission> wrapper = new QueryWrapper<>();
+        wrapper.eq("type", type);
+        return permissionService.getOne(wrapper);
     }
 }

@@ -63,10 +63,7 @@ public class HttpRequestHelper {
     public static boolean isSignEquals(Map<String, Object> paramMap, String signKey) {
         String sign = (String) paramMap.get("sign");
         String md5Str = getSign(paramMap, signKey);
-        if (!sign.equals(md5Str)) {
-            return false;
-        }
-        return true;
+        return sign.equals(md5Str);
     }
 
     /**

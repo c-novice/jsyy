@@ -39,7 +39,9 @@ public enum ResultCodeEnum {
     FACILITY_GET_ERROR(227, "设施信息获取失败"),
     ROOM_GET_ERROR(228, "教室信息获取失败"),
     SCHEDULE_GET_ERROR(229, "预约信息获取失败"),
-    PERMISSION_GET_ERROR(230, "权限获取失败");
+    PERMISSION_GET_ERROR(230, "权限获取失败"),
+    ORDER_ADD_ERROR(231, "预约失败"),
+    ORDER_CHANGE_ERROR(232, "修改预约失败");;
 
     private final Integer code;
     private final String message;

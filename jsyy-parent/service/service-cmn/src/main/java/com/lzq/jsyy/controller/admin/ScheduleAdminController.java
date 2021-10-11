@@ -43,8 +43,8 @@ public class ScheduleAdminController {
     }
 
     @DeleteMapping("/auth/delete")
-    public Result delete(Schedule schedule) {
-        boolean delete = scheduleService.removeById(schedule);
+    public Result delete(String id) {
+        boolean delete = scheduleService.removeById(id);
 
         return delete ? Result.ok() : Result.fail();
     }

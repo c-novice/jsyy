@@ -1,6 +1,7 @@
-package com.lzq.jsyy.model.cmn;
+package com.lzq.jsyy.model.order;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lzq.jsyy.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -9,30 +10,32 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 预约排班
+ * 预约订单类
  *
  * @author lzq
  */
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(description = "预约排班")
 @Data
-public class Schedule extends BaseEntity {
+@ApiModel(description = "预约订单类")
+@TableName("order_info")
+public class OrderInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(value = "用户名")
+    @TableField("username")
+    private String username;
+
+    @ApiModelProperty(value = "设施编号")
+    @TableField("facility_id")
+    private String facilityId;
 
     @ApiModelProperty(value = "教室编号")
     @TableField("room_id")
     private String roomId;
 
-    @ApiModelProperty(value = "预约编号")
+    @ApiModelProperty(value = "预约排班编号")
+    @TableField("schedule_id")
     private String scheduleId;
-
-    @ApiModelProperty(value = "开放预约日期")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private String openDate;
-
-    @ApiModelProperty(value = "截止预约日期")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private String closeDate;
 
     @ApiModelProperty(value = "预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -48,8 +51,17 @@ public class Schedule extends BaseEntity {
     @TableField("end_time")
     private String endTime;
 
-    @ApiModelProperty(value = "退预约截日期")
+    @ApiModelProperty(value = "退预约截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @TableField("deadline_time")
+    private String deadlineTime;
+
+    @ApiModelProperty(value = "退预约时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField("quit_time")
     private String quitTime;
+
+    @ApiModelProperty(value = "订单状态")
+    @TableField("order_status")
+    private Integer orderStatus;
 }

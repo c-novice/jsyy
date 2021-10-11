@@ -45,8 +45,8 @@ public class RoomAdminController {
     }
 
     @DeleteMapping("/auth/delete")
-    public Result delete(Room room) {
-        boolean delete = roomService.removeById(room);
+    public Result delete(String id) {
+        boolean delete = roomService.removeById(id);
 
         return delete ? Result.ok() : Result.fail();
     }
