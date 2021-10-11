@@ -63,7 +63,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             String beginTime = page.getRecords().get(i).getBeginTime();
             String endTime = page.getRecords().get(i).getEndTime();
             if (updateOverTimeStatus(orderStatus, beginTime, endTime)) {
-                page.getRecords().get(i).setOrderStatus(OrderInfoStatusEnum.OVER_TIME.getStatus());
+                page.getRecords().get(i).setOrderStatus(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
             }
         }
         return page;
@@ -87,7 +87,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         // 查找该预约排班的预约记录
         QueryWrapper<OrderInfo> wrapper2 = new QueryWrapper<>();
         wrapper2.eq("schedule_id", orderInfo.getScheduleId());
-        wrapper2.ne("order_status", OrderInfoStatusEnum.OVER_TIME.getStatus());
+        wrapper2.ne("order_status", OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
         Integer orderInfo2 = baseMapper.selectCount(wrapper2);
 
         if (orderInfo2 != 0) {
@@ -122,7 +122,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         QueryWrapper<OrderInfo> wrapper2 = new QueryWrapper<>();
         wrapper2.eq("schedule_id", orderInfo.getScheduleId());
         wrapper2.eq("username", orderInfo.getScheduleId());
-        wrapper2.ne("order_status", OrderInfoStatusEnum.OVER_TIME.getStatus());
+        wrapper2.ne("order_status", OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
         OrderInfo orderInfo2 = baseMapper.selectOne(wrapper2);
 
         // 只能修改支付中的订单
@@ -147,7 +147,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
 
         // 只能删除过期预约记录
-        if (!orderInfo.getOrderStatus().equals(OrderInfoStatusEnum.OVER_TIME.getStatus())) {
+        if (!orderInfo.getOrderStatus().equals(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus())) {
             return false;
         }
 
@@ -164,7 +164,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
      * @return
      */
     private boolean updateOverTimeStatus(Integer orderStatus, String beginTime, String endTime) {
-        if (!orderStatus.equals(OrderInfoStatusEnum.OVER_TIME.getStatus())) {
+        if (!orderStatus.equals(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus())) {
             String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(System.currentTimeMillis());
             boolean isOverTime = false;
             if (!StringUtils.isEmpty(beginTime)) {

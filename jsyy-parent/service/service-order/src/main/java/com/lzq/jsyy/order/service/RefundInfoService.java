@@ -24,5 +24,5 @@ public interface RefundInfoService extends IService<RefundInfo> {
      * @param id
      * @return
      */
-    boolean apply(String id);
+    boolean apply(String id) throws Exception;
 }

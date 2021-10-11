@@ -13,6 +13,7 @@ import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.common.exception.JsyyException;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.order.service.OrderInfoService;
+import com.lzq.jsyy.order.service.WechatService;
 import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,10 @@ import java.util.Map;
 @Service
 public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, PaymentInfo> implements PaymentInfoService {
     @Autowired
-    OrderInfoService orderInfoService;
+    private OrderInfoService orderInfoService;
+
+    @Autowired
+    private WechatService wechatService;
 
     @Override
     public Page<PaymentInfo> selectPage(Page<PaymentInfo> pageParam, PaymentInfoQueryVo paymentInfoQuery) {
@@ -58,7 +62,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
 
     @Transactional(rollbackFor = JsyyException.class)
     @Override
-    public Map<String, Object> order(PaymentInfo paymentInfo) {
+    public Map<String, Object> order(PaymentInfo paymentInfo) throws Exception {
         Map<String, Object> map = new HashMap<>(2);
         if (ObjectUtils.isEmpty(paymentInfo)) {
             map.put("state", ResultCodeEnum.PAYMENT_ADD_ERROR);
@@ -75,6 +79,16 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
             return map;
         }
 
+        // 获取微信支付二维码
+        Map<String, Object> native2 = wechatService.createNative(orderId);
+        if (ObjectUtils.isEmpty(native2)) {
+            map.put("state", ResultCodeEnum.PAYMENT_ADD_ERROR);
+            return map;
+        }
+
+        // 添加支付记录，支付中
+        paymentInfo.setPaymentStatus(PaymentInfoStatusEnum.PAYING.getStatus());
+        // TODO
         baseMapper.insert(paymentInfo);
         map.put("paymentInfo", paymentInfo);
         map.put("state", ResultCodeEnum.SUCCESS);
@@ -99,9 +113,9 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         paymentInfo.setPaymentStatus(PaymentInfoStatusEnum.CANCELED.getStatus());
         baseMapper.updateById(paymentInfo);
 
-        // 更新预约记录为过期
+        // 更新预约记录为失效
         OrderInfo orderInfo = orderInfoService.getById(id);
-        orderInfo.setOrderStatus(OrderInfoStatusEnum.OVER_TIME.getStatus());
+        orderInfo.setOrderStatus(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
         orderInfoService.updateById(orderInfo);
 
         return true;

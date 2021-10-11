@@ -1,0 +1,154 @@
+package com.lzq.jsyy.order.service.impl;
+
+import com.alibaba.fastjson.JSONObject;
+import com.github.wxpay.sdk.WXPayConstants;
+import com.github.wxpay.sdk.WXPayUtil;
+import com.lzq.jsyy.model.order.OrderInfo;
+import com.lzq.jsyy.model.order.PaymentInfo;
+import com.lzq.jsyy.model.order.RefundInfo;
+import com.lzq.jsyy.order.service.OrderInfoService;
+import com.lzq.jsyy.order.service.PaymentInfoService;
+import com.lzq.jsyy.order.service.RefundInfoService;
+import com.lzq.jsyy.order.service.WechatService;
+import com.lzq.jsyy.order.utils.ConstantPropertiesUtils;
+import com.lzq.jsyy.order.utils.HttpClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @author lzq
+ */
+@Service
+public class WechatServiceImpl implements WechatService {
+
+    @Autowired
+    private OrderInfoService orderInfoService;
+
+    @Autowired
+    private PaymentInfoService paymentInfoService;
+
+    @Autowired
+    private RefundInfoService refundInfoService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+
+    @Override
+    public Map createNative(String orderId) throws Exception {
+        // redis读取二维码
+        Map payMap = (Map) redisTemplate.opsForValue().get(orderId);
+        if (!ObjectUtils.isEmpty(payMap)) {
+            return payMap;
+        }
+
+        OrderInfo orderInfo = orderInfoService.getById(orderId);
+
+        // 调用微信生成二维码接口
+        Map<String, String> paramMap = new HashMap<>(10);
+        paramMap.put("appid", ConstantPropertiesUtils.APPID);
+        paramMap.put("mch_id", ConstantPropertiesUtils.PARTNER);
+        paramMap.put("nonce_str", WXPayUtil.generateNonceStr());
+        paramMap.put("out_trade_no", orderInfo.getOutTradeNo());
+        paramMap.put("total_fee", orderInfo.getAmount().toString());
+        paramMap.put("spbill_create_ip", "127.0.0.1");
+        paramMap.put("notify_url", "http://guli.shop/api/order/wechatPay/wechatNotify");
+        paramMap.put("trade_type", "NATIVE");
+
+        // 根据URL访问第三方接口并且传递参数
+        HttpClient client = new HttpClient("https://api.mch.wechat.qq.com/pay/unifiedorder");
+        // 设置参数
+        client.setXmlParam(WXPayUtil.generateSignedXml(paramMap, ConstantPropertiesUtils.PARTNERKEY));
+        client.setHttps(true);
+        client.post();
+
+        // 返回相关数据
+        String xml = client.getContent();
+        Map<String, String> resultMap = WXPayUtil.xmlToMap(xml);
+
+        // 封装并返回结果
+        payMap = new HashMap(10);
+        payMap.put("orderId", orderId);
+        payMap.put("totalFee", orderInfo.getAmount());
+        payMap.put("resultCode", resultMap.get("result_code"));
+        payMap.put("codeUrl", resultMap.get("code_url"));
+
+        // redis缓存，2分钟失效
+        if (!StringUtils.isEmpty(resultMap.get("result_code"))) {
+            redisTemplate.opsForValue().set(orderId, payMap, 2, TimeUnit.MINUTES);
+        }
+        return payMap;
+    }
+
+    /**
+     * 查询微信订单状态
+     *
+     * @param orderId
+     * @return
+     */
+    @Override
+    public Map<String, String> queryPayStatus(String orderId) throws Exception {
+        OrderInfo orderInfo = orderInfoService.getById(orderId);
+
+        Map paramMap = new HashMap<>(5);
+        paramMap.put("appid", ConstantPropertiesUtils.APPID);
+        paramMap.put("mch_id", ConstantPropertiesUtils.PARTNER);
+        paramMap.put("out_trade_no", orderInfo.getOutTradeNo());
+        paramMap.put("nonce_str", WXPayUtil.generateNonceStr());
+
+        HttpClient client = new HttpClient("https://api.mch.wechat.qq.com/pay/orderquery");
+        client.setXmlParam(WXPayUtil.generateSignedXml(paramMap, ConstantPropertiesUtils.PARTNERKEY));
+        client.setHttps(true);
+        client.post();
+
+        String xml = client.getContent();
+        return WXPayUtil.xmlToMap(xml);
+    }
+
+    /**
+     * 微信退款
+     *
+     * @param orderId
+     * @return
+     */
+    @Override
+    public Map<String, String> refund(String orderId) throws Exception {
+        // 调用微信接口实现退款
+        Map<String, String> paramMap = new HashMap<>(10);
+        paramMap.put("appid", ConstantPropertiesUtils.APPID);
+        paramMap.put("mch_id", ConstantPropertiesUtils.PARTNER);
+        paramMap.put("nonce_str", WXPayUtil.generateNonceStr());
+        paramMap.put("transaction_id", paymentInfo.getTradeNo());
+        paramMap.put("out_trade_no", paymentInfo.getOutTradeNo());
+        paramMap.put("out_refund_no", "tk" + paymentInfo.getOutTradeNo());
+        paramMap.put("total_fee", "1");
+        paramMap.put("refund_fee", "1");
+        String paramXml = WXPayUtil.generateSignedXml(paramMap, ConstantPropertiesUtils.PARTNERKEY);
+
+        HttpClient client = new HttpClient("https://api.mch.wechat.qq.com/secapi/pay/refund");
+        client.setXmlParam(paramXml);
+        client.setHttps(true);
+        client.setCert(true);
+        client.setCertPassword(ConstantPropertiesUtils.PARTNER);
+        client.post();
+
+        String xml = client.getContent();
+        Map<String, String> resultMap = WXPayUtil.xmlToMap(xml);
+
+        if (!ObjectUtils.isEmpty(resultMap) && WXPayConstants.SUCCESS.equalsIgnoreCase(resultMap.get("result_code"))) {
+            return resultMap;
+        }
+
+        return null;
+
+    }
+}
+

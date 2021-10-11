@@ -9,14 +9,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
+
 /**
- * 预约订单类
+ * 预约订单
  *
  * @author lzq
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "预约订单类")
+@ApiModel(description = "预约订单")
 @TableName("order_info")
 public class OrderInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -28,6 +30,10 @@ public class OrderInfo extends BaseEntity {
     @ApiModelProperty(value = "设施编号")
     @TableField("facility_id")
     private String facilityId;
+
+    @ApiModelProperty(value = "订单交易号")
+    @TableField("out_trade_no")
+    private String outTradeNo;
 
     @ApiModelProperty(value = "教室编号")
     @TableField("room_id")
@@ -64,4 +70,8 @@ public class OrderInfo extends BaseEntity {
     @ApiModelProperty(value = "订单状态")
     @TableField("order_status")
     private Integer orderStatus;
+
+    @ApiModelProperty(value = "预约费用")
+    @TableField("amount")
+    private BigDecimal amount;
 }

@@ -6,7 +6,7 @@ package com.lzq.jsyy.enums;
 
 public enum OrderInfoStatusEnum {
     // 预约记录状态
-    OVER_TIME(1, "已过期"),
+    LOSE_EFFICACY(1, "已失效"),
     PAYING(2, "支付中"),
     ORDERED(3, "已预约"),
     CURRENT(4, "使用中"),

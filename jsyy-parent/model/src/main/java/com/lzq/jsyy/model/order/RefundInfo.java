@@ -29,6 +29,10 @@ public class RefundInfo extends BaseEntity {
     @TableField("order_id")
     private String orderId;
 
+    @ApiModelProperty(value = "订单交易号")
+    @TableField("out_trade_no")
+    private String outTradeNo;
+
     @ApiModelProperty(value = "退款金额")
     @TableField("total_amount")
     private BigDecimal totalAmount;

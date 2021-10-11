@@ -42,7 +42,10 @@ public enum ResultCodeEnum {
     PERMISSION_GET_ERROR(230, "权限获取失败"),
     ORDER_ADD_ERROR(231, "预约失败"),
     ORDER_CHANGE_ERROR(232, "修改预约失败"),
-    PAYMENT_ADD_ERROR(233, "账单添加失败");
+    PAYMENT_ADD_ERROR(233, "账单添加失败"),
+    PAY_SUCCESS(234, "支付成功"),
+    PAYING(235, "支付中"),
+    PAY_ERROR(236, "支付失败");
 
     private final Integer code;
     private final String message;
