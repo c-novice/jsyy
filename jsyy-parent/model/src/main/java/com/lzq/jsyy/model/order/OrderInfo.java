@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 @Data
 @ApiModel(description = "预约订单")
 @TableName("order_info")
+@ToString
 public class OrderInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

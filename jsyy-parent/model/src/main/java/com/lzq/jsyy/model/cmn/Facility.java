@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Data
 @ApiModel(description = "设施类")
 @TableName("facility")
+@ToString
 public class Facility extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

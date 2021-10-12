@@ -3,12 +3,14 @@ package com.lzq.jsyy.vo.cmn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @author lzq
  */
 @Data
 @ApiModel(description = "权限查询条件")
+@ToString
 public class PermissionQueryVo {
     @ApiModelProperty(value = "用户类型")
     private String type;

@@ -8,6 +8,7 @@ import com.lzq.jsyy.cmn.service.RoomService;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Room;
 import com.lzq.jsyy.vo.cmn.RoomQueryVo;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,6 +20,7 @@ import java.util.Map;
  */
 @Service
 public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements RoomService {
+    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<Room> selectPage(Page<Room> pageParam, RoomQueryVo roomQueryVo) {
         if (StringUtils.isEmpty(roomQueryVo)) {
@@ -109,6 +111,7 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
         return map;
     }
 
+    @Cacheable(value = "get", keyGenerator = "keyGenerator")
     @Override
     public Room get(RoomQueryVo roomQueryVo) {
         if (StringUtils.isEmpty(roomQueryVo)) {

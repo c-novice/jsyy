@@ -12,6 +12,7 @@ import com.lzq.jsyy.order.mapper.OrderInfoMapper;
 import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.vo.order.OrderInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -29,6 +30,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     @Autowired
     private ScheduleFeignClient scheduleFeignClient;
 
+    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<OrderInfo> selectPage(Page<OrderInfo> pageParam, OrderInfoQueryVo orderInfoQueryVo) {
         if (ObjectUtils.isEmpty(orderInfoQueryVo)) {
@@ -180,6 +182,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         return true;
     }
 
+    @Cacheable(value = "getByOutTradeNo", keyGenerator = "keyGenerator")
     @Override
     public OrderInfo getByOutTradeNo(String outTradeNo) {
         if (StringUtils.isEmpty(outTradeNo)) {

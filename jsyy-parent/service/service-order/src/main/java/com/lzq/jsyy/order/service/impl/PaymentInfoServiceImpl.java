@@ -16,6 +16,7 @@ import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.order.service.WechatService;
 import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -36,6 +37,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
     @Autowired
     private WechatService wechatService;
 
+    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<PaymentInfo> selectPage(Page<PaymentInfo> pageParam, PaymentInfoQueryVo paymentInfoQuery) {
         if (ObjectUtils.isEmpty(paymentInfoQuery)) {
@@ -150,6 +152,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         orderInfoService.updateById(orderInfo);
     }
 
+    @Cacheable(value = "getByOutTradeNo", keyGenerator = "keyGenerator")
     @Override
     public PaymentInfo getByOutTradeNo(String outTradeNo) {
         if (StringUtils.isEmpty(outTradeNo)) {

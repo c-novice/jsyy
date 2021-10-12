@@ -12,6 +12,7 @@ import com.lzq.jsyy.model.cmn.Room;
 import com.lzq.jsyy.vo.cmn.FacilityQueryVo;
 import com.lzq.jsyy.vo.cmn.RoomQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -26,6 +27,7 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
     @Autowired
     private RoomService roomService;
 
+    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<Facility> selectPage(Page<Facility> pageParam, FacilityQueryVo facilityQueryVo) {
         if (StringUtils.isEmpty(facilityQueryVo)) {
@@ -129,6 +131,7 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
         return map;
     }
 
+    @Cacheable(value = "get", keyGenerator = "keyGenerator")
     @Override
     public Facility get(FacilityQueryVo facilityQueryVo) {
         if (StringUtils.isEmpty(facilityQueryVo)) {

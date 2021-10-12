@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * 账号绑定查询类
@@ -13,6 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode
 @ApiModel(description = "账号绑定查询类")
+@ToString
 public class BindingVo {
     @ApiModelProperty(value = "学号")
     private String studentNumber;

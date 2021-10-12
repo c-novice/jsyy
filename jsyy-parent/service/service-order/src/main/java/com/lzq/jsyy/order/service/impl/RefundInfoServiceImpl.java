@@ -18,6 +18,7 @@ import com.lzq.jsyy.order.service.RefundInfoService;
 import com.lzq.jsyy.order.service.WechatService;
 import com.lzq.jsyy.vo.order.RefundInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -40,6 +41,7 @@ public class RefundInfoServiceImpl extends ServiceImpl<RefundInfoMapper, RefundI
     @Autowired
     private OrderInfoService orderInfoService;
 
+    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<RefundInfo> selectPage(Page<RefundInfo> pageParam, RefundInfoQueryVo refundInfoQuery) {
         if (ObjectUtils.isEmpty(refundInfoQuery)) {

@@ -3,12 +3,14 @@ package com.lzq.jsyy.vo.user;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @author lzq
  */
 @Data
 @ApiModel(description = "登录对象")
+@ToString
 public class LoginVo {
 
     @ApiModelProperty(value = "账号")

@@ -16,6 +16,7 @@ import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
 import com.lzq.jsyy.vo.user.UserQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -39,6 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private PermissionFeignClient permissionFeignClient;
 
+    @Cacheable(value = "loginVo", keyGenerator = "keyGenerator")
     @Override
     public Map<String, Object> loginByPassword(LoginVo loginVo) {
         Map<String, Object> map = new HashMap<>(2);
@@ -74,6 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return map;
     }
 
+    @Cacheable(value = "loginByCode", keyGenerator = "keyGenerator")
     @Override
     public Map<String, Object> loginByCode(LoginVo loginVo) {
         // 验证码登录不设置冻结
@@ -103,6 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return map;
     }
 
+    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<User> selectPage(Page<User> pageParam, UserQueryVo userQueryVo) {
         if (userQueryVo == null) {
@@ -182,7 +186,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return map;
     }
 
-
+    @Cacheable(value = "getUser", keyGenerator = "keyGenerator")
     @Override
     public User getUser(String userId) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();

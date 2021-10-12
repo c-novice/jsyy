@@ -3,12 +3,14 @@ package com.lzq.jsyy.vo.user;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @author lzq
  */
 @Data
 @ApiModel(description = "用户搜索条件")
+@ToString
 public class UserQueryVo {
     @ApiModelProperty(value = "学号")
     private String studentNumber;

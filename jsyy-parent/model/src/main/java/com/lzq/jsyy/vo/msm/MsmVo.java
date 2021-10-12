@@ -3,6 +3,7 @@ package com.lzq.jsyy.vo.msm;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel(description = "短信实体")
+@ToString
 public class MsmVo implements Serializable {
 
     @ApiModelProperty(value = "电话号码")

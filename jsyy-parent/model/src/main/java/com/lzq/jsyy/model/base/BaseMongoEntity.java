@@ -2,6 +2,7 @@ package com.lzq.jsyy.model.base;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 
@@ -16,6 +17,7 @@ import java.util.Map;
  * @author lzq
  */
 @Data
+@ToString
 public class BaseMongoEntity implements Serializable {
 
     @ApiModelProperty(value = "id")

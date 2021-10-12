@@ -1,8 +1,5 @@
 package com.lzq.jsyy.order.receiver;
 
-
-import com.lzq.jsyy.order.service.OrderInfoService;
-import com.lzq.jsyy.rabbit.constant.MqConst;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
@@ -24,7 +21,7 @@ public class OrderInfoReceiver {
     private OrderInfoService orderInfoService;
 
     /**
-     * 使用rabbit进行监听
+     * 监听每日7点预约提醒消息
      *
      * @param message
      * @param channel

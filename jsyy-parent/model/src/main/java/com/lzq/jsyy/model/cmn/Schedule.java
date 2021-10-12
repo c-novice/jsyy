@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "预约排班")
 @Data
+@ToString
 public class Schedule extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

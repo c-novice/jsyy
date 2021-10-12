@@ -6,12 +6,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @author lzq
  */
 @ApiModel(description = "预约记录条件查询")
 @Data
+@ToString
 public class OrderInfoQueryVo {
     @ApiModelProperty(value = "用户名")
     private String username;

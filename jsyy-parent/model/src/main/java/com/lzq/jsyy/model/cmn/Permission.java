@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * 权限
@@ -17,6 +18,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @ApiModel(description = "权限类")
 @TableName("permission")
+@ToString
 public class Permission extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

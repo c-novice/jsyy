@@ -9,6 +9,7 @@ import com.lzq.jsyy.order.service.WechatService;
 import com.lzq.jsyy.order.utils.ConstantPropertiesUtils;
 import com.lzq.jsyy.order.utils.HttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -29,7 +30,6 @@ public class WechatServiceImpl implements WechatService {
 
     @Autowired
     private RedisTemplate redisTemplate;
-
 
     @Override
     public Map createNative(String orderId) throws Exception {
