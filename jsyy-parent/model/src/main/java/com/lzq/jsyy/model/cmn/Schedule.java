@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
+
 /**
  * 预约排班
  *
@@ -48,8 +50,12 @@ public class Schedule extends BaseEntity {
     @TableField("end_time")
     private String endTime;
 
-    @ApiModelProperty(value = "退预约截日期")
+    @ApiModelProperty(value = "退预约截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField("quit_time")
     private String quitTime;
+
+    @ApiModelProperty(value = "预约费用")
+    @TableField("amount")
+    private BigDecimal amount;
 }

@@ -1,8 +1,9 @@
 package com.lzq.jsyy.msm.controller.api;
 
 
-import com.lzq.jsyy.msm.utils.RandomUtil;
+import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.msm.service.MsmService;
+import com.lzq.jsyy.msm.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;

@@ -1,5 +1,7 @@
 package com.lzq.jsyy.order.service;
 
+import com.lzq.jsyy.model.order.PaymentInfo;
+
 import java.util.Map;
 
 /**
@@ -18,18 +20,18 @@ public interface WechatService {
     /**
      * 查询订单状态
      *
-     * @param orderId
+     * @param outTradeNo
      * @return
      * @throws Exception
      */
-    Map<String, String> queryPayStatus(String orderId) throws Exception;
+    Map<String, String> queryPayStatus(String outTradeNo) throws Exception;
 
     /**
      * 微信退款
      *
-     * @param orderId
+     * @param paymentInfo
      * @return
      * @throws Exception
      */
-    Map<String, String> refund(String orderId) throws Exception;
+    Map<String, String> refund(PaymentInfo paymentInfo) throws Exception;
 }

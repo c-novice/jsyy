@@ -1,9 +1,10 @@
 package com.lzq.jsyy.cmn.controller.api;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lzq.jsyy.model.cmn.Permission;
-import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.cmn.service.PermissionService;
+import com.lzq.jsyy.common.result.Result;
+import com.lzq.jsyy.common.result.ResultCodeEnum;
+import com.lzq.jsyy.model.cmn.Permission;
 import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;

@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 /**
@@ -29,9 +28,13 @@ public class RefundInfo extends BaseEntity {
     @TableField("order_id")
     private String orderId;
 
-    @ApiModelProperty(value = "订单交易号")
+    @ApiModelProperty(value = "对外业务编号")
     @TableField("out_trade_no")
     private String outTradeNo;
+
+    @ApiModelProperty(value = "交易编号")
+    @TableField("trade_no")
+    private String tradeNo;
 
     @ApiModelProperty(value = "退款金额")
     @TableField("total_amount")

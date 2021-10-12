@@ -1,8 +1,8 @@
 package com.lzq.jsyy.msm.receiver;
 
 
-import com.lzq.jsyy.rabbit.constant.MqConst;
 import com.lzq.jsyy.msm.service.MsmService;
+import com.lzq.jsyy.rabbit.constant.MqConst;
 import com.lzq.jsyy.vo.msm.MsmVo;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;

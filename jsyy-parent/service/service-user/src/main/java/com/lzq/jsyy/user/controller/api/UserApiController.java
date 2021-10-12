@@ -1,7 +1,8 @@
 package com.lzq.jsyy.user.controller.api;
 
-import com.lzq.jsyy.model.user.User;
+import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
+import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.user.service.impl.UserServiceImpl;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;

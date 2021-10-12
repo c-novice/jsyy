@@ -2,10 +2,10 @@ package com.lzq.jsyy.order.controller.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lzq.jsyy.common.result.Result;
-import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
+import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.order.service.OrderInfoService;
-import com.lzq.jsyy.vo.order.OrderInfoQueryVO;
+import com.lzq.jsyy.vo.order.OrderInfoQueryVo;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class OrderInfoApiController {
 
     @ApiModelProperty(value = "分页条件查询预约订单")
     @GetMapping("/auth/{page}/{limit}")
-    public Result list(@PathVariable Long page, @PathVariable Long limit, OrderInfoQueryVO orderInfoQuery) {
+    public Result list(@PathVariable Long page, @PathVariable Long limit, OrderInfoQueryVo orderInfoQuery) {
         Page<OrderInfo> pageParam = new Page<>(page, limit);
         Page<OrderInfo> pageModel = orderInfoService.selectPage(pageParam, orderInfoQuery);
 
@@ -33,11 +33,11 @@ public class OrderInfoApiController {
     }
 
     @ApiModelProperty(value = "添加订单")
-    @PostMapping("/auth/add")
-    public Result add(OrderInfo orderInfo) {
-        Map<String, Object> map = orderInfoService.add(orderInfo);
+    @PostMapping("/auth/order")
+    public Result order(OrderInfoQueryVo orderInfoQuery) {
+        Map<String, Object> map = orderInfoService.add(orderInfoQuery);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(orderInfo, resultCodeEnum);
+        return Result.build(map.get("orderInfo"), resultCodeEnum);
     }
 
     @ApiModelProperty(value = "修改订单")
@@ -48,10 +48,10 @@ public class OrderInfoApiController {
         return Result.build(orderInfo, resultCodeEnum);
     }
 
-    @ApiModelProperty(value = "删除订单")
+    @ApiModelProperty(value = "删除订单记录")
     @DeleteMapping("/auth/delete")
-    public Result delete(String id) {
-        boolean delete = orderInfoService.delete(id);
+    public Result delete(String outTradeNo) {
+        boolean delete = orderInfoService.delete(outTradeNo);
         return delete ? Result.ok() : Result.fail();
     }
 }

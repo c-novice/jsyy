@@ -3,14 +3,14 @@ package com.lzq.jsyy.order.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lzq.jsyy.cmn.client.ScheduleFeignClient;
+import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.enums.OrderInfoStatusEnum;
 import com.lzq.jsyy.model.cmn.Schedule;
 import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.order.mapper.OrderInfoMapper;
-import com.lzq.jsyy.common.result.ResultCodeEnum;
-import com.lzq.jsyy.cmn.client.ScheduleFeignClient;
 import com.lzq.jsyy.order.service.OrderInfoService;
-import com.lzq.jsyy.vo.order.OrderInfoQueryVO;
+import com.lzq.jsyy.vo.order.OrderInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author lzq
@@ -29,15 +30,15 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     private ScheduleFeignClient scheduleFeignClient;
 
     @Override
-    public Page<OrderInfo> selectPage(Page<OrderInfo> pageParam, OrderInfoQueryVO orderInfoQuery) {
-        if (ObjectUtils.isEmpty(orderInfoQuery)) {
+    public Page<OrderInfo> selectPage(Page<OrderInfo> pageParam, OrderInfoQueryVo orderInfoQueryVo) {
+        if (ObjectUtils.isEmpty(orderInfoQueryVo)) {
             return null;
         }
-        String username = orderInfoQuery.getUsername();
-        String facilityId = orderInfoQuery.getFacilityId();
-        String roomId = orderInfoQuery.getRoomId();
-        String scheduleId = orderInfoQuery.getScheduleId();
-        String workDate = orderInfoQuery.getWorkDate();
+        String username = orderInfoQueryVo.getUsername();
+        String facilityId = orderInfoQueryVo.getFacilityId();
+        String roomId = orderInfoQueryVo.getRoomId();
+        Integer orderStatus = orderInfoQueryVo.getOrderStatus();
+        String workDate = orderInfoQueryVo.getWorkDate();
 
         QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(username)) {
@@ -49,44 +50,54 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         if (!StringUtils.isEmpty(roomId)) {
             wrapper.eq("room_id", roomId);
         }
-        if (!StringUtils.isEmpty(scheduleId)) {
-            wrapper.eq("schedule_id", scheduleId);
-        }
         if (!StringUtils.isEmpty(workDate)) {
             wrapper.eq("work_date", workDate);
         }
 
-        // 每次查询时检查是否过期
+        // 每次查询时检查是否过期，只检查可能作为查询结果的记录
         Page<OrderInfo> page = baseMapper.selectPage(pageParam, wrapper);
         for (int i = 0; i < page.getRecords().size(); ++i) {
-            Integer orderStatus = page.getRecords().get(i).getOrderStatus();
+            Integer orderStatus2 = page.getRecords().get(i).getOrderStatus();
             String beginTime = page.getRecords().get(i).getBeginTime();
             String endTime = page.getRecords().get(i).getEndTime();
-            if (updateOverTimeStatus(orderStatus, beginTime, endTime)) {
+            // 过期检测
+            if (updateOverTimeStatus(orderStatus2, beginTime, endTime)) {
                 page.getRecords().get(i).setOrderStatus(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
             }
         }
-        return page;
+
+        wrapper.eq("order_status", orderStatus);
+        return baseMapper.selectPage(pageParam, wrapper);
     }
 
     @Override
-    public Map<String, Object> add(OrderInfo orderInfo) {
+    public Map<String, Object> add(OrderInfoQueryVo orderInfoQueryVo) {
         Map<String, Object> map = new HashMap<>(1);
-        if (ObjectUtils.isEmpty(orderInfo)) {
+        if (ObjectUtils.isEmpty(orderInfoQueryVo)) {
             map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
             return map;
         }
 
         // 查找当前预约排班
-        Schedule schedule = scheduleFeignClient.getById(orderInfo.getScheduleId());
+        Schedule schedule = scheduleFeignClient.getById(orderInfoQueryVo.getScheduleId());
         if (ObjectUtils.isEmpty(schedule)) {
+            map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
+            return map;
+        }
+        // 判断当前时间是否满足在预约排班时间内
+        String currentTime = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
+        if (!StringUtils.isEmpty(schedule.getOpenDate()) || currentTime.compareTo(schedule.getOpenDate()) < 0) {
+            map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
+            return map;
+        }
+        if (!StringUtils.isEmpty(schedule.getCloseDate()) || currentTime.compareTo(schedule.getCloseDate()) > 0) {
             map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
             return map;
         }
 
         // 查找该预约排班的预约记录
         QueryWrapper<OrderInfo> wrapper2 = new QueryWrapper<>();
-        wrapper2.eq("schedule_id", orderInfo.getScheduleId());
+        wrapper2.eq("schedule_id", orderInfoQueryVo.getScheduleId());
         wrapper2.ne("order_status", OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
         Integer orderInfo2 = baseMapper.selectCount(wrapper2);
 
@@ -95,8 +106,22 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             return map;
         }
 
-        // 支付中
+        OrderInfo orderInfo = new OrderInfo();
+        // 设置查询条件信息
+        orderInfo.setUsername(orderInfoQueryVo.getUsername());
+        orderInfo.setFacilityId(orderInfoQueryVo.getFacilityId());
+        orderInfo.setScheduleId(orderInfoQueryVo.getScheduleId());
+        orderInfo.setRoomId(orderInfoQueryVo.getRoomId());
+        // 设置预约排班信息
+        orderInfo.setBeginTime(schedule.getBeginTime());
+        orderInfo.setEndTime(schedule.getEndTime());
+        orderInfo.setQuitTime(schedule.getQuitTime());
+        orderInfo.setAmount(schedule.getAmount());
+        // 设置订单交易号
+        orderInfo.setOutTradeNo(System.currentTimeMillis() + "" + new Random().nextInt(100));
+        // 设置订单状态为正在支付中
         orderInfo.setOrderStatus(OrderInfoStatusEnum.PAYING.getStatus());
+
         baseMapper.insert(orderInfo);
         map.put("state", ResultCodeEnum.SUCCESS);
         return map;
@@ -120,9 +145,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         // 查找该预约排班的预约记录
         QueryWrapper<OrderInfo> wrapper2 = new QueryWrapper<>();
-        wrapper2.eq("schedule_id", orderInfo.getScheduleId());
-        wrapper2.eq("username", orderInfo.getScheduleId());
-        wrapper2.ne("order_status", OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
+        wrapper2.eq("out_trade_no", orderInfo.getOutTradeNo());
         OrderInfo orderInfo2 = baseMapper.selectOne(wrapper2);
 
         // 只能修改支付中的订单
@@ -137,11 +160,13 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     }
 
     @Override
-    public boolean delete(String id) {
-        if (StringUtils.isEmpty(id)) {
+    public boolean delete(String outTradeNo) {
+        if (StringUtils.isEmpty(outTradeNo)) {
             return false;
         }
-        OrderInfo orderInfo = baseMapper.selectById(id);
+        QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("out_trade_no", outTradeNo);
+        OrderInfo orderInfo = baseMapper.selectOne(wrapper);
         if (ObjectUtils.isEmpty(orderInfo)) {
             return false;
         }
@@ -151,8 +176,20 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             return false;
         }
 
-        baseMapper.deleteById(id);
+        baseMapper.deleteById(orderInfo);
         return true;
+    }
+
+    @Override
+    public OrderInfo getByOutTradeNo(String outTradeNo) {
+        if (StringUtils.isEmpty(outTradeNo)) {
+            return null;
+        }
+
+        QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
+
+        wrapper.eq("out_trade_no", outTradeNo);
+        return baseMapper.selectOne(wrapper);
     }
 
     /**

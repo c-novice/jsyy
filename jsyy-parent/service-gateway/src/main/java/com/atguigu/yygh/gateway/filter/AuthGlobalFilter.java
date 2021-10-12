@@ -2,6 +2,7 @@ package com.atguigu.yygh.gateway.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lzq.jsyy.common.helper.JwtHelper;
+import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;

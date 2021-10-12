@@ -21,8 +21,9 @@ public interface RefundInfoService extends IService<RefundInfo> {
     /**
      * 申请退预约
      *
-     * @param id
+     * @param outTradeNo
      * @return
+     * @throws Exception
      */
-    boolean apply(String id) throws Exception;
+    boolean apply(String outTradeNo) throws Exception;
 }

@@ -23,17 +23,39 @@ public interface PaymentInfoService extends IService<PaymentInfo> {
     /**
      * 支付订单
      *
-     * @param paymentInfo
+     * @param orderId
      * @return
      * @throws Exception
      */
-    Map<String, Object> order(PaymentInfo paymentInfo) throws Exception;
+    Map<String, Object> pay(String orderId) throws Exception;
 
     /**
      * 取消支付
      *
-     * @param id
+     * @param outTradeNo
      * @return
      */
-    boolean cancel(String id);
+    boolean cancel(String outTradeNo);
+
+    /**
+     * 支付成功，修改订单记录
+     *
+     * @param outTradeNo
+     * @param resultMap
+     */
+    void success(String outTradeNo, Map<String, String> resultMap);
+
+    /**
+     * 根据对外业务编号查询订单
+     *
+     * @param outTradeNo
+     * @return
+     */
+    PaymentInfo getByOutTradeNo(String outTradeNo);
+
+    /**
+     * 设置订单失效
+     * @param outTradeNo
+     */
+    void loss(String outTradeNo);
 }

@@ -2,15 +2,19 @@ package com.lzq.jsyy.order.controller.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lzq.jsyy.common.result.Result;
+import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.order.PaymentInfo;
 import com.lzq.jsyy.order.service.PaymentInfoService;
-import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.order.service.WechatService;
 import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Map;
 
@@ -24,6 +28,9 @@ public class PaymentInfoApiController {
     @Autowired
     private WechatService wechatService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @ApiModelProperty(value = "分页条件查询支付记录")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, PaymentInfoQueryVo paymentInfoQuery) {
@@ -34,33 +41,37 @@ public class PaymentInfoApiController {
     }
 
     @ApiModelProperty(value = "支付订单")
-    @PostMapping("/auth/order")
-    public Result order(PaymentInfo paymentInfo) throws Exception {
-        Map<String, Object> map = paymentInfoService.order(paymentInfo);
+    @PostMapping("/auth/pay")
+    public Result pay(String orderId) throws Exception {
+        Map<String, Object> map = paymentInfoService.pay(orderId);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(paymentInfo, resultCodeEnum);
+        return Result.build(map.get("paymentInfo"), resultCodeEnum);
     }
 
     @ApiModelProperty(value = "取消支付")
     @PutMapping("/auth/cancel")
-    public Result cancel(String id) {
-        boolean cancel = paymentInfoService.cancel(id);
+    public Result cancel(String outTradeNo) {
+        boolean cancel = paymentInfoService.cancel(outTradeNo);
         return cancel ? Result.ok() : Result.fail();
     }
 
     @GetMapping("/auth/queryPayStatus")
-    public Result queryPayStatus(@PathVariable String orderId) throws Exception {
-        Map<String, String> resultMap = wechatService.queryPayStatus(orderId);
+    public Result queryPayStatus(String outTradeNo) throws Exception {
+        Map<String, String> resultMap = wechatService.queryPayStatus(outTradeNo);
         if (ObjectUtils.isEmpty(resultMap)) {
-            return Result.fail(ResultCodeEnum.PAY_ERROR);
+            return Result.fail();
         }
         if ("SUCCESS".equals(resultMap.get("trade_state"))) {
-            String outTradeNo = resultMap.get("out_trade_no");
-            // 更新支付状态、更新订单状态
-            paymentInfoService.paySuccess(outTradeNo, resultMap);
-            return Result.ok(ResultCodeEnum.PAY_SUCCESS);
+            // 支付成功，更新支付记录
+            paymentInfoService.success(outTradeNo, resultMap);
+            return Result.ok();
         }
-        return Result.ok(ResultCodeEnum.PAYING);
+        // 支付失败，若此时redis已过期，则更新订单状态
+        Map payMap = (Map) redisTemplate.opsForValue().get(outTradeNo);
+        if (!ObjectUtils.isEmpty(payMap)) {
+            paymentInfoService.loss(outTradeNo);
+        }
+        return Result.fail(ResultCodeEnum.PAYING);
     }
 
 }

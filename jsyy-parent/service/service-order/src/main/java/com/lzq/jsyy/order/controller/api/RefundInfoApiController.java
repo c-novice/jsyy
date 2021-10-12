@@ -7,7 +7,10 @@ import com.lzq.jsyy.order.service.RefundInfoService;
 import com.lzq.jsyy.vo.order.RefundInfoQueryVo;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author lzq
@@ -29,8 +32,8 @@ public class RefundInfoApiController {
 
     @ApiModelProperty(value = "退单申请")
     @GetMapping("/auth/apply")
-    public Result apply(String id) throws Exception {
-        boolean apply = refundInfoService.apply(id);
+    public Result apply(String outTradeNo) throws Exception {
+        boolean apply = refundInfoService.apply(outTradeNo);
         return apply ? Result.ok() : Result.fail();
     }
 }

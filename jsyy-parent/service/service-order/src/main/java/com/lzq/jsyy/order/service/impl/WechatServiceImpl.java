@@ -1,14 +1,10 @@
 package com.lzq.jsyy.order.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.model.order.PaymentInfo;
-import com.lzq.jsyy.model.order.RefundInfo;
 import com.lzq.jsyy.order.service.OrderInfoService;
-import com.lzq.jsyy.order.service.PaymentInfoService;
-import com.lzq.jsyy.order.service.RefundInfoService;
 import com.lzq.jsyy.order.service.WechatService;
 import com.lzq.jsyy.order.utils.ConstantPropertiesUtils;
 import com.lzq.jsyy.order.utils.HttpClient;
@@ -18,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -31,12 +26,6 @@ public class WechatServiceImpl implements WechatService {
 
     @Autowired
     private OrderInfoService orderInfoService;
-
-    @Autowired
-    private PaymentInfoService paymentInfoService;
-
-    @Autowired
-    private RefundInfoService refundInfoService;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -77,7 +66,7 @@ public class WechatServiceImpl implements WechatService {
         // 封装并返回结果
         payMap = new HashMap(10);
         payMap.put("orderId", orderId);
-        payMap.put("totalFee", orderInfo.getAmount());
+        payMap.put("totalFee", String.valueOf(orderInfo.getAmount()));
         payMap.put("resultCode", resultMap.get("result_code"));
         payMap.put("codeUrl", resultMap.get("code_url"));
 
@@ -91,12 +80,12 @@ public class WechatServiceImpl implements WechatService {
     /**
      * 查询微信订单状态
      *
-     * @param orderId
+     * @param outTradeNo
      * @return
      */
     @Override
-    public Map<String, String> queryPayStatus(String orderId) throws Exception {
-        OrderInfo orderInfo = orderInfoService.getById(orderId);
+    public Map<String, String> queryPayStatus(String outTradeNo) throws Exception {
+        OrderInfo orderInfo = orderInfoService.getByOutTradeNo(outTradeNo);
 
         Map paramMap = new HashMap<>(5);
         paramMap.put("appid", ConstantPropertiesUtils.APPID);
@@ -116,11 +105,11 @@ public class WechatServiceImpl implements WechatService {
     /**
      * 微信退款
      *
-     * @param orderId
+     * @param paymentInfo
      * @return
      */
     @Override
-    public Map<String, String> refund(String orderId) throws Exception {
+    public Map<String, String> refund(PaymentInfo paymentInfo) throws Exception {
         // 调用微信接口实现退款
         Map<String, String> paramMap = new HashMap<>(10);
         paramMap.put("appid", ConstantPropertiesUtils.APPID);
@@ -129,8 +118,8 @@ public class WechatServiceImpl implements WechatService {
         paramMap.put("transaction_id", paymentInfo.getTradeNo());
         paramMap.put("out_trade_no", paymentInfo.getOutTradeNo());
         paramMap.put("out_refund_no", "tk" + paymentInfo.getOutTradeNo());
-        paramMap.put("total_fee", "1");
-        paramMap.put("refund_fee", "1");
+        paramMap.put("total_fee", String.valueOf(paymentInfo.getTotalAmount()));
+        paramMap.put("refund_fee", String.valueOf(paymentInfo.getTotalAmount()));
         String paramXml = WXPayUtil.generateSignedXml(paramMap, ConstantPropertiesUtils.PARTNERKEY);
 
         HttpClient client = new HttpClient("https://api.mch.wechat.qq.com/secapi/pay/refund");
@@ -148,7 +137,6 @@ public class WechatServiceImpl implements WechatService {
         }
 
         return null;
-
     }
 }
 

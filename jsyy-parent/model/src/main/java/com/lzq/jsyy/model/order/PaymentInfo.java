@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 支付记录
@@ -27,9 +26,13 @@ public class PaymentInfo extends BaseEntity {
     @TableField("order_id")
     private String orderId;
 
-    @ApiModelProperty(value = "订单交易号")
+    @ApiModelProperty(value = "对外业务编号")
     @TableField("out_trade_no")
     private String outTradeNo;
+
+    @ApiModelProperty(value = "交易编号")
+    @TableField("trade_no")
+    private String tradeNo;
 
     @ApiModelProperty(value = "支付金额")
     @TableField("total_amount")
@@ -41,7 +44,7 @@ public class PaymentInfo extends BaseEntity {
 
     @ApiModelProperty(value = "回调时间")
     @TableField("callback_time")
-    private Date callbackTime;
+    private String callbackTime;
 
     @ApiModelProperty(value = "回调信息")
     @TableField("callback_content")
