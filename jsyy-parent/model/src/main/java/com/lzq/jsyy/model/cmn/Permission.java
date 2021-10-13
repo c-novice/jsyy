@@ -16,7 +16,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "权限类")
+@ApiModel(description = "权限实体类")
 @TableName("permission")
 @ToString
 public class Permission extends BaseEntity {

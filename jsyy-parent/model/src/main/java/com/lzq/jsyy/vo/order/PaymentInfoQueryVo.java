@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * @author lzq
  */
-@ApiModel(description = "支付记录条件查询")
+@ApiModel(description = "支付记录条件查询类")
 @Data
 @ToString
 public class PaymentInfoQueryVo {

@@ -6,6 +6,9 @@ import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Schedule;
 import com.lzq.jsyy.vo.cmn.ScheduleQueryVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -19,10 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/schedule")
+@Api(tags = "预约排班操作API")
 public class ScheduleApiController {
     @Autowired
     private ScheduleService scheduleService;
 
+    @ApiOperation(value = "分页条件查询")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, ScheduleQueryVo scheduleQueryVo) {
         Page<Schedule> pageParam = new Page<>(page, limit);
@@ -31,6 +36,7 @@ public class ScheduleApiController {
         return Result.ok(pageModel);
     }
 
+    @ApiOperation(value = "查询一个预约排班")
     @GetMapping("/auth/get")
     public Result get(ScheduleQueryVo scheduleQueryVo) {
         Schedule schedule = scheduleService.get(scheduleQueryVo);

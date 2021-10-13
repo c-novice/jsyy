@@ -18,7 +18,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "设施类")
+@ApiModel(description = "设施实体类")
 @TableName("facility")
 @ToString
 public class Facility extends BaseEntity {

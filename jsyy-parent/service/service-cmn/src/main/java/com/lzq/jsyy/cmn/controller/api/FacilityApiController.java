@@ -6,6 +6,9 @@ import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Facility;
 import com.lzq.jsyy.vo.cmn.FacilityQueryVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/facility")
+@Api(tags = "设施操作API")
 public class FacilityApiController {
     @Autowired
     private FacilityService facilityService;
 
+    @ApiOperation(value = "分页条件查询")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, FacilityQueryVo facilityQueryVo) {
         Page<Facility> pageParam = new Page<>(page, limit);
@@ -31,6 +36,7 @@ public class FacilityApiController {
         return Result.ok(pageModel);
     }
 
+    @ApiOperation(value = "查询一个设施")
     @GetMapping("/auth/get")
     public Result get(FacilityQueryVo facilityQueryVo) {
         Facility facility = facilityService.get(facilityQueryVo);

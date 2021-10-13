@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * @author lzq
  */
-@ApiModel(description = "退单记录条件查询")
+@ApiModel(description = "退单记录条件查询类")
 @Data
 @ToString
 public class RefundInfoQueryVo {

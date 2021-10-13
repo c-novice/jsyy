@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * 自定义全局异常类
@@ -13,10 +14,8 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(value = "自定义全局异常类")
+@ToString
 public class JsyyException extends RuntimeException {
-
-    @ApiModelProperty(value = "异常状态码")
     private Integer code;
 
     /**
@@ -38,13 +37,5 @@ public class JsyyException extends RuntimeException {
     public JsyyException(ResultCodeEnum resultCodeEnum) {
         super(resultCodeEnum.getMessage());
         this.code = resultCodeEnum.getCode();
-    }
-
-
-    @Override
-    public String toString() {
-        return "jsyyException{" +
-                "code=" + code +
-                '}';
     }
 }

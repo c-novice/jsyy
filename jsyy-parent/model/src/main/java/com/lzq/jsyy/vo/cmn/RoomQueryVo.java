@@ -9,7 +9,7 @@ import lombok.ToString;
  * @author lzq
  */
 @Data
-@ApiModel(description = "教室条件查询")
+@ApiModel(description = "教室条件查询类")
 @ToString
 public class RoomQueryVo {
     @ApiModelProperty(value = "设施编号")

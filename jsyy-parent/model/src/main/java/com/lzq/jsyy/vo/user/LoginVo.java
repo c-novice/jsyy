@@ -9,7 +9,7 @@ import lombok.ToString;
  * @author lzq
  */
 @Data
-@ApiModel(description = "登录对象")
+@ApiModel(description = "登录查询类")
 @ToString
 public class LoginVo {
 

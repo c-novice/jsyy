@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "校园账号")
+@ApiModel(description = "校园账号信息实体类")
 @Document("account")
 @ToString
 public class Account extends BaseMongoEntity {

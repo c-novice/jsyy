@@ -11,7 +11,7 @@ import java.util.Date;
  * @author lzq
  */
 @Data
-@ApiModel(description = "预约排班条件查询")
+@ApiModel(description = "预约排班条件查询类")
 @ToString
 public class ScheduleQueryVo {
     @ApiModelProperty(value = "教室编号")

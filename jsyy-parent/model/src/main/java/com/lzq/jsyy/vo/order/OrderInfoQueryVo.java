@@ -11,7 +11,7 @@ import lombok.ToString;
 /**
  * @author lzq
  */
-@ApiModel(description = "预约记录条件查询")
+@ApiModel(description = "订单条件查询类")
 @Data
 @ToString
 public class OrderInfoQueryVo {

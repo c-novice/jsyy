@@ -18,7 +18,7 @@ import java.math.BigDecimal;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "支付记录")
+@ApiModel(description = "支付记录实体类")
 @TableName("payment_info")
 @ToString
 public class PaymentInfo extends BaseEntity {

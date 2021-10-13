@@ -1,5 +1,6 @@
 package com.lzq.jsyy.model.base;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
@@ -18,6 +19,7 @@ import java.util.Map;
  */
 @Data
 @ToString
+@ApiModel("mongodb对象基类")
 public class BaseMongoEntity implements Serializable {
 
     @ApiModelProperty(value = "id")

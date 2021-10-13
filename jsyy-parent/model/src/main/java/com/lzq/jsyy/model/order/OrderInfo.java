@@ -19,7 +19,7 @@ import java.math.BigDecimal;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "预约订单")
+@ApiModel(description = "预约订单实体类")
 @TableName("order_info")
 @ToString
 public class OrderInfo extends BaseEntity {

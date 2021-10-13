@@ -1,5 +1,5 @@
-com\lzq\jsyy\helper\JwtHelper.class
-com\lzq\jsyy\result\Result.class
-com\lzq\jsyy\result\ResultCodeEnum.class
-com\lzq\jsyy\utils\AuthContextHolder.class
-com\lzq\jsyy\exception\jsyyException.class
+com\lzq\jsyy\common\result\Result.class
+com\lzq\jsyy\common\result\ResultCodeEnum.class
+com\lzq\jsyy\common\utils\AuthContextHolder.class
+com\lzq\jsyy\common\helper\JwtHelper.class
+com\lzq\jsyy\common\exception\JsyyException.class

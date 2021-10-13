@@ -9,7 +9,7 @@ import lombok.ToString;
  * @author lzq
  */
 @Data
-@ApiModel(description = "权限查询条件")
+@ApiModel(description = "权限查询条件类")
 @ToString
 public class PermissionQueryVo {
     @ApiModelProperty(value = "用户类型")

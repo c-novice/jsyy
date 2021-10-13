@@ -4,6 +4,8 @@ package com.lzq.jsyy.msm.controller.api;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.msm.service.MsmService;
 import com.lzq.jsyy.msm.utils.RandomUtil;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -19,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @RequestMapping("/api/msm")
+@ApiModel(description = "短信操作API")
 public class MsmApiController {
     @Autowired
     private MsmService msmService;
@@ -32,7 +35,8 @@ public class MsmApiController {
      * @param phone
      * @return
      */
-    @GetMapping("send/{phone}")
+    @ApiOperation(value = "发送手机验证码")
+    @GetMapping("/send/{phone}")
     public Result sendCode(@PathVariable String phone) {
         String code = redisTemplate.opsForValue().get(phone);
         if (!StringUtils.isEmpty(code)) {

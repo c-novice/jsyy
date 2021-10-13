@@ -17,7 +17,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "教室")
+@ApiModel(description = "教室实体类")
 @ToString
 public class Room extends BaseEntity {
     private static final long serialVersionUID = 1L;

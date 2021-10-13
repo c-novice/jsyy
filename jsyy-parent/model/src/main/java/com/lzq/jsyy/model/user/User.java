@@ -18,7 +18,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@ApiModel(description = "用户")
+@ApiModel(description = "用户实体类")
 @TableName("user")
 @ToString
 public class User extends BaseEntity {

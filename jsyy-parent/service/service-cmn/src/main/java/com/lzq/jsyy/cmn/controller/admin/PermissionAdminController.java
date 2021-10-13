@@ -6,6 +6,9 @@ import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Permission;
 import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +20,13 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/admin/cmn/permission")
+@RequestMapping("/admin/permission")
+@Api(tags = "权限后台管理端API")
 public class PermissionAdminController {
     @Autowired
     private PermissionService permissionService;
 
+    @ApiOperation(value = "分页条件查询")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, PermissionQueryVo permissionQueryVo) {
         Page<Permission> pageParam = new Page<>(page, limit);
@@ -30,6 +35,7 @@ public class PermissionAdminController {
         return Result.ok(pageModel);
     }
 
+    @ApiOperation(value = "添加权限")
     @PostMapping("/auth/add")
     public Result add(Permission permission) {
         Map<String, Object> map = permissionService.add(permission);
@@ -37,6 +43,7 @@ public class PermissionAdminController {
         return Result.build(permission, resultCodeEnum);
     }
 
+    @ApiOperation(value = "修改权限信息")
     @PutMapping("/auth/update")
     public Result update(Permission permission) {
         boolean update = permissionService.updateById(permission);
@@ -44,6 +51,7 @@ public class PermissionAdminController {
         return update ? Result.ok(permission) : Result.fail();
     }
 
+    @ApiOperation(value = "删除权限")
     @DeleteMapping("/auth/delete")
     public Result delete(String id) {
         boolean delete = permissionService.removeById(id);

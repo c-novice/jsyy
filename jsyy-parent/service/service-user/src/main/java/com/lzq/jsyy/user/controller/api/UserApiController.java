@@ -7,9 +7,13 @@ import com.lzq.jsyy.user.service.impl.UserServiceImpl;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -18,16 +22,14 @@ import java.util.Map;
  *
  * @author lzq
  */
+@RestController
+@RequestMapping("/api/user")
+@ApiModel(description = "用户操作API")
 public class UserApiController {
     @Autowired
     private UserServiceImpl userService;
 
-    /**
-     * 账号、密码登录
-     *
-     * @param loginVo
-     * @return
-     */
+    @ApiOperation(value = "账号、密码登录")
     @GetMapping("/loginByPassword")
     public Result loginByPassword(LoginVo loginVo) {
         Map<String, Object> map = userService.loginByPassword(loginVo);
@@ -36,12 +38,7 @@ public class UserApiController {
         return Result.build(map, resultCodeEnum);
     }
 
-    /**
-     * 手机号、验证码登录
-     *
-     * @param loginVo
-     * @return
-     */
+    @ApiOperation(value = "手机号、验证码登录")
     @GetMapping("/loginByCode")
     public Result loginByCode(LoginVo loginVo) {
         Map<String, Object> map = userService.loginByCode(loginVo);
@@ -50,6 +47,7 @@ public class UserApiController {
         return Result.build(map, resultCodeEnum);
     }
 
+    @ApiOperation(value = "用户注册")
     @GetMapping("/register")
     public Result register(RegisterVo registerVo) {
         Map<String, Object> map = userService.register(registerVo);
@@ -58,6 +56,7 @@ public class UserApiController {
         return Result.build(map, resultCodeEnum);
     }
 
+    @ApiOperation(value = "校园信息绑定")
     @GetMapping("/auth/binding")
     public Result binding(String userId, BindingVo bindingVo) {
         User user = userService.getUser(userId);
@@ -67,6 +66,7 @@ public class UserApiController {
         return Result.build(map, resultCodeEnum);
     }
 
+    @ApiOperation(value = "修改用户信息")
     @PutMapping("/auth/update")
     public Result update(User user) {
         boolean update = userService.updateById(user);

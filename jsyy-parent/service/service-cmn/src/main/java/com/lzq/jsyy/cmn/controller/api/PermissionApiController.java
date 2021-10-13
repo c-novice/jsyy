@@ -6,6 +6,9 @@ import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Permission;
 import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -18,10 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/permission")
+@Api(tags = "权限操作API")
 public class PermissionApiController {
     @Autowired
     private PermissionService permissionService;
 
+    @ApiOperation(value = "分页条件查询")
     @GetMapping("/auth/get")
     public Result get(PermissionQueryVo permissionVo) {
         Permission permission = permissionService.get(permissionVo);
@@ -33,6 +38,7 @@ public class PermissionApiController {
         }
     }
 
+    @ApiOperation(value = "根据用户类型获取默认权限")
     @GetMapping("/inner/getByType")
     public Permission getByType(String type) {
         if (StringUtils.isEmpty(type)) {

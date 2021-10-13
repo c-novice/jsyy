@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author lzq
  */
 @Data
-@ApiModel(description = "短信实体")
+@ApiModel(description = "短信实体类")
 @ToString
 public class MsmVo implements Serializable {
 

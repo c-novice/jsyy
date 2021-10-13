@@ -6,6 +6,7 @@ import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.vo.order.OrderInfoQueryVo;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/order")
+@ApiModel(description = "预约订单操作API")
 public class OrderInfoApiController {
     @Autowired
     private OrderInfoService orderInfoService;

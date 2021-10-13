@@ -17,7 +17,7 @@ import java.math.BigDecimal;
  * @author lzq
  */
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(description = "预约排班")
+@ApiModel(description = "预约排班实体类")
 @Data
 @ToString
 public class Schedule extends BaseEntity {

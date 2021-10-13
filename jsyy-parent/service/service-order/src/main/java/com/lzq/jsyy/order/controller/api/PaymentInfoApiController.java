@@ -7,20 +7,21 @@ import com.lzq.jsyy.model.order.PaymentInfo;
 import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.order.service.WechatService;
 import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 /**
  * @author lzq
  */
+@RestController
+@RequestMapping("/api/payment")
+@ApiModel(description = "支付操作API")
 public class PaymentInfoApiController {
     @Autowired
     private PaymentInfoService paymentInfoService;
@@ -55,6 +56,7 @@ public class PaymentInfoApiController {
         return cancel ? Result.ok() : Result.fail();
     }
 
+    @ApiModelProperty(value = "支付状态查询")
     @GetMapping("/auth/queryPayStatus")
     public Result queryPayStatus(String outTradeNo) throws Exception {
         Map<String, String> resultMap = wechatService.queryPayStatus(outTradeNo);

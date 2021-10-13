@@ -20,7 +20,7 @@ import java.math.BigDecimal;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "退单记录")
+@ApiModel(description = "退单记录实体类")
 @TableName("refund_info")
 @ToString
 public class RefundInfo extends BaseEntity {

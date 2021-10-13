@@ -5,6 +5,7 @@ import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.model.order.RefundInfo;
 import com.lzq.jsyy.order.service.RefundInfoService;
 import com.lzq.jsyy.vo.order.RefundInfoQueryVo;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lzq
  */
 @RestController
-@RequestMapping("/api/redund")
+@RequestMapping("/api/refund")
+@ApiModel(description = "退单操作API")
 public class RefundInfoApiController {
     @Autowired
     private RefundInfoService refundInfoService;
