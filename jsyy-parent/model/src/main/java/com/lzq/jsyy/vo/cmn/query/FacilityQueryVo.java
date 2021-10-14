@@ -1,4 +1,4 @@
-package com.lzq.jsyy.vo.cmn;
+package com.lzq.jsyy.vo.cmn.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class FacilityQueryVo {
     @ApiModelProperty(value = "设施编号")
-    private String facilityId;
+    private String id;
 
     @ApiModelProperty(value = "设施名称")
     private String name;

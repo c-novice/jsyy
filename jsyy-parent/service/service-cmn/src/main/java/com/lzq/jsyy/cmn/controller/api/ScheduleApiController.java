@@ -5,10 +5,8 @@ import com.lzq.jsyy.cmn.service.ScheduleService;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Schedule;
-import com.lzq.jsyy.vo.cmn.ScheduleQueryVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiOperation;
+import com.lzq.jsyy.vo.cmn.query.ScheduleQueryVo;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -16,6 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author lzq
@@ -27,6 +29,9 @@ public class ScheduleApiController {
     @Autowired
     private ScheduleService scheduleService;
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{records,total,size,current}")
+    })
     @ApiOperation(value = "分页条件查询")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, ScheduleQueryVo scheduleQueryVo) {
@@ -36,6 +41,9 @@ public class ScheduleApiController {
         return Result.ok(pageModel);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{schedule}")
+    })
     @ApiOperation(value = "查询一个预约排班")
     @GetMapping("/auth/get")
     public Result get(ScheduleQueryVo scheduleQueryVo) {
@@ -44,10 +52,14 @@ public class ScheduleApiController {
         if (ObjectUtils.isEmpty(schedule)) {
             return Result.fail(ResultCodeEnum.SCHEDULE_GET_ERROR);
         } else {
-            return Result.ok(schedule);
+            Map<String, Object> map = new HashMap<>(1);
+            map.put("schedule", schedule);
+            return Result.ok(map);
         }
     }
 
+    @ApiIgnore()
+    @ApiOperation("根据id查询一个预约排班")
     @GetMapping("/inner/gerById")
     public Schedule getById(String id) {
         if (!StringUtils.isEmpty(id)) {

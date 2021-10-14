@@ -6,7 +6,7 @@ import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
-import com.lzq.jsyy.vo.user.UserQueryVo;
+import com.lzq.jsyy.vo.user.query.UserQueryVo;
 
 import java.util.Map;
 

@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.math.BigDecimal;
 

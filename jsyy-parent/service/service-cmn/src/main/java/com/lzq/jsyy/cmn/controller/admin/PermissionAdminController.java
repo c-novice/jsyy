@@ -5,13 +5,14 @@ import com.lzq.jsyy.cmn.service.PermissionService;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Permission;
-import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiOperation;
+import com.lzq.jsyy.vo.cmn.add.PermissionAddVo;
+import com.lzq.jsyy.vo.cmn.query.PermissionQueryVo;
+import com.lzq.jsyy.vo.cmn.update.PermissionUpdateVo;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -26,6 +27,9 @@ public class PermissionAdminController {
     @Autowired
     private PermissionService permissionService;
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{records,total,size,current}")
+    })
     @ApiOperation(value = "分页条件查询")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, PermissionQueryVo permissionQueryVo) {
@@ -35,22 +39,43 @@ public class PermissionAdminController {
         return Result.ok(pageModel);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{permission}")
+    })
     @ApiOperation(value = "添加权限")
     @PostMapping("/auth/add")
-    public Result add(Permission permission) {
-        Map<String, Object> map = permissionService.add(permission);
+    public Result add(PermissionAddVo permissionAddVo) {
+        Map<String, Object> map = permissionService.add(permissionAddVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(permission, resultCodeEnum);
+        map.remove("state");
+        return Result.build(map, resultCodeEnum);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{permission}")
+    })
     @ApiOperation(value = "修改权限信息")
     @PutMapping("/auth/update")
-    public Result update(Permission permission) {
-        boolean update = permissionService.updateById(permission);
+    public Result update(PermissionUpdateVo permissionUpdateVo) {
+        Permission permission = new Permission();
+        permission.setType(permissionUpdateVo.getType());
+        permission.setFather(permissionUpdateVo.getFather());
+        permission.setName(permissionUpdateVo.getName());
+        permission.setId(permissionUpdateVo.getId());
 
-        return update ? Result.ok(permission) : Result.fail();
+        boolean update = permissionService.updateById(permission);
+        if (update) {
+            Map<String, Object> map = new HashMap<>(1);
+            map.put("permission", permission);
+            return Result.ok(map);
+        } else {
+            return Result.fail();
+        }
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{}")
+    })
     @ApiOperation(value = "删除权限")
     @DeleteMapping("/auth/delete")
     public Result delete(String id) {

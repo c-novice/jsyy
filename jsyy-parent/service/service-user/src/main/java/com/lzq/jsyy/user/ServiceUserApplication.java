@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = "com.lzq")
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 @EnableFeignClients(basePackages = "com.lzq")
 public class ServiceUserApplication {
     public static void main(String[] args) {

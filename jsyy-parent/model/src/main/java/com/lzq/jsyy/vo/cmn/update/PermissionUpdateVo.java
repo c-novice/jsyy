@@ -1,4 +1,4 @@
-package com.lzq.jsyy.vo.cmn;
+package com.lzq.jsyy.vo.cmn.update;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,9 +9,12 @@ import lombok.ToString;
  * @author lzq
  */
 @Data
-@ApiModel(description = "权限查询条件类")
 @ToString
-public class PermissionQueryVo {
+@ApiModel(description = "修改权限vo类")
+public class PermissionUpdateVo {
+    @ApiModelProperty(value = "id")
+    private String id;
+
     @ApiModelProperty(value = "用户类型")
     private String type;
 

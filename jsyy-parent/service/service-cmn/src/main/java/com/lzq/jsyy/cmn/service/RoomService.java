@@ -3,7 +3,9 @@ package com.lzq.jsyy.cmn.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lzq.jsyy.model.cmn.Room;
-import com.lzq.jsyy.vo.cmn.RoomQueryVo;
+import com.lzq.jsyy.vo.cmn.add.RoomAddVo;
+import com.lzq.jsyy.vo.cmn.query.RoomQueryVo;
+import com.lzq.jsyy.vo.cmn.update.RoomUpdateVo;
 
 import java.util.Map;
 
@@ -14,10 +16,10 @@ public interface RoomService extends IService<Room> {
     /**
      * 添加一个教室
      *
-     * @param room
+     * @param roomAddVo
      * @return
      */
-    Map<String, Object> add(Room room);
+    Map<String, Object> add(RoomAddVo roomAddVo);
 
     /**
      * 条件分页查询教室
@@ -31,10 +33,10 @@ public interface RoomService extends IService<Room> {
     /**
      * 修改一个教室
      *
-     * @param room
+     * @param roomUpdateVo
      * @return
      */
-    Map<String, Object> change(Room room);
+    Map<String, Object> change(RoomUpdateVo roomUpdateVo);
 
     /**
      * 获取一个教室

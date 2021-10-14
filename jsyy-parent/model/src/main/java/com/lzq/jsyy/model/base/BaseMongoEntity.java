@@ -4,8 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class BaseMongoEntity implements Serializable {
 
     @ApiModelProperty(value = "id")
-    @Id
+    @MongoId
     private String id;
 
     @ApiModelProperty(value = "创建时间")
@@ -34,8 +34,4 @@ public class BaseMongoEntity implements Serializable {
 
     @ApiModelProperty(value = "逻辑删除(1:已删除，0:未删除)")
     private Integer isDeleted;
-
-    @ApiModelProperty(value = "其他参数")
-    @Transient
-    private Map<String, Object> param = new HashMap<>();
 }

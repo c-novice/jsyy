@@ -7,11 +7,9 @@ import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Room;
 import com.lzq.jsyy.model.cmn.Schedule;
-import com.lzq.jsyy.vo.cmn.RoomQueryVo;
-import com.lzq.jsyy.vo.cmn.ScheduleQueryVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiOperation;
+import com.lzq.jsyy.vo.cmn.query.RoomQueryVo;
+import com.lzq.jsyy.vo.cmn.query.ScheduleQueryVo;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author lzq
  */
 @RestController
 @RequestMapping("/api/room")
-@Api(tags ="教室操作API")
+@Api(tags = "教室操作API")
 public class RoomApiController {
     @Autowired
     private RoomService roomService;
@@ -32,6 +33,9 @@ public class RoomApiController {
     @Autowired
     private ScheduleService scheduleService;
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{records,total,size,current}")
+    })
     @ApiOperation(value = "分页条件查询")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, RoomQueryVo roomQueryVo) {
@@ -41,6 +45,9 @@ public class RoomApiController {
         return Result.ok(pageModel);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{room}")
+    })
     @ApiOperation(value = "查询一个教室")
     @GetMapping("/auth/get")
     public Result get(RoomQueryVo roomQueryVo) {
@@ -54,7 +61,9 @@ public class RoomApiController {
             scheduleQueryVo.setRoomId(scheduleQueryVo.getRoomId());
 
             room.setSchedules(scheduleService.selectPage(pageParam, scheduleQueryVo).getRecords());
-            return Result.ok(room);
+            Map<String, Object> map = new HashMap<>(1);
+            map.put("room", room);
+            return Result.ok(map);
         }
     }
 

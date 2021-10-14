@@ -56,4 +56,6 @@ public class OrderInfoApiController {
         boolean delete = orderInfoService.delete(outTradeNo);
         return delete ? Result.ok() : Result.fail();
     }
+
+    // TODO 审批订单
 }

@@ -21,5 +21,4 @@ public class BindingVo {
 
     @ApiModelProperty(value = "校园通密码")
     private String password;
-
 }

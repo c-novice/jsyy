@@ -3,7 +3,8 @@ package com.lzq.jsyy.cmn.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lzq.jsyy.model.cmn.Permission;
-import com.lzq.jsyy.vo.cmn.PermissionQueryVo;
+import com.lzq.jsyy.vo.cmn.add.PermissionAddVo;
+import com.lzq.jsyy.vo.cmn.query.PermissionQueryVo;
 
 import java.util.Map;
 
@@ -23,16 +24,9 @@ public interface PermissionService extends IService<Permission> {
     /**
      * 添加一个权限
      *
-     * @param permission
+     * @param permissionAddVo
      * @return
      */
-    Map<String, Object> add(Permission permission);
+    Map<String, Object> add(PermissionAddVo permissionAddVo);
 
-    /**
-     * 获取权限
-     *
-     * @param permissionVo
-     * @return
-     */
-    Permission get(PermissionQueryVo permissionVo);
 }

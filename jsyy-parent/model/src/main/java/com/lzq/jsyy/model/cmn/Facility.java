@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -15,18 +16,14 @@ import java.util.List;
  * 设施
  *
  * @author lzq
+ * @author lzq
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "设施实体类")
 @TableName("facility")
 @ToString
 public class Facility extends BaseEntity {
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "设施编号")
-    @TableField("facility_id")
-    private String facilityId;
 
     @ApiModelProperty(value = "设施名称")
     @TableField("name")
@@ -36,7 +33,7 @@ public class Facility extends BaseEntity {
     @TableField("description")
     private String description;
 
-    @ApiModelProperty(value = "教室数")
+    @ApiModelProperty(value = "教室数量")
     @TableField(exist = false)
     private Integer roomCount;
 

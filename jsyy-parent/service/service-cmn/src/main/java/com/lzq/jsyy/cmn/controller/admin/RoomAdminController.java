@@ -5,10 +5,10 @@ import com.lzq.jsyy.cmn.service.RoomService;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Room;
-import com.lzq.jsyy.vo.cmn.RoomQueryVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiOperation;
+import com.lzq.jsyy.vo.cmn.add.RoomAddVo;
+import com.lzq.jsyy.vo.cmn.query.RoomQueryVo;
+import com.lzq.jsyy.vo.cmn.update.RoomUpdateVo;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +26,9 @@ public class RoomAdminController {
     @Autowired
     private RoomService roomService;
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{records,total,size,current}")
+    })
     @ApiOperation(value = "分页条件查询")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, RoomQueryVo roomQueryVo) {
@@ -35,22 +38,33 @@ public class RoomAdminController {
         return Result.ok(pageModel);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{room}")
+    })
     @ApiOperation(value = "添加教室")
     @PostMapping("/auth/add")
-    public Result add(Room room) {
-        Map<String, Object> map = roomService.add(room);
+    public Result add(RoomAddVo roomAddVo) {
+        Map<String, Object> map = roomService.add(roomAddVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(room, resultCodeEnum);
+        map.remove("state");
+        return Result.build(map, resultCodeEnum);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{room}")
+    })
     @ApiOperation(value = "修改教室信息")
     @PutMapping("/auth/update")
-    public Result update(Room room) {
-        Map<String, Object> map = roomService.change(room);
+    public Result update(RoomUpdateVo roomUpdateVo) {
+        Map<String, Object> map = roomService.change(roomUpdateVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(room, resultCodeEnum);
+        map.remove("state");
+        return Result.build(map, resultCodeEnum);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{}")
+    })
     @ApiOperation(value = "删除教室")
     @DeleteMapping("/auth/delete")
     public Result delete(String id) {

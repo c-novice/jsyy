@@ -14,7 +14,7 @@ import com.lzq.jsyy.user.service.UserService;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
-import com.lzq.jsyy.vo.user.UserQueryVo;
+import com.lzq.jsyy.vo.user.query.UserQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -43,7 +43,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Cacheable(value = "loginVo", keyGenerator = "keyGenerator")
     @Override
     public Map<String, Object> loginByPassword(LoginVo loginVo) {
-        Map<String, Object> map = new HashMap<>(2);
+        Map<String, Object> map = new HashMap<>(3);
 
         String username = loginVo.getUsername();
         String password = loginVo.getPassword();
@@ -153,7 +153,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         save(user);
         map.put("state", ResultCodeEnum.SUCCESS);
-
         return map;
     }
 
@@ -223,7 +222,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setPermission(permissionFeignClient.getByType(type).getName());
 
         user.setType(account.getType());
-        user.setAuth(true);
+        user.setIsAuth(1);
 
         map.put("state", ResultCodeEnum.SUCCESS);
         map.put("user", user);

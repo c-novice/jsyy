@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Room extends BaseEntity {
 
     @ApiModelProperty(value = "设施编号")
     @TableField("facility_id")
-    private String facility;
+    private String facilityId;
 
     @ApiModelProperty(value = "房间编号")
     @TableField("room_id")

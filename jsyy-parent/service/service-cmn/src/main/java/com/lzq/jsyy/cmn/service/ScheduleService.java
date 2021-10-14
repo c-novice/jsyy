@@ -3,7 +3,9 @@ package com.lzq.jsyy.cmn.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lzq.jsyy.model.cmn.Schedule;
-import com.lzq.jsyy.vo.cmn.ScheduleQueryVo;
+import com.lzq.jsyy.vo.cmn.add.ScheduleAddVo;
+import com.lzq.jsyy.vo.cmn.query.ScheduleQueryVo;
+import com.lzq.jsyy.vo.cmn.update.ScheduleUpdateVo;
 
 import java.util.Map;
 
@@ -23,18 +25,18 @@ public interface ScheduleService extends IService<Schedule> {
     /**
      * 添加预约排班
      *
-     * @param schedule
+     * @param scheduleAddVo
      * @return
      */
-    Map<String, Object> add(Schedule schedule);
+    Map<String, Object> add(ScheduleAddVo scheduleAddVo);
 
     /**
      * 修改预约排班
      *
-     * @param schedule
+     * @param scheduleUpdateVo
      * @return
      */
-    Map<String, Object> change(Schedule schedule);
+    Map<String, Object> change(ScheduleUpdateVo scheduleUpdateVo);
 
     /**
      * 获取预约信息

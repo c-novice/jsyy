@@ -1,5 +1,6 @@
 package com.lzq.jsyy.user.controller.api;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.user.User;
@@ -9,12 +10,15 @@ import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,33 +33,46 @@ public class UserApiController {
     @Autowired
     private UserServiceImpl userService;
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{user,token}")
+    })
     @ApiOperation(value = "账号、密码登录")
     @GetMapping("/loginByPassword")
     public Result loginByPassword(LoginVo loginVo) {
         Map<String, Object> map = userService.loginByPassword(loginVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-
+        map.remove("state");
         return Result.build(map, resultCodeEnum);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{user,token}")
+    })
     @ApiOperation(value = "手机号、验证码登录")
     @GetMapping("/loginByCode")
     public Result loginByCode(LoginVo loginVo) {
         Map<String, Object> map = userService.loginByCode(loginVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-
+        map.remove("state");
         return Result.build(map, resultCodeEnum);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{user}")
+    })
     @ApiOperation(value = "用户注册")
     @GetMapping("/register")
     public Result register(RegisterVo registerVo) {
         Map<String, Object> map = userService.register(registerVo);
 
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
+        map.remove("state");
         return Result.build(map, resultCodeEnum);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{user}")
+    })
     @ApiOperation(value = "校园信息绑定")
     @GetMapping("/auth/binding")
     public Result binding(String userId, BindingVo bindingVo) {
@@ -63,15 +80,24 @@ public class UserApiController {
         Map<String, Object> map = userService.binding(user, bindingVo);
 
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
+        map.remove("state");
         return Result.build(map, resultCodeEnum);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{user}")
+    })
     @ApiOperation(value = "修改用户信息")
     @PutMapping("/auth/update")
     public Result update(User user) {
         boolean update = userService.updateById(user);
-
-        return update ? Result.ok() : Result.build(user, ResultCodeEnum.USER_REPEAT);
+        if (update) {
+            Map<String, Object> map = new HashMap<>(1);
+            map.put("user", userService.getUser(user.getId()));
+            return Result.ok(map);
+        } else {
+            return Result.fail(ResultCodeEnum.USER_REPEAT);
+        }
     }
 
 }

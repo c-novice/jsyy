@@ -1,4 +1,4 @@
-package com.lzq.jsyy.vo.user;
+package com.lzq.jsyy.vo.user.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

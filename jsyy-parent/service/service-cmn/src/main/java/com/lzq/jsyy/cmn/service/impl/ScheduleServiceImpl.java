@@ -8,7 +8,9 @@ import com.lzq.jsyy.cmn.mapper.ScheduleMapper;
 import com.lzq.jsyy.cmn.service.ScheduleService;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Schedule;
-import com.lzq.jsyy.vo.cmn.ScheduleQueryVo;
+import com.lzq.jsyy.vo.cmn.add.ScheduleAddVo;
+import com.lzq.jsyy.vo.cmn.query.ScheduleQueryVo;
+import com.lzq.jsyy.vo.cmn.update.ScheduleUpdateVo;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -18,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * @author lzq
  */
@@ -26,12 +29,13 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<Schedule> selectPage(Page<Schedule> pageParam, ScheduleQueryVo scheduleQueryVo) {
-        if (StringUtils.isEmpty(scheduleQueryVo)) {
+        if (ObjectUtils.isEmpty(scheduleQueryVo)) {
             return null;
         }
 
         String roomId = scheduleQueryVo.getRoomId();
         Date workDate = scheduleQueryVo.getWorkDate();
+        String id = scheduleQueryVo.getId();
 
         QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(roomId)) {
@@ -40,6 +44,9 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         if (!StringUtils.isEmpty(workDate)) {
             wrapper.eq("work_date", workDate);
         }
+        if (!StringUtils.isEmpty(id)) {
+            wrapper.eq("id", id);
+        }
 
         Page<Schedule> page = baseMapper.selectPage(pageParam, wrapper);
 
@@ -47,19 +54,18 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     }
 
     @Override
-    public Map<String, Object> add(Schedule schedule) {
+    public Map<String, Object> add(ScheduleAddVo scheduleAddVo) {
         Map<String, Object> map = new HashMap<>(1);
 
-        if (StringUtils.isEmpty(schedule)) {
+        if (ObjectUtils.isEmpty(scheduleAddVo)) {
             map.put("state", ResultCodeEnum.SCHEDULE_ADD_ERROR);
             return map;
         }
 
         // 判断时间段是否已被占据
-        String workDate = schedule.getWorkDate();
-        String beginTime = schedule.getBeginTime();
-        String endTime = schedule.getEndTime();
-        String id = schedule.getId();
+        String workDate = scheduleAddVo.getWorkDate();
+        String beginTime = scheduleAddVo.getBeginTime();
+        String endTime = scheduleAddVo.getEndTime();
 
         QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(workDate)) {
@@ -71,12 +77,22 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         if (!StringUtils.isEmpty(endTime)) {
             wrapper.le("end_time", endTime);
         }
-        wrapper.ne("id", id);
 
         Schedule schedule1 = baseMapper.selectOne(wrapper);
 
         if (StringUtils.isEmpty(schedule1)) {
             map.put("state", ResultCodeEnum.SUCCESS);
+            Schedule schedule = new Schedule();
+            schedule.setRoomId(scheduleAddVo.getRoomId());
+            schedule.setOpenDate(scheduleAddVo.getOpenDate());
+            schedule.setCloseDate(scheduleAddVo.getCloseDate());
+            schedule.setWorkDate(workDate);
+            schedule.setBeginTime(beginTime);
+            schedule.setEndTime(endTime);
+            schedule.setQuitTime(scheduleAddVo.getQuitTime());
+            schedule.setAmount(scheduleAddVo.getAmount());
+
+            map.put("schedule", schedule);
             baseMapper.insert(schedule);
         } else {
             map.put("state", ResultCodeEnum.SCHEDULE_ADD_ERROR);
@@ -86,19 +102,19 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     }
 
     @Override
-    public Map<String, Object> change(Schedule schedule) {
+    public Map<String, Object> change(ScheduleUpdateVo scheduleUpdateVo) {
         Map<String, Object> map = new HashMap<>(1);
 
-        if (StringUtils.isEmpty(schedule)) {
+        if (ObjectUtils.isEmpty(scheduleUpdateVo)) {
             map.put("state", ResultCodeEnum.SCHEDULE_CHANGE_ERROR);
             return map;
         }
 
         // 判断时间段是否已被占据
-        String workDate = schedule.getWorkDate();
-        String beginTime = schedule.getBeginTime();
-        String endTime = schedule.getEndTime();
-        String id = schedule.getId();
+        String workDate = scheduleUpdateVo.getWorkDate();
+        String beginTime = scheduleUpdateVo.getBeginTime();
+        String endTime = scheduleUpdateVo.getEndTime();
+        String id = scheduleUpdateVo.getId();
 
         QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(workDate)) {
@@ -116,6 +132,17 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
 
         if (StringUtils.isEmpty(schedule1)) {
             map.put("state", ResultCodeEnum.SUCCESS);
+            Schedule schedule = new Schedule();
+            schedule.setRoomId(scheduleUpdateVo.getRoomId());
+            schedule.setOpenDate(scheduleUpdateVo.getOpenDate());
+            schedule.setCloseDate(scheduleUpdateVo.getCloseDate());
+            schedule.setWorkDate(workDate);
+            schedule.setBeginTime(beginTime);
+            schedule.setEndTime(endTime);
+            schedule.setQuitTime(scheduleUpdateVo.getQuitTime());
+            schedule.setAmount(scheduleUpdateVo.getAmount());
+
+            map.put("schedule", schedule);
             baseMapper.updateById(schedule);
         } else {
             map.put("state", ResultCodeEnum.SCHEDULE_CHANGE_ERROR);
@@ -131,10 +158,21 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
             return null;
         }
 
-        String scheduleId = scheduleQueryVo.getScheduleId();
-        QueryWrapper<Schedule> query = new QueryWrapper<>();
-        query.eq("schedule_id", scheduleId);
+        String roomId = scheduleQueryVo.getRoomId();
+        Date workDate = scheduleQueryVo.getWorkDate();
+        String id = scheduleQueryVo.getId();
 
-        return baseMapper.selectOne(query);
+        QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(roomId)) {
+            wrapper.eq("room_id", roomId);
+        }
+        if (!StringUtils.isEmpty(workDate)) {
+            wrapper.eq("work_date", workDate);
+        }
+        if (!StringUtils.isEmpty(id)) {
+            wrapper.eq("id", id);
+        }
+
+        return baseMapper.selectOne(wrapper);
     }
 }

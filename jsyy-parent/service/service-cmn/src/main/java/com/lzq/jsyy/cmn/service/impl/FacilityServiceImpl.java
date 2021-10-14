@@ -9,11 +9,14 @@ import com.lzq.jsyy.cmn.service.RoomService;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Facility;
 import com.lzq.jsyy.model.cmn.Room;
-import com.lzq.jsyy.vo.cmn.FacilityQueryVo;
-import com.lzq.jsyy.vo.cmn.RoomQueryVo;
+import com.lzq.jsyy.vo.cmn.add.FacilityAddVo;
+import com.lzq.jsyy.vo.cmn.query.FacilityQueryVo;
+import com.lzq.jsyy.vo.cmn.update.FacilityUpdateVo;
+import com.lzq.jsyy.vo.cmn.query.RoomQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -30,16 +33,16 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
     @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<Facility> selectPage(Page<Facility> pageParam, FacilityQueryVo facilityQueryVo) {
-        if (StringUtils.isEmpty(facilityQueryVo)) {
+        if (ObjectUtils.isEmpty(facilityQueryVo)) {
             return null;
         }
 
-        String facilityId = facilityQueryVo.getFacilityId();
+        String id = facilityQueryVo.getId();
         String name = facilityQueryVo.getName();
 
         QueryWrapper<Facility> wrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(facilityId)) {
-            wrapper.eq("facility_id", facilityId);
+        if (!StringUtils.isEmpty(id)) {
+            wrapper.eq("id", id);
         }
         if (!StringUtils.isEmpty(name)) {
             wrapper.like("name", name);
@@ -51,80 +54,65 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
         for (int i = 0; i < page.getRecords().size(); i++) {
             Facility facility = page.getRecords().get(i);
             RoomQueryVo roomQueryVo = new RoomQueryVo();
-            roomQueryVo.setFacilityId(facility.getFacilityId());
+            roomQueryVo.setFacilityId(facility.getId());
             facility.setRooms(roomService.selectPage(pageParam2, roomQueryVo).getRecords());
-            facility.setRoomCount(roomService.count(facility.getFacilityId()));
+            facility.setRoomCount(roomService.count(facility.getId()));
         }
         return page;
     }
 
     @Override
-    public Map<String, Object> add(Facility facility) {
+    public Map<String, Object> add(FacilityAddVo facilityAddVo) {
         Map<String, Object> map = new HashMap<>(1);
-        if (StringUtils.isEmpty(facility)) {
+        if (ObjectUtils.isEmpty(facilityAddVo)) {
             map.put("state", ResultCodeEnum.FACILITY_ADD_ERROR);
             return map;
         }
 
-        String facilityId = facility.getFacilityId();
-        String name = facility.getName();
-        String id = facility.getId();
+        String name = facilityAddVo.getName();
+        String description = facilityAddVo.getDescription();
 
-        QueryWrapper<Facility> wrapper1 = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(facilityId)) {
-            wrapper1.eq("facility_id", facilityId);
-        }
-        Facility facility1 = baseMapper.selectOne(wrapper1);
-        if (!StringUtils.isEmpty(facility1)) {
-            map.put("state", ResultCodeEnum.FACILITY_ADD_ERROR);
-            return map;
-        }
-        wrapper1.ne("id", id);
-
-        QueryWrapper<Facility> wrapper2 = new QueryWrapper<>();
+        QueryWrapper<Facility> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(name)) {
-            wrapper1.eq("name", name);
+            wrapper.eq("name", name);
         }
-        Facility facility2 = baseMapper.selectOne(wrapper2);
-        if (!StringUtils.isEmpty(facility2)) {
+        Facility facility = baseMapper.selectOne(wrapper);
+        if (!StringUtils.isEmpty(facility)) {
             map.put("state", ResultCodeEnum.FACILITY_ADD_ERROR);
             return map;
         }
-        wrapper2.ne("id", id);
 
-        baseMapper.insert(facility);
+        Facility facility2 = new Facility();
+        facility2.setName(name);
+        facility2.setDescription(description);
+        baseMapper.insert(facility2);
         map.put("state", ResultCodeEnum.SUCCESS);
+        map.put("facility", baseMapper.selectById(facility2));
         return map;
     }
 
     @Override
-    public Map<String, Object> change(Facility facility) {
+    public Map<String, Object> change(FacilityUpdateVo facilityUpdateVo) {
         Map<String, Object> map = new HashMap<>(1);
+        if (ObjectUtils.isEmpty(facilityUpdateVo)) {
+            map.put("state", ResultCodeEnum.FACILITY_CHANGE_ERROR);
+            return map;
+        }
+
+        String id = facilityUpdateVo.getId();
+
+        if (StringUtils.isEmpty(id)) {
+            map.put("state", ResultCodeEnum.FACILITY_CHANGE_ERROR);
+            return map;
+        }
+        Facility facility = baseMapper.selectById(id);
         if (StringUtils.isEmpty(facility)) {
             map.put("state", ResultCodeEnum.FACILITY_CHANGE_ERROR);
             return map;
         }
 
-        String facilityId = facility.getFacilityId();
-        String name = facility.getName();
-        String id = facility.getId();
-
-        QueryWrapper<Facility> wrapper1 = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(facilityId)) {
-            wrapper1.eq("facility_id", facilityId);
-        }
-        Facility facility1 = baseMapper.selectOne(wrapper1);
-        if (!StringUtils.isEmpty(facility1)) {
-            map.put("state", ResultCodeEnum.FACILITY_CHANGE_ERROR);
-            return map;
-        }
-        wrapper1.ne("id", id);
-
-        QueryWrapper<Facility> wrapper2 = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(name)) {
-            wrapper1.eq("name", name);
-        }
-        wrapper2.ne("id", id);
+        facility.setDescription(facilityUpdateVo.getDescription());
+        facility.setName(facilityUpdateVo.getName());
 
         baseMapper.updateById(facility);
         map.put("state", ResultCodeEnum.SUCCESS);
@@ -134,27 +122,27 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
     @Cacheable(value = "get", keyGenerator = "keyGenerator")
     @Override
     public Facility get(FacilityQueryVo facilityQueryVo) {
-        if (StringUtils.isEmpty(facilityQueryVo)) {
+        if (ObjectUtils.isEmpty(facilityQueryVo)) {
             return null;
         }
 
-        String facilityId = facilityQueryVo.getFacilityId();
+        String id = facilityQueryVo.getId();
 
-        QueryWrapper<Facility> wrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(facilityId)) {
-            wrapper.eq("facility_id", facilityId);
+        if (!StringUtils.isEmpty(id)) {
+            return null;
         }
-        Facility facility = baseMapper.selectOne(wrapper);
+        Facility facility = baseMapper.selectById(id);
         if (StringUtils.isEmpty(facility)) {
             return null;
         }
 
         Page<Room> pageParam = new Page<>(1, Integer.MAX_VALUE);
         RoomQueryVo roomQueryVo = new RoomQueryVo();
-        roomQueryVo.setFacilityId(facility.getFacilityId());
+        roomQueryVo.setFacilityId(id);
 
         facility.setRooms(roomService.selectPage(pageParam, roomQueryVo).getRecords());
-        facility.setRoomCount(roomService.count(facility.getFacilityId()));
+        facility.setRoomCount(roomService.count(id));
+
         return facility;
     }
 }

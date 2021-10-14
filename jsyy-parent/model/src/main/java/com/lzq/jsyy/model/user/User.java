@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 用户
@@ -53,7 +54,7 @@ public class User extends BaseEntity {
 
     @ApiModelProperty(value = "是否认证")
     @TableField("is_auth")
-    private boolean isAuth;
+    private Integer isAuth;
 
     public User(String username, String password) {
         this.username = username;

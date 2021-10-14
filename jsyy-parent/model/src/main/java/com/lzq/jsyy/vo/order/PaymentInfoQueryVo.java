@@ -20,5 +20,4 @@ public class PaymentInfoQueryVo {
 
     @ApiModelProperty(value = "回调时间")
     private String callbackTime;
-
 }

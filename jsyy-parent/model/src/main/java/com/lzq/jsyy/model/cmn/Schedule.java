@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.math.BigDecimal;
 
@@ -27,19 +28,19 @@ public class Schedule extends BaseEntity {
     @TableField("room_id")
     private String roomId;
 
-    @ApiModelProperty(value = "预约编号")
-    private String scheduleId;
-
     @ApiModelProperty(value = "开放预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @TableField("open_date")
     private String openDate;
 
     @ApiModelProperty(value = "截止预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @TableField("close_date")
     private String closeDate;
 
     @ApiModelProperty(value = "预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @TableField("work_date")
     private String workDate;
 
     @ApiModelProperty(value = "预约开始时间")
