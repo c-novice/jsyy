@@ -39,4 +39,8 @@ public class OrderInfoQueryVo {
     @ApiModelProperty(value = "最后一个审批人的用户名")
     @TableField("last_pending_username")
     private String lastPendingUsername;
+
+    @ApiModelProperty(value = "该预约订单的最高级审批权限")
+    @TableField("last_pending_permission")
+    private String lastPendingPermission;
 }

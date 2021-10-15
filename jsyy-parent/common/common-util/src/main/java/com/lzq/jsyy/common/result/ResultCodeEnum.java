@@ -45,7 +45,8 @@ public enum ResultCodeEnum {
     PAYMENT_ADD_ERROR(233, "账单添加失败"),
     PAY_SUCCESS(234, "支付成功"),
     PAYING(235, "支付中"),
-    PAY_ERROR(236, "支付失败");
+    PAY_ERROR(236, "支付失败"),
+    PENDING_ERROR(237, "审批失败");
 
     private final Integer code;
     private final String message;

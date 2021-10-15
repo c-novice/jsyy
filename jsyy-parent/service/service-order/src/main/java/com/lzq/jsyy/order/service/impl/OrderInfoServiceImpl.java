@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzq.jsyy.cmn.client.PermissionFeignClient;
 import com.lzq.jsyy.cmn.client.ScheduleFeignClient;
 import com.lzq.jsyy.common.exception.JsyyException;
+import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.enums.OrderInfoStatusEnum;
 import com.lzq.jsyy.model.cmn.Schedule;
@@ -58,6 +59,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         Integer orderStatus = orderInfoQueryVo.getOrderStatus();
         String workDate = orderInfoQueryVo.getWorkDate();
         String lastPendingUsername = orderInfoQueryVo.getLastPendingUsername();
+        String lastPendingPermission = orderInfoQueryVo.getLastPendingPermission();
 
         QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(username)) {
@@ -74,6 +76,9 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
         if (!StringUtils.isEmpty(lastPendingUsername)) {
             wrapper.eq("last_pending_username", lastPendingUsername);
+        }
+        if (!StringUtils.isEmpty(lastPendingPermission)) {
+            wrapper.eq("last_pending_permission", lastPendingPermission);
         }
 
         // 每次查询时检查是否过期，只检查可能作为查询结果的记录
@@ -136,6 +141,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderInfo.setFacilityId(orderInfoAddVo.getFacilityId());
         orderInfo.setScheduleId(orderInfoAddVo.getScheduleId());
         orderInfo.setRoomId(orderInfoAddVo.getRoomId());
+        orderInfo.setLastPendingPermission(orderInfoAddVo.getLastPendingPermission());
         // 设置预约排班信息
         orderInfo.setBeginTime(schedule.getBeginTime());
         orderInfo.setEndTime(schedule.getEndTime());
@@ -221,6 +227,33 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
 
         return baseMapper.selectPage(pageParam, wrapper);
+    }
+
+    @Override
+    public Map<String, Object> pending(String username, String outTradeNo) {
+        Map<String, Object> map = new HashMap<>(2);
+        if (StringUtils.isEmpty(outTradeNo)) {
+            map.put("state", ResultCodeEnum.PENDING_ERROR);
+            return map;
+        }
+        // 获取订单
+        OrderInfo orderInfo = getByOutTradeNo(outTradeNo);
+        if (ObjectUtils.isEmpty(orderInfo) || !orderInfo.getOrderStatus().equals(OrderInfoStatusEnum.PENDING.getStatus())) {
+            map.put("state", ResultCodeEnum.PENDING_ERROR);
+            return map;
+        }
+        // 设置订单状态
+        orderInfo.setLastPendingUsername(username);
+        // 当前用户权限等于订单最终权限时，审批结束
+        // 获取用户权限
+        String permissionName = userFeignClient.getPermissionByUsername(username);
+        if (orderInfo.getLastPendingUsername().equals(permissionName)) {
+            orderInfo.setOrderStatus(OrderInfoStatusEnum.ORDERED.getStatus());
+            baseMapper.updateById(orderInfo);
+        }
+        map.put("orderInfo", orderInfo);
+        map.put("state", ResultCodeEnum.SUCCESS);
+        return map;
     }
 
     /**

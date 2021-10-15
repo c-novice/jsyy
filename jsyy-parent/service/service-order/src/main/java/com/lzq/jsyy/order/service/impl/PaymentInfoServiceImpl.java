@@ -14,6 +14,7 @@ import com.lzq.jsyy.order.mapper.PaymentInfoMapper;
 import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.order.service.WechatService;
+import com.lzq.jsyy.user.client.UserFeignClient;
 import com.lzq.jsyy.vo.order.query.PaymentInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -36,6 +37,9 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
 
     @Autowired
     private WechatService wechatService;
+
+    @Autowired
+    private UserFeignClient userFeignClient;
 
     @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
@@ -147,6 +151,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         return true;
     }
 
+    @Transactional(rollbackFor = JsyyException.class)
     @Override
     public void success(String outTradeNo, Map<String, String> resultMap) {
         // 更新支付记录
@@ -162,7 +167,14 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
 
         // 更新订单记录
         OrderInfo orderInfo = orderInfoService.getById(paymentInfo.getOrderId());
-        orderInfo.setOrderStatus(OrderInfoStatusEnum.ORDERED.getStatus());
+        // 当订单下一审批权限不存在或最终权限等于用户权限时直接设置为预约成功
+        // 获取用户权限
+        String permissionName = userFeignClient.getPermissionByUsername(orderInfo.getUsername());
+        if (StringUtils.isEmpty(orderInfo.getNextNeedPermission()) || orderInfo.getLastPendingPermission().equals(permissionName)) {
+            orderInfo.setOrderStatus(OrderInfoStatusEnum.ORDERED.getStatus());
+        } else {
+            orderInfo.setOrderStatus(OrderInfoStatusEnum.PENDING.getStatus());
+        }
         orderInfoService.updateById(orderInfo);
     }
 

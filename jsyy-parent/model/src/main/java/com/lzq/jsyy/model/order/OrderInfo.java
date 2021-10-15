@@ -79,4 +79,8 @@ public class OrderInfo extends BaseEntity {
     @ApiModelProperty(value = "下一个审批人应具有的权限")
     @TableField("next_need_permission")
     private String nextNeedPermission;
+
+    @ApiModelProperty(value = "该预约订单的最高级审批权限")
+    @TableField("last_pending_permission")
+    private String lastPendingPermission;
 }

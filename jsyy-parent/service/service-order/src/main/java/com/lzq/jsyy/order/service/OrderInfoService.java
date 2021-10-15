@@ -54,4 +54,13 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * @return
      */
     Page<OrderInfo> selectPendingOrder(Page<OrderInfo> pageParam, String PermissionName);
+
+    /**
+     * 审批订单
+     *
+     * @param username
+     * @param outTradeNo
+     * @return
+     */
+    Map<String, Object> pending(String username, String outTradeNo);
 }

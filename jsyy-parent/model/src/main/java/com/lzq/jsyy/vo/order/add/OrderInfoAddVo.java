@@ -31,4 +31,8 @@ public class OrderInfoAddVo {
     @ApiModelProperty(value = "预约排班编号")
     @TableField("schedule_id")
     private String scheduleId;
+
+    @ApiModelProperty(value = "该预约订单的最高级审批权限")
+    @TableField("last_pending_permission")
+    private String lastPendingPermission;
 }
