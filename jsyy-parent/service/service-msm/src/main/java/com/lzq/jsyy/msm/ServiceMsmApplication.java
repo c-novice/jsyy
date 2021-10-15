@@ -15,9 +15,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.lzq"})
-@EnableCaching
-@EnableFeignClients(basePackages = "com.lzq")
-@EnableTransactionManagement
 public class ServiceMsmApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceMsmApplication.class, args);
