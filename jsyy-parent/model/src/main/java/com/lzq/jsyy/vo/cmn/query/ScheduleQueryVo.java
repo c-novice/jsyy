@@ -1,5 +1,6 @@
 package com.lzq.jsyy.vo.cmn.query;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,5 +22,6 @@ public class ScheduleQueryVo {
     private String roomId;
 
     @ApiModelProperty("预约日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date workDate;
 }

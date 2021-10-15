@@ -6,6 +6,7 @@ import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
+import com.lzq.jsyy.vo.user.add.UserAddVo;
 import com.lzq.jsyy.vo.user.query.UserQueryVo;
 
 import java.util.Map;
@@ -42,9 +43,10 @@ public interface UserService extends IService<User> {
     /**
      * 添加用户
      *
-     * @param user@return
+     * @param userAddVo
+     * @return
      */
-    Map<String, Object> add(User user);
+    Map<String, Object> add(UserAddVo userAddVo);
 
     /**
      * 注册

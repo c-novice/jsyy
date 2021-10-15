@@ -5,9 +5,11 @@ import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.order.service.OrderInfoService;
-import com.lzq.jsyy.vo.order.OrderInfoQueryVo;
+import com.lzq.jsyy.vo.order.add.OrderInfoAddVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,29 +27,28 @@ public class OrderInfoApiController {
     @Autowired
     private OrderInfoService orderInfoService;
 
-    @ApiModelProperty(value = "分页条件查询预约订单")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{records,total,size,current}")
+    })
+    @ApiModelProperty(value = "查看待处理的预约订单")
     @GetMapping("/auth/{page}/{limit}")
-    public Result list(@PathVariable Long page, @PathVariable Long limit, OrderInfoQueryVo orderInfoQuery) {
+    public Result list(@PathVariable Long page, @PathVariable Long limit, String permissionName) {
         Page<OrderInfo> pageParam = new Page<>(page, limit);
-        Page<OrderInfo> pageModel = orderInfoService.selectPage(pageParam, orderInfoQuery);
+        Page<OrderInfo> pageModel = orderInfoService.selectPendingOrder(pageParam, permissionName);
 
         return Result.ok(pageModel);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{orderInfo}")
+    })
     @ApiModelProperty(value = "添加订单")
     @PostMapping("/auth/order")
-    public Result order(OrderInfoQueryVo orderInfoQuery) {
-        Map<String, Object> map = orderInfoService.add(orderInfoQuery);
+    public Result order(OrderInfoAddVo orderInfoAddVo) {
+        Map<String, Object> map = orderInfoService.add(orderInfoAddVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(map.get("orderInfo"), resultCodeEnum);
-    }
-
-    @ApiModelProperty(value = "修改订单")
-    @PutMapping("/auth/update")
-    public Result update(OrderInfo orderInfo) {
-        Map<String, Object> map = orderInfoService.change(orderInfo);
-        ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(orderInfo, resultCodeEnum);
+        map.remove("state");
+        return Result.build(map, resultCodeEnum);
     }
 
     @ApiModelProperty(value = "删除订单记录")

@@ -14,6 +14,7 @@ import com.lzq.jsyy.user.service.UserService;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
+import com.lzq.jsyy.vo.user.add.UserAddVo;
 import com.lzq.jsyy.vo.user.query.UserQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -109,17 +110,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<User> selectPage(Page<User> pageParam, UserQueryVo userQueryVo) {
-        if (userQueryVo == null) {
+        if (ObjectUtils.isEmpty(userQueryVo)) {
             return null;
         }
 
-        String name = userQueryVo.getName();
+        String username = userQueryVo.getUsername();
         String type = userQueryVo.getType();
         String studentNumber = userQueryVo.getStudentNumber();
 
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(name)) {
-            wrapper.like("name", name);
+        if (!StringUtils.isEmpty(username)) {
+            wrapper.like("username", username);
         }
         if (!StringUtils.isEmpty(type)) {
             wrapper.eq("type", type);
@@ -134,25 +135,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public Map<String, Object> add(User user) {
+    public Map<String, Object> add(UserAddVo userAddVo) {
         Map<String, Object> map = new HashMap<>(1);
 
-        if (StringUtils.isEmpty(user)) {
+        if (StringUtils.isEmpty(userAddVo)) {
             map.put("state", ResultCodeEnum.PERMISSION_ADD_ERROR);
             return map;
         }
 
         QueryWrapper<User> wrapper1 = new QueryWrapper<>();
-        wrapper1.eq("name", user.getName());
+        wrapper1.eq("username", userAddVo.getUsername());
         User user1 = baseMapper.selectOne(wrapper1);
 
-        if (StringUtils.isEmpty(user1)) {
+        if (!StringUtils.isEmpty(user1)) {
             map.put("state", ResultCodeEnum.PERMISSION_EXIST);
             return map;
         }
 
-        save(user);
+        User user = new User(userAddVo.getUsername(), userAddVo.getPassword());
+        baseMapper.insert(user);
         map.put("state", ResultCodeEnum.SUCCESS);
+        map.put("user", user);
         return map;
     }
 

@@ -6,9 +6,11 @@ import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.order.PaymentInfo;
 import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.order.service.WechatService;
-import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
+import com.lzq.jsyy.vo.order.query.PaymentInfoQueryVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.ObjectUtils;
@@ -32,6 +34,9 @@ public class PaymentInfoApiController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{records,total,size,current}")
+    })
     @ApiModelProperty(value = "分页条件查询支付记录")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, PaymentInfoQueryVo paymentInfoQuery) {
@@ -41,14 +46,20 @@ public class PaymentInfoApiController {
         return Result.ok(pageModel);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{paymentInfo}")
+    })
     @ApiModelProperty(value = "支付订单")
     @PostMapping("/auth/pay")
     public Result pay(String orderId) throws Exception {
         Map<String, Object> map = paymentInfoService.pay(orderId);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
-        return Result.build(map.get("paymentInfo"), resultCodeEnum);
+        return Result.build(map, resultCodeEnum);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{}")
+    })
     @ApiModelProperty(value = "取消支付")
     @PutMapping("/auth/cancel")
     public Result cancel(String outTradeNo) {
@@ -56,6 +67,9 @@ public class PaymentInfoApiController {
         return cancel ? Result.ok() : Result.fail();
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{}")
+    })
     @ApiModelProperty(value = "支付状态查询")
     @GetMapping("/auth/queryPayStatus")
     public Result queryPayStatus(String outTradeNo) throws Exception {

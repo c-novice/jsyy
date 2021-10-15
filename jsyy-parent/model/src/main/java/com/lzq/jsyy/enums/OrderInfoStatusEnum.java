@@ -8,8 +8,8 @@ public enum OrderInfoStatusEnum {
     // 预约记录状态
     LOSE_EFFICACY(1, "已失效"),
     PAYING(2, "支付中"),
-    ORDERED(3, "已预约"),
-    CURRENT(4, "使用中"),
+    PENDING(3, "审批中"),
+    ORDERED(4, "已预约"),
     ;
 
     private Integer status;

@@ -28,10 +28,6 @@ public class PermissionApiController {
     @Autowired
     private PermissionService permissionService;
 
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "data:{permission}")
-    })
-
     @ApiIgnore()
     @ApiOperation(value = "根据用户类型获取默认权限")
     @GetMapping("/inner/getByType")
@@ -42,5 +38,21 @@ public class PermissionApiController {
         QueryWrapper<Permission> wrapper = new QueryWrapper<>();
         wrapper.eq("type", type);
         return permissionService.getOne(wrapper);
+    }
+
+    @ApiIgnore()
+    @ApiOperation(value = "根据权限名获取父权限名")
+    @GetMapping("/api/permission/inner/getFatherByName")
+    public String getFatherByName(String name) {
+        if (StringUtils.isEmpty(name)) {
+            return null;
+        }
+        QueryWrapper<Permission> wrapper = new QueryWrapper<>();
+        wrapper.eq("name", name);
+        Permission permission = permissionService.getOne(wrapper);
+        if (!ObjectUtils.isEmpty(permission)) {
+            return null;
+        }
+        return permission.getFather();
     }
 }

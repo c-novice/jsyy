@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 用户

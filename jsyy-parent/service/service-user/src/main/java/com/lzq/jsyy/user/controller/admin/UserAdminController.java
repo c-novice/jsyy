@@ -6,9 +6,12 @@ import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.user.User;
 import com.lzq.jsyy.user.service.UserService;
 import com.lzq.jsyy.vo.user.LoginVo;
+import com.lzq.jsyy.vo.user.add.UserAddVo;
 import com.lzq.jsyy.vo.user.query.UserQueryVo;
+import com.lzq.jsyy.vo.user.update.UserUpdateVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -56,11 +59,11 @@ public class UserAdminController {
     })
     @ApiOperation(value = "添加用户")
     @PostMapping("/auth/add")
-    public Result add(User user) {
-        Map<String, Object> map = userService.add(user);
+    public Result add(UserAddVo userAddVo) {
+        Map<String, Object> map = userService.add(userAddVo);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         map.remove("state");
-        return Result.build(user, resultCodeEnum);
+        return Result.build(map, resultCodeEnum);
     }
 
     @ApiResponses({
@@ -68,11 +71,23 @@ public class UserAdminController {
     })
     @ApiOperation(value = "修改用户信息")
     @PutMapping("/auth/update")
-    public Result update(User user) {
+    public Result update(UserUpdateVo userUpdateVo) {
+        if (ObjectUtils.isEmpty(userUpdateVo)) {
+            return Result.fail(ResultCodeEnum.USER_REPEAT);
+        }
+        User user = new User();
+        user.setId(userUpdateVo.getId());
+        user.setUsername(userUpdateVo.getUsername());
+        user.setPassword(userUpdateVo.getPassword());
+        user.setPermission(userUpdateVo.getPermission());
+        user.setStudentNumber(userUpdateVo.getStudentNumber());
+        user.setName(userUpdateVo.getName());
+        user.setType(userUpdateVo.getType());
+
         boolean update = userService.updateById(user);
         if (update) {
             Map<String, Object> map = new HashMap<>(1);
-            map.put("user", userService.getUser(user.getId()));
+            map.put("user", user);
             return Result.ok(map);
         } else {
             return Result.fail(ResultCodeEnum.USER_REPEAT);

@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.math.BigDecimal;
 
@@ -72,4 +71,12 @@ public class OrderInfo extends BaseEntity {
     @ApiModelProperty(value = "预约费用")
     @TableField("amount")
     private BigDecimal amount;
+
+    @ApiModelProperty(value = "最后一个审批人的用户名")
+    @TableField("last_pending_username")
+    private String lastPendingUsername;
+
+    @ApiModelProperty(value = "下一个审批人应具有的权限")
+    @TableField("next_need_permission")
+    private String nextNeedPermission;
 }

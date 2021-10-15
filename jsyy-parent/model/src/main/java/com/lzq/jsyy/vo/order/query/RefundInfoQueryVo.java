@@ -1,5 +1,6 @@
-package com.lzq.jsyy.vo.order;
+package com.lzq.jsyy.vo.order.query;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,5 +20,6 @@ public class RefundInfoQueryVo {
     private Integer refundStatus;
 
     @ApiModelProperty(value = "回调时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private String callbackTime;
 }

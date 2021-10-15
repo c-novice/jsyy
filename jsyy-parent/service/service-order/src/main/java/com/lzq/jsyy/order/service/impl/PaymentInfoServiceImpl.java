@@ -14,7 +14,7 @@ import com.lzq.jsyy.order.mapper.PaymentInfoMapper;
 import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.order.service.WechatService;
-import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
+import com.lzq.jsyy.vo.order.query.PaymentInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -61,6 +61,20 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
 
         Page<PaymentInfo> page = baseMapper.selectPage(pageParam, wrapper);
         return page;
+    }
+
+    @Override
+    public boolean add(OrderInfo orderInfo) {
+        if (ObjectUtils.isEmpty(orderInfo)) {
+            return false;
+        }
+        PaymentInfo paymentInfo = new PaymentInfo();
+        paymentInfo.setOrderId(orderInfo.getId());
+        paymentInfo.setOutTradeNo(orderInfo.getOutTradeNo());
+        paymentInfo.setTotalAmount(orderInfo.getAmount());
+        paymentInfo.setPaymentStatus(PaymentInfoStatusEnum.PAYING.getStatus());
+
+        return baseMapper.insert(paymentInfo) > 0;
     }
 
     @Transactional(rollbackFor = JsyyException.class)

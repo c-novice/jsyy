@@ -3,7 +3,8 @@ package com.lzq.jsyy.order.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lzq.jsyy.model.order.OrderInfo;
-import com.lzq.jsyy.vo.order.OrderInfoQueryVo;
+import com.lzq.jsyy.vo.order.add.OrderInfoAddVo;
+import com.lzq.jsyy.vo.order.query.OrderInfoQueryVo;
 
 import java.util.Map;
 
@@ -23,18 +24,11 @@ public interface OrderInfoService extends IService<OrderInfo> {
     /**
      * 添加预约订单
      *
-     * @param orderInfoQueryVo
+     * @param orderInfoAddVo
      * @return
      */
-    Map<String, Object> add(OrderInfoQueryVo orderInfoQueryVo);
+    Map<String, Object> add(OrderInfoAddVo orderInfoAddVo);
 
-    /**
-     * 修改预约订单
-     *
-     * @param orderInfo
-     * @return
-     */
-    Map<String, Object> change(OrderInfo orderInfo);
 
     /**
      * 删除预约订单记录
@@ -51,4 +45,13 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * @return
      */
     OrderInfo getByOutTradeNo(String outTradeNo);
+
+    /**
+     * 查询待处理的预约记录
+     *
+     * @param pageParam
+     * @param PermissionName
+     * @return
+     */
+    Page<OrderInfo> selectPendingOrder(Page<OrderInfo> pageParam, String PermissionName);
 }

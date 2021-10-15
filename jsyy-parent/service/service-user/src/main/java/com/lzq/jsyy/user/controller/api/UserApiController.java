@@ -1,6 +1,5 @@
 package com.lzq.jsyy.user.controller.api;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.user.User;
@@ -93,11 +92,10 @@ public class UserApiController {
         boolean update = userService.updateById(user);
         if (update) {
             Map<String, Object> map = new HashMap<>(1);
-            map.put("user", userService.getUser(user.getId()));
+            map.put("user", user);
             return Result.ok(map);
         } else {
             return Result.fail(ResultCodeEnum.USER_REPEAT);
         }
     }
-
 }

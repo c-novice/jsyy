@@ -15,8 +15,8 @@ public class UserQueryVo {
     @ApiModelProperty(value = "学号")
     private String studentNumber;
 
-    @ApiModelProperty(value = "姓名")
-    private String name;
+    @ApiModelProperty(value = "用户名")
+    private String username;
 
     @ApiModelProperty(value = "用户类型")
     private String type;

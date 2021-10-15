@@ -16,11 +16,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface PermissionFeignClient {
 
     /**
-     * 查询获取权限
+     * 根据用户类型询获取默认权限
      *
      * @param type
      * @return
      */
-    @GetMapping("/api/permission/inner/get")
+    @GetMapping("/api/permission/inner/getByType")
     Permission getByType(String type);
+
+    /**
+     * 根据权限名获取父权限名
+     *
+     * @param name
+     * @return
+     */
+    @GetMapping("/api/permission/inner/getFatherByName")
+    String getFatherByName(String name);
 }

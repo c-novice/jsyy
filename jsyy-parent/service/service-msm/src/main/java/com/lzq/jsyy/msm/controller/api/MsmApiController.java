@@ -6,6 +6,8 @@ import com.lzq.jsyy.msm.service.MsmService;
 import com.lzq.jsyy.msm.utils.RandomUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -35,6 +37,9 @@ public class MsmApiController {
      * @param phone
      * @return
      */
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "data:{}")
+    })
     @ApiOperation(value = "发送手机验证码")
     @GetMapping("/send/{phone}")
     public Result sendCode(@PathVariable String phone) {

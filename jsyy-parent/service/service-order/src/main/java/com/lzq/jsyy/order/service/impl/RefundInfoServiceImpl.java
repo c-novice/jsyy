@@ -16,7 +16,7 @@ import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.order.service.RefundInfoService;
 import com.lzq.jsyy.order.service.WechatService;
-import com.lzq.jsyy.vo.order.RefundInfoQueryVo;
+import com.lzq.jsyy.vo.order.query.RefundInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

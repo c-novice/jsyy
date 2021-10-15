@@ -12,8 +12,6 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * mysql对象基类
@@ -35,6 +33,7 @@ public class BaseEntity implements Serializable {
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField("update_time")
     private Date updateTime;
 

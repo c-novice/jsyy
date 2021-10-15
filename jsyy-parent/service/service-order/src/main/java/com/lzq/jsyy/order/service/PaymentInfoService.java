@@ -2,8 +2,9 @@ package com.lzq.jsyy.order.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.model.order.PaymentInfo;
-import com.lzq.jsyy.vo.order.PaymentInfoQueryVo;
+import com.lzq.jsyy.vo.order.query.PaymentInfoQueryVo;
 
 import java.util.Map;
 
@@ -19,6 +20,14 @@ public interface PaymentInfoService extends IService<PaymentInfo> {
      * @return
      */
     Page<PaymentInfo> selectPage(Page<PaymentInfo> pageParam, PaymentInfoQueryVo paymentInfoQuery);
+
+    /**
+     * 根据预约订单生成支付记录
+     *
+     * @param orderInfo
+     * @return
+     */
+    boolean add(OrderInfo orderInfo);
 
     /**
      * 支付订单
@@ -55,6 +64,7 @@ public interface PaymentInfoService extends IService<PaymentInfo> {
 
     /**
      * 设置订单失效
+     *
      * @param outTradeNo
      */
     void loss(String outTradeNo);

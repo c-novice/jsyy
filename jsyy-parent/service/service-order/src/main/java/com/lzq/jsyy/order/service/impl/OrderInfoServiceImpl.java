@@ -3,17 +3,23 @@ package com.lzq.jsyy.order.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lzq.jsyy.cmn.client.PermissionFeignClient;
 import com.lzq.jsyy.cmn.client.ScheduleFeignClient;
+import com.lzq.jsyy.common.exception.JsyyException;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.enums.OrderInfoStatusEnum;
 import com.lzq.jsyy.model.cmn.Schedule;
 import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.order.mapper.OrderInfoMapper;
 import com.lzq.jsyy.order.service.OrderInfoService;
-import com.lzq.jsyy.vo.order.OrderInfoQueryVo;
+import com.lzq.jsyy.order.service.PaymentInfoService;
+import com.lzq.jsyy.user.client.UserFeignClient;
+import com.lzq.jsyy.vo.order.add.OrderInfoAddVo;
+import com.lzq.jsyy.vo.order.query.OrderInfoQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -30,6 +36,16 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     @Autowired
     private ScheduleFeignClient scheduleFeignClient;
 
+    @Autowired
+    private UserFeignClient userFeignClient;
+
+    @Autowired
+    private PermissionFeignClient permissionFeignClient;
+
+    @Autowired
+    private PaymentInfoService paymentInfoService;
+
+    @Transactional(rollbackFor = JsyyException.class)
     @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<OrderInfo> selectPage(Page<OrderInfo> pageParam, OrderInfoQueryVo orderInfoQueryVo) {
@@ -41,6 +57,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         String roomId = orderInfoQueryVo.getRoomId();
         Integer orderStatus = orderInfoQueryVo.getOrderStatus();
         String workDate = orderInfoQueryVo.getWorkDate();
+        String lastPendingUsername = orderInfoQueryVo.getLastPendingUsername();
 
         QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(username)) {
@@ -55,16 +72,21 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         if (!StringUtils.isEmpty(workDate)) {
             wrapper.eq("work_date", workDate);
         }
+        if (!StringUtils.isEmpty(lastPendingUsername)) {
+            wrapper.eq("last_pending_username", lastPendingUsername);
+        }
 
         // 每次查询时检查是否过期，只检查可能作为查询结果的记录
         Page<OrderInfo> page = baseMapper.selectPage(pageParam, wrapper);
         for (int i = 0; i < page.getRecords().size(); ++i) {
-            Integer orderStatus2 = page.getRecords().get(i).getOrderStatus();
-            String beginTime = page.getRecords().get(i).getBeginTime();
-            String endTime = page.getRecords().get(i).getEndTime();
+            OrderInfo orderInfo = page.getRecords().get(i);
+            Integer orderStatus2 = orderInfo.getOrderStatus();
+            String beginTime = orderInfo.getBeginTime();
+            String endTime = orderInfo.getEndTime();
             // 过期检测
             if (updateOverTimeStatus(orderStatus2, beginTime, endTime)) {
-                page.getRecords().get(i).setOrderStatus(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
+                orderInfo.setOrderStatus(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
+                baseMapper.updateById(orderInfo);
             }
         }
 
@@ -73,15 +95,15 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     }
 
     @Override
-    public Map<String, Object> add(OrderInfoQueryVo orderInfoQueryVo) {
+    public Map<String, Object> add(OrderInfoAddVo orderInfoAddVo) {
         Map<String, Object> map = new HashMap<>(1);
-        if (ObjectUtils.isEmpty(orderInfoQueryVo)) {
+        if (ObjectUtils.isEmpty(orderInfoAddVo)) {
             map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
             return map;
         }
 
         // 查找当前预约排班
-        Schedule schedule = scheduleFeignClient.getById(orderInfoQueryVo.getScheduleId());
+        Schedule schedule = scheduleFeignClient.getById(orderInfoAddVo.getScheduleId());
         if (ObjectUtils.isEmpty(schedule)) {
             map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
             return map;
@@ -99,7 +121,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         // 查找该预约排班的预约记录
         QueryWrapper<OrderInfo> wrapper2 = new QueryWrapper<>();
-        wrapper2.eq("schedule_id", orderInfoQueryVo.getScheduleId());
+        wrapper2.eq("schedule_id", orderInfoAddVo.getScheduleId());
         wrapper2.ne("order_status", OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
         Integer orderInfo2 = baseMapper.selectCount(wrapper2);
 
@@ -109,55 +131,37 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
 
         OrderInfo orderInfo = new OrderInfo();
-        // 设置查询条件信息
-        orderInfo.setUsername(orderInfoQueryVo.getUsername());
-        orderInfo.setFacilityId(orderInfoQueryVo.getFacilityId());
-        orderInfo.setScheduleId(orderInfoQueryVo.getScheduleId());
-        orderInfo.setRoomId(orderInfoQueryVo.getRoomId());
+        // 设置添加参数
+        orderInfo.setUsername(orderInfoAddVo.getUsername());
+        orderInfo.setFacilityId(orderInfoAddVo.getFacilityId());
+        orderInfo.setScheduleId(orderInfoAddVo.getScheduleId());
+        orderInfo.setRoomId(orderInfoAddVo.getRoomId());
         // 设置预约排班信息
         orderInfo.setBeginTime(schedule.getBeginTime());
         orderInfo.setEndTime(schedule.getEndTime());
         orderInfo.setQuitTime(schedule.getQuitTime());
         orderInfo.setAmount(schedule.getAmount());
+        orderInfo.setWorkDate(schedule.getWorkDate());
         // 设置订单交易号
         orderInfo.setOutTradeNo(System.currentTimeMillis() + "" + new Random().nextInt(100));
         // 设置订单状态为正在支付中
         orderInfo.setOrderStatus(OrderInfoStatusEnum.PAYING.getStatus());
+        // 设置最后一个审批人为自己
+        orderInfo.setLastPendingUsername(orderInfo.getUsername());
+        // 获取用户的权限
+        String permissionName = userFeignClient.getPermissionByUsername(orderInfo.getUsername());
+        if (!StringUtils.isEmpty(permissionName)) {
+            // 查询下一个审批人权限
+            orderInfo.setNextNeedPermission(permissionFeignClient.getFatherByName(permissionName));
+        }
 
         baseMapper.insert(orderInfo);
+        // 生成支付记录
+        paymentInfoService.add(orderInfo);
+
         map.put("state", ResultCodeEnum.SUCCESS);
-        return map;
-    }
+        map.put("orderInfo", orderInfo);
 
-    @Override
-    public Map<String, Object> change(OrderInfo orderInfo) {
-        Map<String, Object> map = new HashMap<>(1);
-        if (ObjectUtils.isEmpty(orderInfo)) {
-            map.put("state", ResultCodeEnum.ORDER_CHANGE_ERROR);
-            return map;
-        }
-
-        // 查找当前预约排班
-        Schedule schedule = scheduleFeignClient.getById(orderInfo.getScheduleId());
-        if (ObjectUtils.isEmpty(schedule)) {
-            map.put("state", ResultCodeEnum.ORDER_CHANGE_ERROR);
-            return map;
-        }
-
-
-        // 查找该预约排班的预约记录
-        QueryWrapper<OrderInfo> wrapper2 = new QueryWrapper<>();
-        wrapper2.eq("out_trade_no", orderInfo.getOutTradeNo());
-        OrderInfo orderInfo2 = baseMapper.selectOne(wrapper2);
-
-        // 只能修改支付中的订单
-        if (ObjectUtils.isEmpty(orderInfo2) || !orderInfo2.getOrderStatus().equals(OrderInfoStatusEnum.PAYING.getStatus())) {
-            map.put("state", ResultCodeEnum.ORDER_CHANGE_ERROR);
-            return map;
-        }
-
-        baseMapper.updateById(orderInfo);
-        map.put("state", ResultCodeEnum.SUCCESS);
         return map;
     }
 
@@ -193,6 +197,30 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         wrapper.eq("out_trade_no", outTradeNo);
         return baseMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public Page<OrderInfo> selectPendingOrder(Page<OrderInfo> pageParam, String permissionName) {
+        if (StringUtils.isEmpty(permissionName)) {
+            return null;
+        }
+        // 查询所有处于审批中且待处理人权限为当前用户权限的顶单
+        QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("next_need_permission", permissionName);
+        wrapper.eq("order_status", OrderInfoStatusEnum.PENDING);
+
+        // 每次查询时检查是否过期，只检查可能作为查询结果的记录
+        Page<OrderInfo> page = baseMapper.selectPage(pageParam, wrapper);
+        for (int i = 0; i < page.getRecords().size(); ++i) {
+            OrderInfo orderInfo = page.getRecords().get(i);
+            String workDate = orderInfo.getWorkDate();
+            if (String.valueOf(System.currentTimeMillis()).compareTo(workDate) >= 0) {
+                orderInfo.setOrderStatus(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
+                baseMapper.updateById(orderInfo);
+            }
+        }
+
+        return baseMapper.selectPage(pageParam, wrapper);
     }
 
     /**

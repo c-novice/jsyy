@@ -80,9 +80,6 @@ public class PermissionAdminController {
     @DeleteMapping("/auth/delete")
     public Result delete(String id) {
         boolean delete = permissionService.removeById(id);
-
         return delete ? Result.ok() : Result.fail();
     }
-
-
 }

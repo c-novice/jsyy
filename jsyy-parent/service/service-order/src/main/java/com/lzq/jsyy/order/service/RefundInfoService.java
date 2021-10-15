@@ -3,7 +3,7 @@ package com.lzq.jsyy.order.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lzq.jsyy.model.order.RefundInfo;
-import com.lzq.jsyy.vo.order.RefundInfoQueryVo;
+import com.lzq.jsyy.vo.order.query.RefundInfoQueryVo;
 
 /**
  * @author lzq

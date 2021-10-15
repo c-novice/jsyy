@@ -3,12 +3,10 @@ package com.lzq.jsyy.model.cmn;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lzq.jsyy.model.base.BaseEntity;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
