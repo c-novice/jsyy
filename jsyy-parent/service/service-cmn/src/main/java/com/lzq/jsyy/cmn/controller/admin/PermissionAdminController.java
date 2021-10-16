@@ -8,7 +8,10 @@ import com.lzq.jsyy.model.cmn.Permission;
 import com.lzq.jsyy.vo.cmn.add.PermissionAddVo;
 import com.lzq.jsyy.vo.cmn.query.PermissionQueryVo;
 import com.lzq.jsyy.vo.cmn.update.PermissionUpdateVo;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

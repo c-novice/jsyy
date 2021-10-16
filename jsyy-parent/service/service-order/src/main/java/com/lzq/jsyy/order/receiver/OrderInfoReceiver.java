@@ -34,8 +34,9 @@ public class OrderInfoReceiver {
             exchange = @Exchange(value = MqConst.EXCHANGE_DIRECT_TASK),
             key = {MqConst.ROUTING_TASK_7}
     ))
-    public void patientTips(Message message, Channel channel) throws IOException {
-//        orderInfoService.patientTips();
+    // TODO 定时提醒预约，发送信息
+    public void orderTips(Message message, Channel channel) throws IOException {
+        orderInfoService.orderTips();
     }
 
 }

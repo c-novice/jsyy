@@ -1,13 +1,10 @@
 package com.lzq.jsyy.vo.order.add;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-
-import java.math.BigDecimal;
 
 /**
  * @author lzq

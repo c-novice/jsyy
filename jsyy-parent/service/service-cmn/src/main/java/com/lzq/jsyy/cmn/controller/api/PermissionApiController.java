@@ -2,11 +2,9 @@ package com.lzq.jsyy.cmn.controller.api;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lzq.jsyy.cmn.service.PermissionService;
-import com.lzq.jsyy.common.result.Result;
-import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Permission;
-import com.lzq.jsyy.vo.cmn.query.PermissionQueryVo;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -14,9 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author lzq

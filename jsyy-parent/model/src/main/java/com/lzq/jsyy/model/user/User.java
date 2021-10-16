@@ -28,6 +28,7 @@ public class User extends BaseEntity {
     @TableField("username")
     private String username;
 
+
     @ApiModelProperty(value = "密码")
     @TableField("password")
     private String password;

@@ -63,4 +63,9 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * @return
      */
     Map<String, Object> pending(String username, String outTradeNo);
+
+    /**
+     * 预约提醒
+     */
+    void orderTips();
 }

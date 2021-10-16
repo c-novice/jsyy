@@ -1,11 +1,8 @@
 package com.lzq.jsyy.order.controller.api;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
-import com.lzq.jsyy.enums.OrderInfoStatusEnum;
 import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.vo.order.add.OrderInfoAddVo;
@@ -14,11 +11,8 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

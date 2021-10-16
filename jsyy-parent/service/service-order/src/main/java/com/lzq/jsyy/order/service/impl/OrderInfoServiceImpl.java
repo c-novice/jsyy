@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzq.jsyy.cmn.client.PermissionFeignClient;
 import com.lzq.jsyy.cmn.client.ScheduleFeignClient;
 import com.lzq.jsyy.common.exception.JsyyException;
-import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.enums.OrderInfoStatusEnum;
 import com.lzq.jsyy.model.cmn.Schedule;
@@ -14,9 +13,13 @@ import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.order.mapper.OrderInfoMapper;
 import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.order.service.PaymentInfoService;
+import com.lzq.jsyy.rabbit.constant.MqConst;
+import com.lzq.jsyy.rabbit.service.RabbitService;
 import com.lzq.jsyy.user.client.UserFeignClient;
+import com.lzq.jsyy.vo.msm.MsmVo;
 import com.lzq.jsyy.vo.order.add.OrderInfoAddVo;
 import com.lzq.jsyy.vo.order.query.OrderInfoQueryVo;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -45,6 +49,9 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
     @Autowired
     private PaymentInfoService paymentInfoService;
+
+    @Autowired
+    private RabbitService rabbitService;
 
     @Transactional(rollbackFor = JsyyException.class)
     @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
@@ -256,6 +263,23 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         return map;
     }
 
+    @Override
+    public void orderTips() {
+        QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("work_date", new DateTime().toString("yyyy-MM-dd"));
+        wrapper.ne("order_status", OrderInfoStatusEnum.ORDERED);
+        List<OrderInfo> orderInfoList = baseMapper.selectList(wrapper);
+        // 对所有的用户发送预约提醒短信
+        for (OrderInfo orderInfo : orderInfoList) {
+            MsmVo msmVo = new MsmVo();
+            msmVo.setPhone(orderInfo.getUsername());
+            msmVo.setTemplateId("1");
+            String[] params = new String[]{orderInfo.getRoomId()};
+            msmVo.setParams(params);
+            rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_MSM, MqConst.ROUTING_MSM_ITEM, msmVo);
+        }
+    }
+
     /**
      * 每次查询预约记录时更新过期状态
      *
@@ -278,6 +302,5 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         } else {
             return true;
         }
-
     }
 }
