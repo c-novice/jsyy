@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/room")
-@Api(tags = "教室操作API")
+@Api(tags = "房间操作API")
 public class RoomApiController {
     @Autowired
     private RoomService roomService;
@@ -51,10 +51,10 @@ public class RoomApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{room}")
     })
-    @ApiOperation(value = "查询一个教室")
+    @ApiOperation(value = "查询一个房间")
     @GetMapping("/auth/get")
-    public Result get(RoomQueryVo roomQueryVo) {
-        Room room = roomService.get(roomQueryVo);
+    public Result get(String id) {
+        Room room = roomService.getById(id);
 
         if (ObjectUtils.isEmpty(room)) {
             return Result.fail(ResultCodeEnum.ROOM_GET_ERROR);

@@ -6,10 +6,8 @@ import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.order.OrderInfo;
 import com.lzq.jsyy.order.service.OrderInfoService;
 import com.lzq.jsyy.vo.order.add.OrderInfoAddVo;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import com.lzq.jsyy.vo.order.query.OrderInfoQueryVo;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +20,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/order")
-@ApiModel(description = "预约订单操作API")
+@Api(tags= "预约订单操作API")
 public class OrderInfoApiController {
     @Autowired
     private OrderInfoService orderInfoService;
@@ -30,8 +28,8 @@ public class OrderInfoApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{records,total,size,current}")
     })
-    @ApiModelProperty(value = "查看待处理的预约订单")
-    @GetMapping("/auth/{page}/{limit}")
+    @ApiOperation(value = "查看待处理的预约订单")
+    @GetMapping("/auth/remain/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, String permissionName) {
         Page<OrderInfo> pageParam = new Page<>(page, limit);
         Page<OrderInfo> pageModel = orderInfoService.selectPendingOrder(pageParam, permissionName);
@@ -39,10 +37,19 @@ public class OrderInfoApiController {
         return Result.ok(pageModel);
     }
 
+    @ApiOperation(value = "分页条件查询预约订单")
+    @GetMapping("/auth/{page}/{limit}")
+    public Result list(@PathVariable Long page, @PathVariable Long limit, OrderInfoQueryVo orderInfoQuery) {
+        Page<OrderInfo> pageParam = new Page<>(page, limit);
+        Page<OrderInfo> pageModel = orderInfoService.selectPage(pageParam, orderInfoQuery);
+
+        return Result.ok(pageModel);
+    }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{orderInfo}")
     })
-    @ApiModelProperty(value = "添加订单")
+    @ApiOperation(value = "添加订单")
     @PostMapping("/auth/order")
     public Result order(OrderInfoAddVo orderInfoAddVo) {
         Map<String, Object> map = orderInfoService.add(orderInfoAddVo);
@@ -54,7 +61,7 @@ public class OrderInfoApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{}")
     })
-    @ApiModelProperty(value = "删除订单记录")
+    @ApiOperation(value = "删除订单记录")
     @DeleteMapping("/auth/delete")
     public Result delete(String outTradeNo) {
         boolean delete = orderInfoService.delete(outTradeNo);
@@ -64,7 +71,7 @@ public class OrderInfoApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{orderInfo}")
     })
-    @ApiModelProperty(value = "审批订单")
+    @ApiOperation(value = "审批订单")
     @GetMapping("/auth/pending")
     public Result pending(String username, String outTradeNo) {
         Map<String, Object> map = orderInfoService.pending(username, outTradeNo);

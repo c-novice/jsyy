@@ -37,12 +37,4 @@ public interface ScheduleService extends IService<Schedule> {
      * @return
      */
     Map<String, Object> change(ScheduleUpdateVo scheduleUpdateVo);
-
-    /**
-     * 获取预约信息
-     *
-     * @param scheduleQueryVo
-     * @return
-     */
-    Schedule get(ScheduleQueryVo scheduleQueryVo);
 }

@@ -9,7 +9,7 @@ import lombok.ToString;
  * @author lzq
  */
 @Data
-@ApiModel(description = "添加教室vo类")
+@ApiModel(description = "添加房间vo类")
 @ToString
 public class RoomAddVo {
     @ApiModelProperty(value = "设施编号")
@@ -18,12 +18,12 @@ public class RoomAddVo {
     @ApiModelProperty(value = "房间编号")
     private String roomId;
 
-    @ApiModelProperty(value = "教室类型")
+    @ApiModelProperty(value = "房间类型")
     private String type;
 
     @ApiModelProperty(value = "座位数")
     private Integer seating;
 
-    @ApiModelProperty(value = "教室描述")
+    @ApiModelProperty(value = "房间描述")
     private String description;
 }

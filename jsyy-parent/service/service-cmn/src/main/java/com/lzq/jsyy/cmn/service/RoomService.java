@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface RoomService extends IService<Room> {
     /**
-     * 添加一个教室
+     * 添加一个房间
      *
      * @param roomAddVo
      * @return
@@ -22,7 +22,7 @@ public interface RoomService extends IService<Room> {
     Map<String, Object> add(RoomAddVo roomAddVo);
 
     /**
-     * 条件分页查询教室
+     * 条件分页查询房间
      *
      * @param pageParam
      * @param roomQueryVo
@@ -31,7 +31,7 @@ public interface RoomService extends IService<Room> {
     Page<Room> selectPage(Page<Room> pageParam, RoomQueryVo roomQueryVo);
 
     /**
-     * 修改一个教室
+     * 修改一个房间
      *
      * @param roomUpdateVo
      * @return
@@ -39,15 +39,7 @@ public interface RoomService extends IService<Room> {
     Map<String, Object> change(RoomUpdateVo roomUpdateVo);
 
     /**
-     * 获取一个教室
-     *
-     * @param roomQueryVo
-     * @return
-     */
-    Room get(RoomQueryVo roomQueryVo);
-
-    /**
-     * 查询设施的教室数量
+     * 查询设施的房间数量
      *
      * @param facilityId
      * @return

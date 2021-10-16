@@ -48,8 +48,8 @@ public class FacilityApiController {
     })
     @ApiOperation(value = "查询一个设施")
     @GetMapping("/auth/get")
-    public Result get(FacilityQueryVo facilityQueryVo) {
-        Facility facility = facilityService.get(facilityQueryVo);
+    public Result get(String id) {
+        Facility facility = facilityService.getById(id);
 
         if (ObjectUtils.isEmpty(facility)) {
             return Result.fail(ResultCodeEnum.FACILITY_GET_ERROR);

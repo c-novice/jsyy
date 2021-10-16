@@ -131,43 +131,6 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
         return map;
     }
 
-    @Cacheable(value = "get", keyGenerator = "keyGenerator")
-    @Override
-    public Room get(RoomQueryVo roomQueryVo) {
-        if (ObjectUtils.isEmpty(roomQueryVo)) {
-            return null;
-        }
-
-        String id = roomQueryVo.getId();
-        String facilityId = roomQueryVo.getFacilityId();
-        String roomId = roomQueryVo.getRoomId();
-        String type = roomQueryVo.getType();
-        Integer seatingLow = roomQueryVo.getSeatingLow();
-        Integer seatingHigh = roomQueryVo.getSeatingHigh();
-
-        QueryWrapper<Room> wrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(id)) {
-            wrapper.eq("id", id);
-        }
-        if (!StringUtils.isEmpty(facilityId)) {
-            wrapper.eq("facility_id", facilityId);
-        }
-        if (!StringUtils.isEmpty(roomId)) {
-            wrapper.eq("room_id", roomId);
-        }
-        if (!StringUtils.isEmpty(type)) {
-            wrapper.eq("type", type);
-        }
-        if (!StringUtils.isEmpty(seatingLow)) {
-            wrapper.ge("seating_low", seatingLow);
-        }
-        if (!StringUtils.isEmpty(seatingHigh)) {
-            wrapper.le("seating_high", seatingHigh);
-        }
-
-        return baseMapper.selectOne(wrapper);
-    }
-
     @Override
     public Integer count(String facilityId) {
         if (StringUtils.isEmpty(facilityId)) {

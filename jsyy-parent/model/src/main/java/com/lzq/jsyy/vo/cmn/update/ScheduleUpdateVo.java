@@ -19,7 +19,7 @@ public class ScheduleUpdateVo {
     @ApiModelProperty(value = "id")
     private String id;
 
-    @ApiModelProperty(value = "教室编号")
+    @ApiModelProperty(value = "房间编号")
     private String roomId;
 
     @ApiModelProperty(value = "开放预约日期")

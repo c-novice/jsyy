@@ -198,6 +198,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    public User updatePassword(String username, String password) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            return null;
+        }
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", username);
+        User user = baseMapper.selectOne(wrapper);
+        if (ObjectUtils.isEmpty(user)) {
+            return null;
+        }
+        user.setPassword(password);
+        baseMapper.updateById(user);
+        return user;
+    }
+
+    @Override
     public Map<String, Object> binding(User user, BindingVo bindingVo) {
         Map<String, Object> map = new HashMap<>(2);
 

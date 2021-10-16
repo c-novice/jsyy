@@ -150,29 +150,4 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
 
         return map;
     }
-
-    @Cacheable(value = "get", keyGenerator = "keyGenerator")
-    @Override
-    public Schedule get(ScheduleQueryVo scheduleQueryVo) {
-        if (ObjectUtils.isEmpty(scheduleQueryVo)) {
-            return null;
-        }
-
-        String roomId = scheduleQueryVo.getRoomId();
-        Date workDate = scheduleQueryVo.getWorkDate();
-        String id = scheduleQueryVo.getId();
-
-        QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(roomId)) {
-            wrapper.eq("room_id", roomId);
-        }
-        if (!StringUtils.isEmpty(workDate)) {
-            wrapper.eq("work_date", workDate);
-        }
-        if (!StringUtils.isEmpty(id)) {
-            wrapper.eq("id", id);
-        }
-
-        return baseMapper.selectOne(wrapper);
-    }
 }

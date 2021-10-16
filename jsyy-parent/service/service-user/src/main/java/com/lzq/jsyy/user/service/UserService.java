@@ -73,4 +73,13 @@ public interface UserService extends IService<User> {
      * @return
      */
     User getUser(String userId);
+
+    /**
+     * 修改密码
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    User updatePassword(String username, String password);
 }

@@ -7,10 +7,7 @@ import com.lzq.jsyy.model.order.PaymentInfo;
 import com.lzq.jsyy.order.service.PaymentInfoService;
 import com.lzq.jsyy.order.service.WechatService;
 import com.lzq.jsyy.vo.order.query.PaymentInfoQueryVo;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.ObjectUtils;
@@ -23,7 +20,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/payment")
-@ApiModel(description = "支付操作API")
+@Api(tags = "支付操作API")
 public class PaymentInfoApiController {
     @Autowired
     private PaymentInfoService paymentInfoService;
@@ -37,7 +34,7 @@ public class PaymentInfoApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{records,total,size,current}")
     })
-    @ApiModelProperty(value = "分页条件查询支付记录")
+    @ApiOperation(value = "分页条件查询支付记录")
     @GetMapping("/auth/{page}/{limit}")
     public Result list(@PathVariable Long page, @PathVariable Long limit, PaymentInfoQueryVo paymentInfoQuery) {
         Page<PaymentInfo> pageParam = new Page<>(page, limit);
@@ -49,7 +46,7 @@ public class PaymentInfoApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{paymentInfo}")
     })
-    @ApiModelProperty(value = "支付订单")
+    @ApiOperation(value = "支付订单")
     @PostMapping("/auth/pay")
     public Result pay(String orderId) throws Exception {
         Map<String, Object> map = paymentInfoService.pay(orderId);
@@ -60,7 +57,7 @@ public class PaymentInfoApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{}")
     })
-    @ApiModelProperty(value = "取消支付")
+    @ApiOperation(value = "取消支付")
     @PutMapping("/auth/cancel")
     public Result cancel(String outTradeNo) {
         boolean cancel = paymentInfoService.cancel(outTradeNo);
@@ -70,7 +67,7 @@ public class PaymentInfoApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{}")
     })
-    @ApiModelProperty(value = "支付状态查询")
+    @ApiOperation(value = "支付状态查询")
     @GetMapping("/auth/queryPayStatus")
     public Result queryPayStatus(String outTradeNo) throws Exception {
         Map<String, String> resultMap = wechatService.queryPayStatus(outTradeNo);

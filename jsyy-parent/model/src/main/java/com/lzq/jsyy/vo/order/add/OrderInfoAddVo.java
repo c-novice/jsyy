@@ -21,7 +21,7 @@ public class OrderInfoAddVo {
     @TableField("facility_id")
     private String facilityId;
 
-    @ApiModelProperty(value = "教室编号")
+    @ApiModelProperty(value = "房间编号")
     @TableField("room_id")
     private String roomId;
 

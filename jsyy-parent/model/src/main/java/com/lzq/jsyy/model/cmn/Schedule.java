@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 public class Schedule extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "教室编号")
+    @ApiModelProperty(value = "房间编号")
     @TableField("room_id")
     private String roomId;
 

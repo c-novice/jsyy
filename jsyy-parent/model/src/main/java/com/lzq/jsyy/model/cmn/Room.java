@@ -17,7 +17,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(description = "教室实体类")
+@ApiModel(description = "房间实体类")
 @ToString
 public class Room extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class Room extends BaseEntity {
     @TableField("room_id")
     private String roomId;
 
-    @ApiModelProperty(value = "教室类型")
+    @ApiModelProperty(value = "房间类型")
     @TableField("type")
     private String type;
 
@@ -38,7 +38,7 @@ public class Room extends BaseEntity {
     @TableField("seating")
     private Integer seating;
 
-    @ApiModelProperty(value = "教室描述")
+    @ApiModelProperty(value = "房间描述")
     @TableField("description")
     private String description;
 

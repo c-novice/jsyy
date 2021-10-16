@@ -7,11 +7,13 @@ import com.lzq.jsyy.user.service.impl.UserServiceImpl;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
+import com.lzq.jsyy.vo.user.update.UserUpdateVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,11 +88,11 @@ public class UserApiController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{user}")
     })
-    @ApiOperation(value = "修改用户信息")
-    @PutMapping("/auth/update")
-    public Result update(User user) {
-        boolean update = userService.updateById(user);
-        if (update) {
+    @ApiOperation(value = "修改密码")
+    @PutMapping("/auth/updatePassword")
+    public Result update(String username, String password) {
+        User user = userService.updatePassword(username, password);
+        if (!ObjectUtils.isEmpty(user)) {
             Map<String, Object> map = new HashMap<>(1);
             map.put("user", user);
             return Result.ok(map);

@@ -37,7 +37,7 @@ public class OrderInfo extends BaseEntity {
     @TableField("out_trade_no")
     private String outTradeNo;
 
-    @ApiModelProperty(value = "教室编号")
+    @ApiModelProperty(value = "房间编号")
     @TableField("room_id")
     private String roomId;
 

@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * 教室
+ * 房间
  *
  * @author lzq
  */
 @RestController
 @RequestMapping("/admin/room")
-@Api(tags = "教室后台管理端API")
+@Api(tags = "房间后台管理端API")
 public class RoomAdminController {
     @Autowired
     private RoomService roomService;
@@ -44,7 +44,7 @@ public class RoomAdminController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{room}")
     })
-    @ApiOperation(value = "添加教室")
+    @ApiOperation(value = "添加房间")
     @PostMapping("/auth/add")
     public Result add(RoomAddVo roomAddVo) {
         Map<String, Object> map = roomService.add(roomAddVo);
@@ -56,7 +56,7 @@ public class RoomAdminController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{room}")
     })
-    @ApiOperation(value = "修改教室信息")
+    @ApiOperation(value = "修改房间信息")
     @PutMapping("/auth/update")
     public Result update(RoomUpdateVo roomUpdateVo) {
         Map<String, Object> map = roomService.change(roomUpdateVo);
@@ -68,7 +68,7 @@ public class RoomAdminController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{}")
     })
-    @ApiOperation(value = "删除教室")
+    @ApiOperation(value = "删除房间")
     @DeleteMapping("/auth/delete")
     public Result delete(String id) {
         boolean delete = roomService.removeById(id);

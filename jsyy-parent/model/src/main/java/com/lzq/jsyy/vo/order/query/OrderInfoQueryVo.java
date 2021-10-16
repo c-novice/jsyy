@@ -21,7 +21,7 @@ public class OrderInfoQueryVo {
     @ApiModelProperty(value = "设施编号")
     private String facilityId;
 
-    @ApiModelProperty(value = "教室编号")
+    @ApiModelProperty(value = "房间编号")
     private String roomId;
 
     @ApiModelProperty(value = "预约排班编号")

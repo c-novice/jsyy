@@ -39,11 +39,4 @@ public interface FacilityService extends IService<Facility> {
      */
     Map<String, Object> change(FacilityUpdateVo facilityUpdateVo);
 
-    /**
-     * 查询一个设施
-     *
-     * @param facilityQueryVo
-     * @return
-     */
-    Facility get(FacilityQueryVo facilityQueryVo);
 }

@@ -49,8 +49,8 @@ public class ScheduleApiController {
     })
     @ApiOperation(value = "查询一个预约排班")
     @GetMapping("/auth/get")
-    public Result get(ScheduleQueryVo scheduleQueryVo) {
-        Schedule schedule = scheduleService.get(scheduleQueryVo);
+    public Result get(String id) {
+        Schedule schedule = scheduleService.getById(id);
 
         if (ObjectUtils.isEmpty(schedule)) {
             return Result.fail(ResultCodeEnum.SCHEDULE_GET_ERROR);

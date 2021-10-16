@@ -119,30 +119,4 @@ public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> i
         return map;
     }
 
-    @Cacheable(value = "get", keyGenerator = "keyGenerator")
-    @Override
-    public Facility get(FacilityQueryVo facilityQueryVo) {
-        if (ObjectUtils.isEmpty(facilityQueryVo)) {
-            return null;
-        }
-
-        String id = facilityQueryVo.getId();
-
-        if (!StringUtils.isEmpty(id)) {
-            return null;
-        }
-        Facility facility = baseMapper.selectById(id);
-        if (StringUtils.isEmpty(facility)) {
-            return null;
-        }
-
-        Page<Room> pageParam = new Page<>(1, Integer.MAX_VALUE);
-        RoomQueryVo roomQueryVo = new RoomQueryVo();
-        roomQueryVo.setFacilityId(id);
-
-        facility.setRooms(roomService.selectPage(pageParam, roomQueryVo).getRecords());
-        facility.setRoomCount(roomService.count(id));
-
-        return facility;
-    }
 }
