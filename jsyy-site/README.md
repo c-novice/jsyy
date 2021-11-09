@@ -1,4 +1,4 @@
-# dnpicture
+# calculator-site
 
 ## Project setup
 ```

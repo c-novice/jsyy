@@ -3,14 +3,11 @@
 </template>
 
 <script>
-
 export default {
-  data() {
-    return {}
-  },
-  methods: {}
+  name: "index"
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
 </style>

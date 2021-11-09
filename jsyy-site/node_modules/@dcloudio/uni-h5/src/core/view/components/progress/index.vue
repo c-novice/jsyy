@@ -1,16 +1,21 @@
 <template>
   <uni-progress
     class="uni-progress"
-    v-on="$listeners">
+    v-on="$listeners"
+  >
     <div
       :style="outerBarStyle"
-      class="uni-progress-bar">
+      class="uni-progress-bar"
+    >
       <div
         :style="innerBarStyle"
-        class="uni-progress-inner-bar" />
+        class="uni-progress-inner-bar"
+      />
     </div>
     <template v-if="showInfo">
-      <p class="uni-progress-info">{{ currentPercent }}%</p>
+      <p class="uni-progress-info">
+        {{ currentPercent }}%
+      </p>
     </template>
   </uni-progress>
 </template>
@@ -60,6 +65,13 @@ export default {
     activeMode: {
       type: String,
       default: VALUES.activeMode
+    },
+    duration: {
+      type: [Number, String],
+      default: 30,
+      validator (value) {
+        return !isNaN(parseFloat(value, 10))
+      }
     }
   },
   data () {
@@ -112,7 +124,7 @@ export default {
           } else {
             this.currentPercent += 1
           }
-        }, 30)
+        }, parseFloat(this.duration))
       } else {
         this.currentPercent = this.realPercent
       }

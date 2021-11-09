@@ -63,9 +63,10 @@ export const canvasPutImageData = {
   }
 }
 
-const fileType = {
+const fileTypes = {
   PNG: 'png',
-  JPG: 'jpeg'
+  JPG: 'jpg',
+  JPEG: 'jpg'
 }
 
 export const canvasToTempFilePath = {
@@ -97,19 +98,18 @@ export const canvasToTempFilePath = {
   },
   canvasId: {
     type: String,
-    require: true
+    required: true
   },
   fileType: {
     type: String,
     validator (value, params) {
       value = (value || '').toUpperCase()
-      params.fileType = value in fileType ? fileType[value] : fileType.PNG
+      params.fileType = value in fileTypes ? fileTypes[value] : fileTypes.PNG
     }
   },
   quality: {
     type: Number,
     validator (value, params) {
-      value = Math.floor(value)
       params.quality = value > 0 && value < 1 ? value : 1
     }
   }
@@ -118,11 +118,11 @@ export const canvasToTempFilePath = {
 export const drawCanvas = {
   canvasId: {
     type: String,
-    require: true
+    required: true
   },
   actions: {
     type: Array,
-    require: true
+    required: true
   },
   reserve: {
     type: Boolean,

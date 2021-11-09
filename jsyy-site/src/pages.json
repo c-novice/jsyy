@@ -1,25 +1,58 @@
 {
+  "easycom": {
+    "^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+  },
   "pages": [
     {
       "path": "pages/home/index",
       "style": {
         "navigationBarTitleText": "首页"
       }
-    }]
-//  ],
-//  "tabBar": {
-//    "color": "#8a8a8a",
-//    "selectedColor": "#d4237a",
-//    "backgroundColor": "#fff",
-//    "position": "bottom",
-//    "borderStyle": "black",
-//    "list": [
-//      {
-//        "pagePath": "pages/home/index",
-//        "text": "首页",
-//        "iconPath": "./static/icon/_home.png",
-//        "selectedIconPath": "./static/icon/home.png"
-//      }
-//    ]
-//  }
+    },
+    {
+      "path": "pages/center/index",
+      "style": {
+        "navigationBarTitleText": "个人中心"
+      }
+    },
+    {
+      "path": "pages/order/index",
+      "style": {
+        "navigationBarTitleText": "预约"
+      }
+    },
+    {
+      "path": "pages/center/login/index",
+      "style": {
+        "navigationBarTitleText": "登录/注册"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#e34969",
+    "borderStyle": "black",
+    "backgroundColor": "#FFFFFF",
+    "iconWidth": "24px",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "static/首页.png",
+        "selectedIconPath": "static/首页.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/index",
+        "iconPath": "static/预约.png",
+        "selectedIconPath": "static/预约.png",
+        "text": "预约"
+      },
+      {
+        "pagePath": "pages/center/index",
+        "iconPath": "static/个人中心.png",
+        "selectedIconPath": "static/个人中心.png",
+        "text": "我的"
+      }
+    ]
+  }
 }

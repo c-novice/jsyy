@@ -14,7 +14,7 @@ const customize = cached((str) => {
 
 function initTriggerEvent (mpInstance) {
   if (__PLATFORM__ === 'mp-weixin' || __PLATFORM__ === 'app-plus') {
-    if (!wx.canIUse('nextTick')) {
+    if (!wx.canIUse || !wx.canIUse('nextTick')) {
       return
     }
   }
@@ -37,13 +37,16 @@ function initHook (name, options) {
     }
   }
 }
+if (!MPPage.__$wrappered) {
+  MPPage.__$wrappered = true
+  Page = function (options = {}) {
+    initHook('onLoad', options)
+    return MPPage(options)
+  }
+  Page.after = MPPage.after
 
-Page = function (options = {}) {
-  initHook('onLoad', options)
-  return MPPage(options)
-}
-
-Component = function (options = {}) {
-  initHook('created', options)
-  return MPComponent(options)
+  Component = function (options = {}) {
+    initHook('created', options)
+    return MPComponent(options)
+  }
 }
