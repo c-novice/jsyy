@@ -19,9 +19,10 @@
 
 <script>
 	var search;
-	// #ifndef H5 || APP-PLUS-NVUE || MP-360
-	import trees from './libs/trees';
-	var cache = {},
+  // #ifndef H5 || APP-PLUS-NVUE || MP-360
+  import trees from './libs/trees';
+
+  var cache = {},
 		// #ifdef MP-WEIXIN || MP-TOUTIAO
 		fs = uni.getFileSystemManager ? uni.getFileSystemManager() : null,
 		// #endif

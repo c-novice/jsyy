@@ -75,8 +75,9 @@
 <script module="handler" lang="wxs" src="./handler.wxs"></script>
 <script>
 	global.Parser = {};
-	import trees from './trees'
-	const errorImg = require('../libs/config.js').errorImg;
+  import trees from './trees'
+
+  const errorImg = require('../libs/config.js').errorImg;
 	export default {
 		components: {
 			trees

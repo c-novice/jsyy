@@ -8,8 +8,11 @@
       </view>
       <view class="form">
         <u-form label-width="100">
-          <u-form-item label="用户名">
+          <u-form-item v-show="way" label="用户名">
             <u-input v-model="username" placeholder="请输入用户名"/>
+          </u-form-item>
+          <u-form-item v-show="!way" label="手机号">
+            <u-input v-model="username" placeholder="请输入手机号"/>
           </u-form-item>
           <u-form-item v-show="way" label="密码">
             <u-input type="password" v-model="password" placeholder="请输入密码"/>
@@ -32,8 +35,7 @@
       </view>
       <view class="qiehuan">
         <u-image width="40rpx" height="40rpx" src="/static/qiehuan.png" @click="this.way=!this.way"></u-image>
-        <text v-show="way" @click="this.way=!this.way">切换验证码登录/注册</text>
-        <text v-show="!way" @click="this.way=!this.way">切换账号密码登录</text>
+        <text @click="this.way=!this.way">{{ way ? "切换验证码登录/注册" : "切换账号密码登录" }}</text>
       </view>
     </view>
   </view>
@@ -43,9 +45,14 @@
 import UImage from "../../../uview-ui/components/u-image/u-image";
 import UButton from "../../../uview-ui/components/u-button/u-button";
 import UForm from "../../../uview-ui/components/u-form/u-form";
+import UFormItem from "../../../uview-ui/components/u-form-item/u-form-item";
+import UInput from "../../../uview-ui/components/u-input/u-input";
+import UToast from "../../../uview-ui/components/u-toast/u-toast";
+import UGap from "../../../uview-ui/components/u-gap/u-gap";
+import UVerificationCode from "../../../uview-ui/components/u-verification-code/u-verification-code";
 
 export default {
-  components: {UForm, UButton, UImage},
+  components: {UVerificationCode, UGap, UToast, UInput, UFormItem, UForm, UButton, UImage},
   data() {
     return {
       // 登录方式
@@ -142,13 +149,6 @@ export default {
       padding-bottom: 6rpx;
     }
 
-    .tips {
-      color: $u-type-info;
-      font-size: 20rpx;
-      margin-bottom: 60rpx;
-      margin-top: 30rpx;
-    }
-
 
     .right {
       position: absolute;
@@ -166,32 +166,6 @@ export default {
       text-align: center;
       justify-content: center;
       align-items: center;
-    }
-  }
-
-  .bottom {
-    .loginType {
-      display: flex;
-      padding: 260rpx 150rpx 150rpx 150rpx;
-      justify-content: space-between;
-
-      .item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: $u-content-color;
-        font-size: 28rpx;
-      }
-    }
-
-    .hint {
-      padding: 20rpx 40rpx;
-      font-size: 20rpx;
-      color: $u-tips-color;
-
-      .link {
-        color: $u-type-warning;
-      }
     }
   }
 }

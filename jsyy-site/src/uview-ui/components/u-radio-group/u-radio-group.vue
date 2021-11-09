@@ -5,8 +5,9 @@
 </template>
 
 <script>
-	import Emitter from '../../libs/util/emitter.js';
-	/**
+import Emitter from '../../libs/util/emitter.js';
+
+/**
 	 * radioRroup 单选框父组件
 	 * @description 单选框用于有一个选择，用户只能选择其中一个的场景。搭配u-radio使用
 	 * @tutorial https://www.uviewui.com/components/radio.html
@@ -118,7 +119,7 @@
 
 <style lang="scss" scoped>
 	@import "../../libs/css/style.components.scss";
-	
+
 	.u-radio-group {
 		/* #ifndef MP || APP-NVUE */
 		display: inline-flex;

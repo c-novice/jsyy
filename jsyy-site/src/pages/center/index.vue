@@ -3,10 +3,12 @@
     <view class="head">
       <u-image style="margin-left: 20rpx;margin-right: 60rpx" width="80rpx" height="80rpx"
                src="@/static/touxiang.png"></u-image>
+      <!--      路由到登录/注册页面-->
       <navigator :url="`/pages/center/login/index`">
         <text>登录 / 注册</text>
       </navigator>
-      <u-image style="margin-left: 270rpx" width="55rpx" height="55rpx" src="@/static/shezhi.png"></u-image>
+      <u-image style="margin-left: 270rpx" width="55rpx" height="55rpx" src="@/static/shezhi.png"
+               @click="switchTo('setup/index')"></u-image>
     </view>
     <view class="normal">
       <u-card :show-foot="false" title="预约服务" title-size="32" :full="true">
@@ -55,13 +57,21 @@
 <script>
 import UImage from "../../uview-ui/components/u-image/u-image";
 import UCard from "../../uview-ui/components/u-card/u-card";
+import UNavbar from "../../uview-ui/components/u-navbar/u-navbar";
 
 export default {
-  components: {UCard, UImage},
+  components: {UNavbar, UCard, UImage},
   data() {
     return {}
   },
-  methods: {}
+  methods: {
+    // 页面跳转
+    switchTo(url) {
+      uni.navigateTo({
+        url: url
+      });
+    }
+  }
 }
 </script>
 
@@ -72,7 +82,7 @@ export default {
   margin-bottom: 60rpx;
   display: flex;
   align-items: center;
-  font-size: 17px;
+  font-size: 18px;
   color: grey;
 }
 

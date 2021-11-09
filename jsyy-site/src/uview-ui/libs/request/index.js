@@ -1,5 +1,6 @@
 import deepMerge from "../function/deepMerge";
 import validate from "../function/test";
+
 class Request {
 	// 设置全局默认配置
 	setConfig(customConfig) {
@@ -77,7 +78,7 @@ class Request {
 			// 判断用户传递的URL是否/开头,如果不是,加上/，这里使用了uView的test.js验证库的url()方法
 			options.url = validate.url(options.url) ? options.url : (this.config.baseUrl + (options.url.indexOf('/') == 0 ?
 				options.url : '/' + options.url));
-			
+
 			// 是否显示loading
 			// 加一个是否已有timer定时器的判断，否则有两个同时请求的时候，后者会清除前者的定时器id
 			// 而没有清除前者的定时器，导致前者超时，一直显示loading
@@ -116,7 +117,7 @@ class Request {
 			originalData: false, // 是否在拦截器中返回服务端的原始数据，见文档说明
 			loadingMask: true, // 展示loading的时候，是否给一个透明的蒙层，防止触摸穿透
 		}
-	
+
 		// 拦截器
 		this.interceptor = {
 			// 请求前的拦截
@@ -144,7 +145,7 @@ class Request {
 				data
 			})
 		}
-		
+
 		// put请求，不支持支付宝小程序(HX2.6.15)
 		this.put = (url, data = {}, header = {}) => {
 			return this.request({
@@ -154,7 +155,7 @@ class Request {
 				data
 			})
 		}
-		
+
 		// delete请求，不支持支付宝和头条小程序(HX2.6.15)
 		this.delete = (url, data = {}, header = {}) => {
 			return this.request({

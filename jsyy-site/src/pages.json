@@ -26,14 +26,37 @@
       "style": {
         "navigationBarTitleText": "登录/注册"
       }
+    },
+    {
+      "path": "pages/center/setup/index",
+      "style": {
+        "navigationBarTitleText": "设置中心"
+      }
+    },
+    {
+      "path": "pages/center/setup/aboutwe/index",
+      "style": {
+        "navigationBarTitleText": "关于我们"
+      }
+    },
+    {
+      "path": "pages/center/setup/blind/index",
+      "style": {
+        "navigationBarTitleText": "校园账号绑定"
+      }
+    },
+    {
+      "path": "pages/center/setup/changepwd/index",
+      "style": {
+        "navigationBarTitleText": "修改密码"
+      }
     }
   ],
   "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#e34969",
-    "borderStyle": "black",
-    "backgroundColor": "#FFFFFF",
-    "iconWidth": "24px",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "color": "#8F8F94",
+    "selectedColor": "#f33e54",
     "list": [
       {
         "pagePath": "pages/home/index",
