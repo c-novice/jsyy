@@ -29,5 +29,4 @@ public class Account extends BaseMongoEntity {
 
     @ApiModelProperty(value = "用户类型")
     private String type;
-
 }

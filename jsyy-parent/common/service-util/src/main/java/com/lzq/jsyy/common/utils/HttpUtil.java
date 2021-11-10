@@ -9,6 +9,8 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * http请求发送工具类
+ *
+ * @author lzq
  */
 @Slf4j
 public final class HttpUtil {

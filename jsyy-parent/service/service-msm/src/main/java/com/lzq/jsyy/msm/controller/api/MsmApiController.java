@@ -52,7 +52,7 @@ public class MsmApiController {
 
         boolean isSend = msmService.send(phone, sixBitRandom);
         if (isSend) {
-            redisTemplate.opsForValue().set(phone, sixBitRandom, 2, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(phone, sixBitRandom, 5, TimeUnit.MINUTES);
             return Result.ok();
         } else {
             return Result.fail();

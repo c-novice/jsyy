@@ -33,15 +33,19 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
             return null;
         }
 
+        String facilityId = scheduleQueryVo.getFacilityId();
         String roomId = scheduleQueryVo.getRoomId();
         Date workDate = scheduleQueryVo.getWorkDate();
         String id = scheduleQueryVo.getId();
 
         QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(facilityId)) {
+            wrapper.eq("facility_id", facilityId);
+        }
         if (!StringUtils.isEmpty(roomId)) {
             wrapper.eq("room_id", roomId);
         }
-        if (!StringUtils.isEmpty(workDate)) {
+        if (!ObjectUtils.isEmpty(workDate)) {
             wrapper.eq("work_date", workDate);
         }
         if (!StringUtils.isEmpty(id)) {
@@ -83,6 +87,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         if (StringUtils.isEmpty(schedule1)) {
             map.put("state", ResultCodeEnum.SUCCESS);
             Schedule schedule = new Schedule();
+            schedule.setFacilityId(scheduleAddVo.getFacilityId());
             schedule.setRoomId(scheduleAddVo.getRoomId());
             schedule.setOpenDate(scheduleAddVo.getOpenDate());
             schedule.setCloseDate(scheduleAddVo.getCloseDate());
@@ -133,6 +138,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         if (StringUtils.isEmpty(schedule1)) {
             map.put("state", ResultCodeEnum.SUCCESS);
             Schedule schedule = new Schedule();
+            schedule.setFacilityId(scheduleUpdateVo.getFacilityId());
             schedule.setRoomId(scheduleUpdateVo.getRoomId());
             schedule.setOpenDate(scheduleUpdateVo.getOpenDate());
             schedule.setCloseDate(scheduleUpdateVo.getCloseDate());

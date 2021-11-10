@@ -11,7 +11,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 
 /**
  * @author lzq
@@ -27,15 +26,13 @@ public class OrderInfoReceiver {
      *
      * @param message
      * @param channel
-     * @throws IOException
      */
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue(value = MqConst.QUEUE_TASK_7, durable = "true"),
             exchange = @Exchange(value = MqConst.EXCHANGE_DIRECT_TASK),
             key = {MqConst.ROUTING_TASK_7}
     ))
-    // TODO 定时提醒预约，发送信息
-    public void orderTips(Message message, Channel channel) throws IOException {
+    public void orderTips(Message message, Channel channel) {
         orderInfoService.orderTips();
     }
 

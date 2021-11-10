@@ -2,10 +2,13 @@ package com.lzq.jsyy.cmn.controller.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lzq.jsyy.cmn.service.FacilityService;
+import com.lzq.jsyy.cmn.service.RoomService;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Facility;
+import com.lzq.jsyy.model.cmn.Room;
 import com.lzq.jsyy.vo.cmn.query.FacilityQueryVo;
+import com.lzq.jsyy.vo.cmn.query.RoomQueryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,6 +34,9 @@ public class FacilityApiController {
     @Autowired
     private FacilityService facilityService;
 
+    @Autowired
+    private RoomService roomService;
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "data:{records,total,size,current}")
     })
@@ -54,6 +60,11 @@ public class FacilityApiController {
         if (ObjectUtils.isEmpty(facility)) {
             return Result.fail(ResultCodeEnum.FACILITY_GET_ERROR);
         } else {
+            Page<Room> pageParam = new Page<>(1, Integer.MAX_VALUE);
+            RoomQueryVo roomQueryVo = new RoomQueryVo();
+            roomQueryVo.setFacilityId(facility.getId());
+
+            facility.setRooms(roomService.selectPage(pageParam, roomQueryVo).getRecords());
             Map<String, Object> map = new HashMap<>(1);
             map.put("facility", facility);
             return Result.ok(map);

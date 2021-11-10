@@ -61,7 +61,8 @@ public class RoomApiController {
         } else {
             Page<Schedule> pageParam = new Page<>(1, Integer.MAX_VALUE);
             ScheduleQueryVo scheduleQueryVo = new ScheduleQueryVo();
-            scheduleQueryVo.setRoomId(scheduleQueryVo.getRoomId());
+            scheduleQueryVo.setFacilityId(room.getFacilityId());
+            scheduleQueryVo.setRoomId(room.getRoomId());
 
             room.setSchedules(scheduleService.selectPage(pageParam, scheduleQueryVo).getRecords());
             Map<String, Object> map = new HashMap<>(1);

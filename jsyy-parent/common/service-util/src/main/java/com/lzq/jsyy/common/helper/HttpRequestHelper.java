@@ -38,16 +38,14 @@ public class HttpRequestHelper {
      * @return
      */
     public static String getSign(Map<String, Object> paramMap, String signKey) {
-        if (paramMap.containsKey("sign")) {
-            paramMap.remove("sign");
-        }
+        paramMap.remove("sign");
         TreeMap<String, Object> sorted = new TreeMap<>(paramMap);
         StringBuilder str = new StringBuilder();
         for (Map.Entry<String, Object> param : sorted.entrySet()) {
             str.append(param.getValue()).append("|");
         }
         str.append(signKey);
-        log.info("加密前：" + str.toString());
+        log.info("加密前：" + str);
         String md5Str = MD5.encrypt(str.toString());
         log.info("加密后：" + md5Str);
         return md5Str;

@@ -88,21 +88,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         wrapper.eq("username", username);
         User user = baseMapper.selectOne(wrapper);
 
-        // 用户为空返回LOGIN_PHONE_ERROR，否则返回SUCCESS
-        if (null == user) {
-            map.put("state", ResultCodeEnum.LOGIN_PHONE_ERROR);
-        } else {
-            String code = loginVo.getCode();
-            String redisCode = redisTemplate.opsForValue().get(username);
-            if (redisCode == null || !redisCode.equals(code)) {
-                map.put("state", ResultCodeEnum.CODE_ERROR);
-            } else {
-                map.put("state", ResultCodeEnum.SUCCESS);
-                String token = JwtHelper.createToken(user.getId(), user.getUsername());
-                map.put("token", token);
-                map.put("user", user);
-            }
+        String code = loginVo.getCode();
+        String redisCode = redisTemplate.opsForValue().get(username);
+        if (redisCode == null || !redisCode.equals(code)) {
+            map.put("state", ResultCodeEnum.CODE_ERROR);
+            return map;
         }
+        // 用户为空进行注册
+        if (ObjectUtils.isEmpty(user)) {
+            RegisterVo registerVo = new RegisterVo();
+            registerVo.setUsername(username);
+            registerVo.setPassword("");
+            return register(registerVo);
+        }
+
+        map.put("state", ResultCodeEnum.SUCCESS);
+        String token = JwtHelper.createToken(user.getId(), user.getUsername());
+        map.put("token", token);
+        map.put("user", user);
 
         return map;
     }
@@ -174,7 +177,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!StringUtils.isEmpty(username)) {
             wrapper.eq("username", username);
             User user1 = baseMapper.selectOne(wrapper);
-            if (StringUtils.isEmpty(user1)) {
+            if (!StringUtils.isEmpty(user1)) {
                 map.put("state", ResultCodeEnum.REGISTER_USERNAME_ERROR);
                 return map;
             }
@@ -184,6 +187,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         baseMapper.insert(user);
 
         map.put("state", ResultCodeEnum.SUCCESS);
+        String token = JwtHelper.createToken(user.getId(), user.getUsername());
+        map.put("token", token);
         map.put("user", user);
         return map;
     }

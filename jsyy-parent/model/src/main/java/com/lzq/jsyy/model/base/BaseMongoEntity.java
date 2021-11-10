@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,7 +21,7 @@ import java.util.Date;
 public class BaseMongoEntity implements Serializable {
 
     @ApiModelProperty(value = "id")
-    @MongoId
+    @Id
     private String id;
 
     @ApiModelProperty(value = "创建时间")

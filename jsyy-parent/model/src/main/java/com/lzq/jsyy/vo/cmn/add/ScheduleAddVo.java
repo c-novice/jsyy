@@ -15,6 +15,9 @@ import java.math.BigDecimal;
 @ApiModel(description = "添加预约排班vo类")
 @ToString
 public class ScheduleAddVo {
+    @ApiModelProperty(value = "设施编号")
+    private String facilityId;
+
     @ApiModelProperty(value = "房间编号")
     private String roomId;
 

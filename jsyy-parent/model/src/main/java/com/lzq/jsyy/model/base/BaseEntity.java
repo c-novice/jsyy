@@ -1,10 +1,6 @@
 package com.lzq.jsyy.model.base;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,21 +20,18 @@ import java.util.Date;
 public class BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "id")
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @TableField("create_time")
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @TableField("update_time")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     @ApiModelProperty(value = "逻辑删除(1:已删除，0:未删除)")
-    @TableLogic
-    @TableField("is_deleted")
+    @TableLogic(value = "0", delval = "1")
     private Integer isDeleted;
 }

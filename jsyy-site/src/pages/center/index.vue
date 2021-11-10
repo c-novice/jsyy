@@ -4,9 +4,10 @@
       <u-image style="margin-left: 20rpx;margin-right: 60rpx" width="80rpx" height="80rpx"
                src="@/static/touxiang.png"></u-image>
       <!--      路由到登录/注册页面-->
-      <navigator :url="`/pages/center/login/index`">
+      <navigator :url="`/pages/center/login/index`" v-show="!loginStatus">
         <text>登录 / 注册</text>
       </navigator>
+      <text v-show="loginStatus">{{ user.username }}</text>
       <u-image style="margin-left: 270rpx" width="55rpx" height="55rpx" src="@/static/shezhi.png"
                @click="switchTo('setup/index')"></u-image>
     </view>
@@ -62,7 +63,14 @@ import UNavbar from "../../uview-ui/components/u-navbar/u-navbar";
 export default {
   components: {UNavbar, UCard, UImage},
   data() {
-    return {}
+    return {
+      // 登录状态
+      loginStatus: false,
+      // 当前用户
+      user: {
+        username: ''
+      }
+    }
   },
   methods: {
     // 页面跳转

@@ -50,10 +50,10 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * 查询待处理的预约记录
      *
      * @param pageParam
-     * @param PermissionName
+     * @param permissionName
      * @return
      */
-    Page<OrderInfo> selectPendingOrder(Page<OrderInfo> pageParam, String PermissionName);
+    Page<OrderInfo> selectPendingOrder(Page<OrderInfo> pageParam, String permissionName);
 
     /**
      * 审批订单

@@ -19,6 +19,9 @@ public class ScheduleUpdateVo {
     @ApiModelProperty(value = "id")
     private String id;
 
+    @ApiModelProperty(value = "设施编号")
+    private String facilityId;
+
     @ApiModelProperty(value = "房间编号")
     private String roomId;
 
