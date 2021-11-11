@@ -27,7 +27,7 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/api/room")
+@RequestMapping("/api/cmn/room")
 @Api(tags = "房间操作API")
 public class RoomApiController {
     @Autowired

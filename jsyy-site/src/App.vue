@@ -5,14 +5,12 @@
 
 <script>
 export default {
-  onLaunch: function() {
-    uni.onTabBarMidButtonTap(() => {
-      uni.navigateTo({
-        url: "/pages/order/index",
-        animationType: "slide-in-bottom",
-        animationDuration: 150
-      })
-    })
+  globalData: {
+    token: null,
+    user: null,
+    loginStatus: false
+  },
+  onLaunch: function () {
   },
   onShow: function () {
     console.log

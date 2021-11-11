@@ -23,7 +23,7 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/admin/facility")
+@RequestMapping("/admin/cmn/facility")
 @Api(tags = "设施后台管理端API")
 public class FacilityAdminController {
     @Autowired

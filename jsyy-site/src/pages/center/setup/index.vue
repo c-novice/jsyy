@@ -1,5 +1,6 @@
 <template>
   <view>
+    <u-toast ref="uToast"></u-toast>
     <view>
       <u-cell-group>
         <u-cell-item icon="pushpin-fill" title="校园账号绑定"
@@ -25,17 +26,44 @@ export default {
   components: {UButton, UCellItem, UCellGroup},
   data() {
     return {
-      loginStatus: false
+      loginStatus: false,
+      token: null
     }
   },
   methods: {
+    onShow() {
+      this.token = getApp().globalData.token
+      this.loginStatus = getApp().globalData.loginStatus
+    },
     // 页面跳转
     switchTo(url) {
-      uni.navigateTo({
-        url: url
-      });
+      if (false === this.loginStatus) {
+        this.$refs.uToast.show({
+          title: '请先登录！',
+          type: 'warning'
+        })
+      } else {
+        uni.navigateTo({
+          url: url
+        })
+      }
     },
     exit() {
+      if (false === this.loginStatus) {
+        this.$refs.uToast.show({
+          title: '请先登录！',
+          type: 'warning'
+        })
+      } else {
+        getApp().globalData.token = null
+        getApp().globalData.loginStatus = false
+        getApp().globalData.user = null
+        this.$refs.uToast.show({
+          title: '退出登录成功！',
+          type: 'success',
+          back: true
+        })
+      }
     }
   }
 }
@@ -43,7 +71,8 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  margin-left: 60rpx;
-  margin-right: 60rpx;
+  margin-top: 40rpx;
+  margin-left: 80rpx;
+  margin-right: 80rpx;
 }
 </style>

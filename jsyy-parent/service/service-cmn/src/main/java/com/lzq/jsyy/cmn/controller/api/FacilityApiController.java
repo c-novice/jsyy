@@ -28,7 +28,7 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/api/facility")
+@RequestMapping("/api/cmn/facility")
 @Api(tags = "设施操作API")
 public class FacilityApiController {
     @Autowired

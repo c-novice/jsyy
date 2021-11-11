@@ -1,5 +1,6 @@
 <template>
   <view>
+    <u-toast ref="uToast"></u-toast>
     <view class="head">
       <u-image style="margin-left: 20rpx;margin-right: 60rpx" width="80rpx" height="80rpx"
                src="@/static/touxiang.png"></u-image>
@@ -67,12 +68,16 @@ export default {
       // 登录状态
       loginStatus: false,
       // 当前用户
-      user: {
-        username: ''
-      }
+      user: null,
+      token: null
     }
   },
   methods: {
+    onShow() {
+      this.token = getApp().globalData.token
+      this.user = getApp().globalData.user
+      this.loginStatus = getApp().globalData.loginStatus
+    },
     // 页面跳转
     switchTo(url) {
       uni.navigateTo({

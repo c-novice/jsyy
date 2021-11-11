@@ -31,7 +31,8 @@
       </view>
       <u-gap height="20"></u-gap>
       <view class="bottom">
-        <u-button @click="submit" :ripple="true" type="warning">{{ way ? "登录" : "登录/注册" }}</u-button>
+        <u-button v-show="way" @click="loginByPassword" :ripple="true" type="warning">登录</u-button>
+        <u-button v-show="!way" @click="loginByCode" :ripple="true" type="warning">登录/注册</u-button>
       </view>
       <view class="qiehuan">
         <u-image width="40rpx" height="40rpx" src="/static/qiehuan.png" @click="this.way=!this.way"></u-image>
@@ -65,6 +66,12 @@ export default {
     }
   },
   methods: {
+    onShow() {
+      if (null != getApp().globalData.user) {
+        this.username = getApp().globalData.user.username
+        this.password = getApp().globalData.user.password
+      }
+    },
     codeChange(text) {
       this.tips = text;
     },
@@ -85,40 +92,40 @@ export default {
         this.$u.toast('倒计时结束后再发送');
       }
     },
-    submit() {
-      this.$post({
-        url: '/security/session',
-        data: {
-          username: this.userName,
-          password: this.password,
+    loginByCode() {
+
+    },
+    loginByPassword() {
+      uni.request({
+        url: `${this.$baseUrl}/user/loginByPassword?username=` + this.username + `&password=` + this.password,
+        method: 'GET',
+        success: ({data}) => {
+          console.log(data)
+          if (data.code === 200) {
+            getApp().globalData.token = data.data.token
+            getApp().globalData.user = data.data.user
+            getApp().globalData.loginStatus = true
+            this.$refs.uToast.show({
+              title: '登录成功!',
+              type: 'success',
+              back: true
+            })
+          } else {
+            this.$refs.uToast.show({
+              title: data.message,
+              type: 'warning'
+            })
+          }
         },
-      }).then(res => {
-        if (res.data.code === 0) {
-          uni.setStorage({
-            key: 'fx-auth-token',
-            data: res.data.ok.token,
-          });
-          this.$u.route({
-            type: 'switchTab',
-            url: '/pages/function/function'
-          })
-        } else {
-          uni.showToast({
-            title: '用户名或密码错误！',
-            icon: 'none',
+        fail: (err) => {
+          this.$refs.uToast.show({
+            title: '登陆失败',
+            type: 'warning'
           })
         }
-        uni.setStorage({
-          key: 'user',
-          data: JSON.stringify(res.data.ok.data),
-        });
-      }).catch(err => {
-        uni.showToast({
-          title: '用户名或密码错误异常！',
-          icon: 'none',
-        })
       })
     }
+
   }
 }
 </script>

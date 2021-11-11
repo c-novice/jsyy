@@ -17,7 +17,7 @@ import springfox.documentation.annotations.ApiIgnore;
  * @author lzq
  */
 @RestController
-@RequestMapping("/api/permission")
+@RequestMapping("/api/cmn/permission")
 @Api(tags = "权限操作API")
 public class PermissionApiController {
     @Autowired

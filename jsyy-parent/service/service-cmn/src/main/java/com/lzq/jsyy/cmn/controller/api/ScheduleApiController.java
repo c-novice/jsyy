@@ -26,7 +26,7 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/api/schedule")
+@RequestMapping("/api/cmn/schedule")
 @Api(tags = "预约排班操作API")
 public class ScheduleApiController {
     @Autowired

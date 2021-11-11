@@ -31,7 +31,7 @@ public class BaseEntity implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
-    @ApiModelProperty(value = "逻辑删除(1:已删除，0:未删除)")
-    @TableLogic(value = "0", delval = "1")
+    @ApiModelProperty(value = "逻辑删除")
+    @TableLogic
     private Integer isDeleted;
 }

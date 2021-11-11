@@ -23,7 +23,7 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/admin/room")
+@RequestMapping("/admin/cmn/room")
 @Api(tags = "房间后台管理端API")
 public class RoomAdminController {
     @Autowired

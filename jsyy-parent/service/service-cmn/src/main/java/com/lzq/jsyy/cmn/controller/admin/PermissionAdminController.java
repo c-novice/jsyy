@@ -24,7 +24,7 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/admin/permission")
+@RequestMapping("/admin/cmn/permission")
 @Api(tags = "权限后台管理端API")
 public class PermissionAdminController {
     @Autowired

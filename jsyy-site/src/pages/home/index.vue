@@ -1,5 +1,6 @@
 <template>
   <view>
+    <u-toast ref="uToast"></u-toast>
     <text class="main">校园统一挂号平台</text>
     <u-swiper :effect3d="true" height="400" :list="list"></u-swiper>
   </view>

@@ -61,8 +61,6 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     /**
      * api接口鉴权失败返回数据
      *
-     * @param response
-     * @param resultCodeEnum
      * @return
      */
     private Mono<Void> out(ServerHttpResponse response, ResultCodeEnum resultCodeEnum) {

@@ -1,5 +1,6 @@
 <template>
   <view class="main">
+    <u-toast ref="uToast"></u-toast>
     <u-gap height="20"></u-gap>
     <u-form label-width="140">
       <u-form-item label="校园账号">

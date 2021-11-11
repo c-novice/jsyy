@@ -170,7 +170,9 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         baseMapper.insert(orderInfo);
         // 生成支付记录
-        paymentInfoService.add(orderInfo);
+        QueryWrapper<OrderInfo> query = new QueryWrapper<>();
+        query.eq("out_trade_no", orderInfo.getOutTradeNo());
+        paymentInfoService.add(baseMapper.selectOne(query));
 
         map.put("state", ResultCodeEnum.SUCCESS);
         map.put("orderInfo", orderInfo);

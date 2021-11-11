@@ -50,6 +50,18 @@
       "style": {
         "navigationBarTitleText": "修改密码"
       }
+    },
+    {
+      "path": "pages/order/room/index",
+      "style": {
+        "navigationBarTitleText": "房间"
+      }
+    },
+    {
+      "path": "pages/order/room/schedule/index",
+      "style": {
+        "navigationBarTitleText": "预约排班"
+      }
     }
   ],
   "tabBar": {
