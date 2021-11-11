@@ -63,9 +63,9 @@ public class ScheduleApiController {
 
     @ApiIgnore()
     @ApiOperation("根据id查询一个预约排班")
-    @GetMapping("/inner/gerById")
+    @GetMapping("/inner/getById")
     public Schedule getById(String id) {
-        if (!StringUtils.isEmpty(id)) {
+        if (StringUtils.isEmpty(id)) {
             return null;
         }
         return scheduleService.getById(id);

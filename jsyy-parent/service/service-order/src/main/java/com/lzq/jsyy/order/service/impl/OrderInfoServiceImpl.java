@@ -52,8 +52,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
     @Autowired
     private RabbitService rabbitService;
-
-    @Transactional(rollbackFor = JsyyException.class)
+    
     @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<OrderInfo> selectPage(Page<OrderInfo> pageParam, OrderInfoQueryVo orderInfoQueryVo) {
@@ -106,6 +105,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         return baseMapper.selectPage(pageParam, wrapper);
     }
 
+    @Transactional(rollbackFor = JsyyException.class)
     @Override
     public Map<String, Object> add(OrderInfoAddVo orderInfoAddVo) {
         Map<String, Object> map = new HashMap<>(1);
@@ -122,11 +122,11 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
         // 判断当前时间是否满足在预约排班时间内
         String currentTime = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
-        if (!StringUtils.isEmpty(schedule.getOpenDate()) || currentTime.compareTo(schedule.getOpenDate()) < 0) {
+        if (StringUtils.isEmpty(schedule.getOpenDate()) || currentTime.compareTo(schedule.getOpenDate()) > 0) {
             map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
             return map;
         }
-        if (!StringUtils.isEmpty(schedule.getCloseDate()) || currentTime.compareTo(schedule.getCloseDate()) > 0) {
+        if (StringUtils.isEmpty(schedule.getCloseDate()) || currentTime.compareTo(schedule.getCloseDate()) > 0) {
             map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
             return map;
         }

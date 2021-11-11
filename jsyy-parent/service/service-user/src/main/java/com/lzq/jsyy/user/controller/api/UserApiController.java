@@ -1,5 +1,6 @@
 package com.lzq.jsyy.user.controller.api;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.user.User;
@@ -7,13 +8,13 @@ import com.lzq.jsyy.user.service.impl.UserServiceImpl;
 import com.lzq.jsyy.vo.user.BindingVo;
 import com.lzq.jsyy.vo.user.LoginVo;
 import com.lzq.jsyy.vo.user.RegisterVo;
-import com.lzq.jsyy.vo.user.update.UserUpdateVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,7 +78,7 @@ public class UserApiController {
     @ApiOperation(value = "校园信息绑定")
     @GetMapping("/auth/binding")
     public Result binding(String userId, BindingVo bindingVo) {
-        User user = userService.getUser(userId);
+        User user = userService.getById(userId);
         Map<String, Object> map = userService.binding(user, bindingVo);
 
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
@@ -99,5 +100,16 @@ public class UserApiController {
         } else {
             return Result.fail(ResultCodeEnum.USER_REPEAT);
         }
+    }
+
+    @GetMapping("/inner/getPermissionByUsername")
+    String getPermissionByUsername(String username) {
+        if (StringUtils.isEmpty(username)) {
+            return null;
+        }
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.eq("username", username);
+        User user = userService.getOne(query);
+        return user == null ? null : user.getPermission();
     }
 }

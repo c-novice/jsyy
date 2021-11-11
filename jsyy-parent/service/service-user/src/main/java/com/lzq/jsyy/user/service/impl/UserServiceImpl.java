@@ -193,15 +193,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return map;
     }
 
-    @Cacheable(value = "getUser", keyGenerator = "keyGenerator")
-    @Override
-    public User getUser(String userId) {
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", userId);
-        User user = baseMapper.selectOne(wrapper);
-        return user;
-    }
-
     @Override
     public User updatePassword(String username, String password) {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
@@ -222,7 +213,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Map<String, Object> binding(User user, BindingVo bindingVo) {
         Map<String, Object> map = new HashMap<>(2);
 
-        if (StringUtils.isEmpty(user) || StringUtils.isEmpty(bindingVo)) {
+        if (ObjectUtils.isEmpty(user) || ObjectUtils.isEmpty(bindingVo)) {
             map.put("state", ResultCodeEnum.BINDING_ERROR);
             return map;
         }

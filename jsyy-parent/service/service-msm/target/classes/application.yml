@@ -1,10 +1,10 @@
 # 服务端口
 server:
-  port: 8202
+  port: 8203
 # 服务名
 spring:
   application:
-    name: service-cmn
+    name: service-msm
 
   # 环境设置：dev、test、prod
   profiles:
@@ -13,9 +13,9 @@ spring:
   # mysql配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://101.35.181.165:3306/jsyy_cmn?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/jsyy_user?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
-    password: root
+    password: lzq2686105
 
   # json数据配置
   jackson:
@@ -34,10 +34,6 @@ spring:
       discovery:
         server-addr: 101.35.181.165:8848
 
-    # sentinel配置
-    sentinel:
-      transport:
-        dashboard: 101.35.181.165:8858
   # rabbitmq地址
   rabbitmq:
     host: 101.35.181.165
@@ -49,15 +45,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-# mapper.xml路径配置
-mybatis-plus:
-  mapper-locations: classpath:xml/*.xml
-  global-config:
-    db-config:
-      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
-
-# openfeign配置sentinel
-feign:
-  sentinel:
-    enabled: true
+# 容联云配置
+cloopen:
+  sms:
+    accountSId: 8aaf07087bc82708017bf1f2aeb90b94
+    accountToken: 145b20f3ed29410181839addcb89fdce
+    appId: 8aaf07087bc82708017bf1f2afb30b9a

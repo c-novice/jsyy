@@ -3,6 +3,7 @@ package com.lzq.jsyy.user.client;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author lzq
@@ -18,5 +19,5 @@ public interface UserFeignClient {
      * @return
      */
     @GetMapping("/api/user/inner/getPermissionByUsername")
-    String getPermissionByUsername(String username);
+    String getPermissionByUsername(@RequestParam String username);
 }

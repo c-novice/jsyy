@@ -13,14 +13,14 @@ spring:
   # mysql配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jsyy_user?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://101.35.181.165:3306/jsyy_user?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
-    password: lzq2686105
+    password: root
 
   # mongodb配置
   data:
     mongodb:
-      host: 127.0.0.1
+      host: 101.35.181.165
       port: 27017
       database: jsyy
 
@@ -44,7 +44,7 @@ spring:
     # sentinel配置
     sentinel:
       transport:
-        dashboard: localhost:8080
+        dashboard: 101.35.181.165:8858
 
   # rabbitmq地址
   rabbitmq:

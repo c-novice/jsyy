@@ -5,6 +5,7 @@ import com.lzq.jsyy.model.cmn.Permission;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 权限调用
@@ -21,8 +22,8 @@ public interface PermissionFeignClient {
      * @param type
      * @return
      */
-    @GetMapping("/api/permission/inner/getByType")
-    Permission getByType(String type);
+    @GetMapping("/api/cmn/permission/inner/getByType")
+    Permission getByType(@RequestParam String type);
 
     /**
      * 根据权限名获取父权限名
@@ -30,6 +31,6 @@ public interface PermissionFeignClient {
      * @param name
      * @return
      */
-    @GetMapping("/api/permission/inner/getFatherByName")
-    String getFatherByName(String name);
+    @GetMapping("/api/cmn/permission/inner/getFatherByName")
+    String getFatherByName(@RequestParam String name);
 }

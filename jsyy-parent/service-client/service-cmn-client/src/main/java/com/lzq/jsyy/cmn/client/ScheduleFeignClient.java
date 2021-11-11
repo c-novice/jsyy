@@ -4,6 +4,7 @@ import com.lzq.jsyy.model.cmn.Schedule;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 预约排班调用
@@ -15,9 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface ScheduleFeignClient {
     /**
      * 根据id查询预约排班
+     *
      * @param id
      * @return
      */
-    @GetMapping("/api/schedule/inner/getById")
-    Schedule getById(String id);
+    @GetMapping("/api/cmn/schedule/inner/getById")
+    Schedule getById(@RequestParam String id);
 }

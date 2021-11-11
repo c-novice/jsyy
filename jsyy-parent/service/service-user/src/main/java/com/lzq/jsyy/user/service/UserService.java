@@ -67,14 +67,6 @@ public interface UserService extends IService<User> {
     Map<String, Object> binding(User user, BindingVo bindingVo);
 
     /**
-     * 根据id获取用户信息
-     *
-     * @param userId
-     * @return
-     */
-    User getUser(String userId);
-
-    /**
      * 修改密码
      *
      * @param username

@@ -37,7 +37,7 @@ public class PermissionApiController {
 
     @ApiIgnore()
     @ApiOperation(value = "根据权限名获取父权限名")
-    @GetMapping("/api/permission/inner/getFatherByName")
+    @GetMapping("/inner/getFatherByName")
     public String getFatherByName(String name) {
         if (StringUtils.isEmpty(name)) {
             return null;
