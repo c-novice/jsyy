@@ -10,26 +10,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConstantPropertiesUtils implements InitializingBean {
 
-    @Value("${weixin.appid}")
-    private String appid;
-
-    @Value("${weixin.partner}")
-    private String partner;
-
-    @Value("${weixin.partnerkey}")
-    private String partnerkey;
-
-    @Value("${weixin.cert}")
-    private String cert;
-
-    @Value("${weixin.url}")
-    private String url;
-
     public static String APPID;
     public static String PARTNER;
     public static String PARTNERKEY;
     public static String CERT;
     public static String URL;
+    @Value("${weixin.appid}")
+    private String appid;
+    @Value("${weixin.partner}")
+    private String partner;
+    @Value("${weixin.partnerkey}")
+    private String partnerkey;
+    @Value("${weixin.cert}")
+    private String cert;
+    @Value("${weixin.url}")
+    private String url;
 
     @Override
     public void afterPropertiesSet() {

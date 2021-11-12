@@ -23,7 +23,7 @@ public class HttpRequestHelper {
      * @return
      */
     public static Map<String, Object> switchMap(Map<String, String[]> paramMap) {
-        Map<String, Object> resultMap = new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>(10);
         for (Map.Entry<String, String[]> param : paramMap.entrySet()) {
             resultMap.put(param.getKey(), param.getValue()[0]);
         }

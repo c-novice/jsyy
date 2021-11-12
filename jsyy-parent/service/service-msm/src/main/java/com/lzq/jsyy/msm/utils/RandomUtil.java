@@ -1,9 +1,6 @@
 package com.lzq.jsyy.msm.utils;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -24,26 +21,5 @@ public class RandomUtil {
     public static String getSixBitRandom() {
         return SIXDF.format(RANDOM.nextInt(1000000));
     }
-
-    /**
-     * 给定数组，抽取n个数据
-     *
-     * @param list
-     * @param n
-     * @return
-     */
-    public static ArrayList getRandom(List list, int n) {
-        Random random = new Random();
-        HashMap<Object, Object> hashMap = new HashMap<Object, Object>();
-        for (int i = 0; i < list.size(); i++) {
-            int number = random.nextInt(100) + 1;
-            hashMap.put(number, i);
-        }
-        Object[] robjs = hashMap.values().toArray();
-        ArrayList r = new ArrayList();
-        for (int i = 0; i < n; i++) {
-            r.add(list.get((int) robjs[i]));
-        }
-        return r;
-    }
+    
 }

@@ -12,16 +12,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConstantPropertiesUtils implements InitializingBean {
 
+    public static String ACCOUNT_SID;
+    public static String ACCOUNT_TOKEN;
+    public static String APP_ID;
     @Value("${cloopen.sms.accountSId}")
     private String accountSId;
     @Value("${cloopen.sms.accountToken}")
     private String accountToken;
     @Value("${cloopen.sms.appId}")
     private String appId;
-
-    public static String ACCOUNT_SID;
-    public static String ACCOUNT_TOKEN;
-    public static String APP_ID;
 
     @Override
     public void afterPropertiesSet() throws Exception {

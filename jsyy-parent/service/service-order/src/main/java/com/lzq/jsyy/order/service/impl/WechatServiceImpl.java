@@ -95,12 +95,13 @@ public class WechatServiceImpl implements WechatService {
         paramMap.put("out_trade_no", orderInfo.getOutTradeNo());
         paramMap.put("nonce_str", WXPayUtil.generateNonceStr());
 
-        HttpClient client = new HttpClient("https://api.mch.wechat.qq.com/pay/orderquery");
+        HttpClient client = new HttpClient("https://api.mch.weixin.qq.com/pay/orderquery");
         client.setXmlParam(WXPayUtil.generateSignedXml(paramMap, ConstantPropertiesUtils.PARTNERKEY));
         client.setHttps(true);
         client.post();
 
         String xml = client.getContent();
+        log.info(xml);
         return WXPayUtil.xmlToMap(xml);
     }
 
@@ -124,7 +125,7 @@ public class WechatServiceImpl implements WechatService {
         paramMap.put("refund_fee", String.valueOf(paymentInfo.getTotalAmount()));
         String paramXml = WXPayUtil.generateSignedXml(paramMap, ConstantPropertiesUtils.PARTNERKEY);
 
-        HttpClient client = new HttpClient("https://api.mch.wechat.qq.com/secapi/pay/refund");
+        HttpClient client = new HttpClient("https://api.mch.weixin.qq.com/secapi/pay/refund");
         client.setXmlParam(paramXml);
         client.setHttps(true);
         client.setCert(true);
@@ -132,6 +133,7 @@ public class WechatServiceImpl implements WechatService {
         client.post();
 
         String xml = client.getContent();
+        log.info(xml);
         Map<String, String> resultMap = WXPayUtil.xmlToMap(xml);
 
         if (!ObjectUtils.isEmpty(resultMap) && WXPayConstants.SUCCESS.equalsIgnoreCase(resultMap.get("result_code"))) {

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -102,6 +103,8 @@ public class UserApiController {
         }
     }
 
+    @ApiIgnore()
+    @ApiOperation("根据用户名查询权限名")
     @GetMapping("/inner/getPermissionByUsername")
     String getPermissionByUsername(String username) {
         if (StringUtils.isEmpty(username)) {

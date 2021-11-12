@@ -5,12 +5,13 @@ import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 
@@ -39,6 +40,15 @@ public class HttpClient {
     private boolean isCert = false;
     private String certPassword;
 
+    public HttpClient(String url, Map<String, String> param) {
+        this.url = url;
+        this.param = param;
+    }
+
+    public HttpClient(String url) {
+        this.url = url;
+    }
+
     public boolean isHttps() {
         return isHttps;
     }
@@ -63,15 +73,6 @@ public class HttpClient {
         this.xmlParam = xmlParam;
     }
 
-    public HttpClient(String url, Map<String, String> param) {
-        this.url = url;
-        this.param = param;
-    }
-
-    public HttpClient(String url) {
-        this.url = url;
-    }
-
     public String getCertPassword() {
         return certPassword;
     }
@@ -86,7 +87,7 @@ public class HttpClient {
 
     public void addParameter(String key, String value) {
         if (param == null) {
-            param = new HashMap<>();
+            param = new HashMap<>(1);
         }
         param.put(key, value);
     }
@@ -118,7 +119,7 @@ public class HttpClient {
 
     private void setEntity(HttpEntityEnclosingRequestBase http) {
         if (param != null) {
-            List<NameValuePair> nvps = new LinkedList<NameValuePair>();
+            List<NameValuePair> nvps = new LinkedList<>();
             for (String key : param.keySet()) {
                 nvps.add(new BasicNameValuePair(key, param.get(key)));
             }
@@ -141,10 +142,9 @@ public class HttpClient {
                     keystore.load(inputStream, partnerId2charArray);
                     SSLContext sslContext = SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
                     SSLConnectionSocketFactory sslsf =
-                            new SSLConnectionSocketFactory(sslContext,
-                                    new String[]{"TLSv1"},
-                                    null,
-                                    SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+                            new SSLConnectionSocketFactory(
+                                    sslContext, new String[]{"TLSv1"}, null,
+                                    new DefaultHostnameVerifier());
                     httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
                 } else {
                     SSLContext sslContext = new SSLContextBuilder()
@@ -169,6 +169,7 @@ public class HttpClient {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            assert httpClient != null;
             httpClient.close();
         }
     }

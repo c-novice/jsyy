@@ -11,6 +11,12 @@ public enum RefundInfoStatusEnum {
     REFUNDED(2, "已退款");
 
     private Integer status;
+    private String name;
+
+    RefundInfoStatusEnum(Integer status, String name) {
+        this.status = status;
+        this.name = name;
+    }
 
     public Integer getStatus() {
         return status;
@@ -25,13 +31,6 @@ public enum RefundInfoStatusEnum {
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    private String name;
-
-    RefundInfoStatusEnum(Integer status, String name) {
-        this.status = status;
         this.name = name;
     }
 

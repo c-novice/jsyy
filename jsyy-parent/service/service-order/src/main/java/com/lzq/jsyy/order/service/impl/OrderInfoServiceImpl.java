@@ -223,7 +223,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         // 查询所有处于审批中且待处理人权限为当前用户权限的顶单
         QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("next_need_permission", permissionName);
-        wrapper.eq("order_status", OrderInfoStatusEnum.PENDING);
+        wrapper.eq("order_status", OrderInfoStatusEnum.PENDING.getStatus());
 
         // 每次查询时检查是否过期，只检查可能作为查询结果的记录
         Page<OrderInfo> page = baseMapper.selectPage(pageParam, wrapper);
@@ -257,10 +257,14 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         // 当前用户权限等于订单最终权限时，审批结束
         // 获取用户权限
         String permissionName = userFeignClient.getPermissionByUsername(username);
-        if (orderInfo.getLastPendingUsername().equals(permissionName)) {
+        if (orderInfo.getLastPendingPermission().equals(permissionName)) {
             orderInfo.setOrderStatus(OrderInfoStatusEnum.ORDERED.getStatus());
-            baseMapper.updateById(orderInfo);
+        } else {
+            // 查询当前用户的父权限
+            String father = permissionFeignClient.getFatherByName(permissionName);
+            orderInfo.setNextNeedPermission(father);
         }
+        baseMapper.updateById(orderInfo);
         map.put("orderInfo", orderInfo);
         map.put("state", ResultCodeEnum.SUCCESS);
         return map;
