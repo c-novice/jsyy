@@ -7,15 +7,12 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
+ * mybatis-plus更新和创建注入
+ *
  * @author lzq
  */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
-    /***
-     * 逻辑删除注入
-     * @return
-     */
-
     @Override
     public void insertFill(MetaObject metaObject) {
         this.setFieldValByName("createTime", new Date(), metaObject);

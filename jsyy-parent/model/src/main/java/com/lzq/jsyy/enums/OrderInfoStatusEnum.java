@@ -1,9 +1,10 @@
 package com.lzq.jsyy.enums;
 
 /**
+ * 预约记录枚举类
+ *
  * @author lzq
  */
-
 public enum OrderInfoStatusEnum {
     // 预约记录状态
     LOSE_EFFICACY(1, "已失效"),

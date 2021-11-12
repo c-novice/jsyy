@@ -52,7 +52,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
     @Autowired
     private RabbitService rabbitService;
-    
+
     @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<OrderInfo> selectPage(Page<OrderInfo> pageParam, OrderInfoQueryVo orderInfoQueryVo) {
@@ -122,7 +122,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
         // 判断当前时间是否满足在预约排班时间内
         String currentTime = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
-        if (StringUtils.isEmpty(schedule.getOpenDate()) || currentTime.compareTo(schedule.getOpenDate()) > 0) {
+        if (StringUtils.isEmpty(schedule.getOpenDate()) || currentTime.compareTo(schedule.getOpenDate()) < 0) {
             map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
             return map;
         }
@@ -155,6 +155,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderInfo.setQuitTime(schedule.getQuitTime());
         orderInfo.setAmount(schedule.getAmount());
         orderInfo.setWorkDate(schedule.getWorkDate());
+        orderInfo.setLastPendingPermission(schedule.getLastPendingPermission());
         // 设置订单交易号
         orderInfo.setOutTradeNo(System.currentTimeMillis() + "" + new Random().nextInt(100));
         // 设置订单状态为正在支付中

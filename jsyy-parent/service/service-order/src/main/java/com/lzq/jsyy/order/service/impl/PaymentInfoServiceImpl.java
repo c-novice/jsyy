@@ -76,7 +76,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         paymentInfo.setOrderId(orderInfo.getId());
         paymentInfo.setOutTradeNo(orderInfo.getOutTradeNo());
         paymentInfo.setTotalAmount(orderInfo.getAmount());
-        paymentInfo.setPaymentStatus(PaymentInfoStatusEnum.PAYING.getStatus());
+        paymentInfo.setPaymentStatus(PaymentInfoStatusEnum.REMAINING.getStatus());
 
         return baseMapper.insert(paymentInfo) > 0;
     }
@@ -96,11 +96,11 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
             return map;
         }
 
-        // 如果已经有支付中的该订单，拒绝添加
+        // 如果未查到待支付的订单，拒绝添加
         QueryWrapper<PaymentInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("order_id", orderId);
         PaymentInfo paymentInfo = baseMapper.selectOne(wrapper);
-        if (!ObjectUtils.isEmpty(paymentInfo) || !paymentInfo.getPaymentStatus().equals(PaymentInfoStatusEnum.PAYING.getStatus())) {
+        if (ObjectUtils.isEmpty(paymentInfo) || !paymentInfo.getPaymentStatus().equals(PaymentInfoStatusEnum.REMAINING.getStatus())) {
             map.put("state", ResultCodeEnum.PAYMENT_ADD_ERROR);
             return map;
         }
@@ -112,14 +112,11 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
             return map;
         }
 
-        // 添加支付记录，支付中
-        PaymentInfo paymentInfo2 = new PaymentInfo();
-        paymentInfo2.setOrderId(orderId);
-        paymentInfo.setOutTradeNo(orderInfo.getOutTradeNo());
-        paymentInfo.setTotalAmount(orderInfo.getAmount());
+        // 修改支付记录：待支付->支付中
         paymentInfo.setPaymentStatus(PaymentInfoStatusEnum.PAYING.getStatus());
-        baseMapper.insert(paymentInfo);
+        baseMapper.updateById(paymentInfo);
         map.put("paymentInfo", paymentInfo);
+        map.put("native", native2);
         map.put("state", ResultCodeEnum.SUCCESS);
         return map;
     }
@@ -132,7 +129,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         }
         QueryWrapper<PaymentInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("out_trade_no", outTradeNo);
-        wrapper.eq("payment_status", PaymentInfoStatusEnum.PAYING);
+        wrapper.eq("payment_status", PaymentInfoStatusEnum.PAYING.getStatus());
         PaymentInfo paymentInfo = baseMapper.selectOne(wrapper);
 
         if (ObjectUtils.isEmpty(paymentInfo)) {

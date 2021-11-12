@@ -1,6 +1,8 @@
 package com.lzq.jsyy.enums;
 
 /**
+ * 支付订单枚举类
+ *
  * @author lzq
  */
 
@@ -10,7 +12,8 @@ public enum PaymentInfoStatusEnum {
     PAYING(2, "支付中"),
     PAYED(3, "已支付"),
     CANCELED(4, "已取消"),
-    REFUND(5, "已退单");
+    REFUND(5, "已退单"),
+    REMAINING(6, "待支付");
 
     private Integer status;
     private String name;

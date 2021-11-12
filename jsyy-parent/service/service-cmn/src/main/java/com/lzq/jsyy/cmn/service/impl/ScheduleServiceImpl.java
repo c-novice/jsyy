@@ -37,6 +37,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         String roomId = scheduleQueryVo.getRoomId();
         Date workDate = scheduleQueryVo.getWorkDate();
         String id = scheduleQueryVo.getId();
+        String lastPendingPermission = scheduleQueryVo.getLastPendingPermission();
 
         QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(facilityId)) {
@@ -50,6 +51,9 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         }
         if (!StringUtils.isEmpty(id)) {
             wrapper.eq("id", id);
+        }
+        if (!StringUtils.isEmpty(lastPendingPermission)) {
+            wrapper.eq("last_pending_permission", lastPendingPermission);
         }
 
         Page<Schedule> page = baseMapper.selectPage(pageParam, wrapper);
@@ -96,6 +100,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
             schedule.setEndTime(endTime);
             schedule.setQuitTime(scheduleAddVo.getQuitTime());
             schedule.setAmount(scheduleAddVo.getAmount());
+            schedule.setLastPendingPermission(scheduleAddVo.getLastPendingPermission());
 
             map.put("schedule", schedule);
             baseMapper.insert(schedule);
@@ -120,6 +125,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         String beginTime = scheduleUpdateVo.getBeginTime();
         String endTime = scheduleUpdateVo.getEndTime();
         String id = scheduleUpdateVo.getId();
+        String lastPendingPermission = scheduleUpdateVo.getLastPendingPermission();
 
         QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(workDate)) {
@@ -130,6 +136,9 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         }
         if (!StringUtils.isEmpty(endTime)) {
             wrapper.le("end_time", endTime);
+        }
+        if (!StringUtils.isEmpty(lastPendingPermission)) {
+            wrapper.eq("last_pending_permission", lastPendingPermission);
         }
         wrapper.ne("id", id);
 
@@ -147,6 +156,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
             schedule.setEndTime(endTime);
             schedule.setQuitTime(scheduleUpdateVo.getQuitTime());
             schedule.setAmount(scheduleUpdateVo.getAmount());
+            schedule.setLastPendingPermission(scheduleUpdateVo.getLastPendingPermission());
 
             map.put("schedule", schedule);
             baseMapper.updateById(schedule);

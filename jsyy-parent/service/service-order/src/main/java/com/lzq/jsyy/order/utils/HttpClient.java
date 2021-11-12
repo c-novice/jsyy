@@ -7,7 +7,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContextBuilder;
-import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -19,7 +18,6 @@ import javax.net.ssl.SSLContext;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.KeyStore;
-import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -150,12 +148,7 @@ public class HttpClient {
                     httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
                 } else {
                     SSLContext sslContext = new SSLContextBuilder()
-                            .loadTrustMaterial(null, new TrustStrategy() {
-                                @Override
-                                public boolean isTrusted(X509Certificate[] chain, String authType) {
-                                    return true;
-                                }
-                            }).build();
+                            .loadTrustMaterial(null, (chain, authType) -> true).build();
                     SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
                             sslContext);
                     httpClient = HttpClients.custom().setSSLSocketFactory(sslsf)

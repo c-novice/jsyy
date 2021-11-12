@@ -22,16 +22,21 @@ public class ConstantPropertiesUtils implements InitializingBean {
     @Value("${weixin.cert}")
     private String cert;
 
+    @Value("${weixin.url}")
+    private String url;
+
     public static String APPID;
     public static String PARTNER;
     public static String PARTNERKEY;
     public static String CERT;
+    public static String URL;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         APPID = appid;
         PARTNER = partner;
         PARTNERKEY = partnerkey;
         CERT = cert;
+        URL = url;
     }
 }

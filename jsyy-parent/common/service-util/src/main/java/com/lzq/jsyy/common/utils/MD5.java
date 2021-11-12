@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 
 /**
- * md5
+ * md5编码
  *
  * @author lzq
  */

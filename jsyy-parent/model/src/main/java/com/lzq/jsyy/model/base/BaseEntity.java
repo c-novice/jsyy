@@ -15,7 +15,7 @@ import java.util.Date;
  * @author lzq
  */
 @Data
-@ToString()
+@ToString
 @ApiModel(description = "mysql对象基类")
 public class BaseEntity implements Serializable {
 

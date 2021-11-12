@@ -45,7 +45,7 @@ public class PermissionApiController {
         QueryWrapper<Permission> wrapper = new QueryWrapper<>();
         wrapper.eq("name", name);
         Permission permission = permissionService.getOne(wrapper);
-        if (!ObjectUtils.isEmpty(permission)) {
+        if (ObjectUtils.isEmpty(permission)) {
             return null;
         }
         return permission.getFather();
