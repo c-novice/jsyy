@@ -54,7 +54,7 @@ public class MsmServiceImpl implements MsmService {
      */
     @Override
     public boolean send(MsmVo msmVo) {
-        if (!StringUtils.isEmpty(msmVo.getPhone())) {
+        if (StringUtils.isEmpty(msmVo.getPhone())) {
             return false;
         }
 
@@ -67,7 +67,10 @@ public class MsmServiceImpl implements MsmService {
         sdk.setAppId(ConstantPropertiesUtils.APP_ID);
         sdk.setBodyType(BodyType.Type_JSON);
 
-        HashMap<String, Object> result = sdk.sendTemplateSMS(msmVo.getPhone(), msmVo.getTemplateId(), msmVo.getParams());
+        String templateId = "1";
+        String[] datas = {"000000", "2"};
+
+        HashMap<String, Object> result = sdk.sendTemplateSMS(msmVo.getPhone(), templateId, datas);
         return "000000".equals(result.get("statusCode"));
     }
 

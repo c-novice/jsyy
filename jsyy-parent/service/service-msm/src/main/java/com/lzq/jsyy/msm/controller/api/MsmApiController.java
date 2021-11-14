@@ -4,7 +4,7 @@ package com.lzq.jsyy.msm.controller.api;
 import com.lzq.jsyy.common.result.Result;
 import com.lzq.jsyy.msm.service.MsmService;
 import com.lzq.jsyy.msm.utils.RandomUtil;
-import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @RequestMapping("/api/msm")
-@ApiModel(description = "短信操作API")
+@Api(tags = "短信操作API")
 public class MsmApiController {
     @Autowired
     private MsmService msmService;

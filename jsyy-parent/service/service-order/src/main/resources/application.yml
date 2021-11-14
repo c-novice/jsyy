@@ -64,4 +64,4 @@ weixin:
   partnerkey: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
   url: 127.0.0.1 # 微信回调地址
   # 退款证书
-  cert: E:\\javaStudy\\yygh_parent\\service\\service_order\\src\\main\\resources\\cert\\apiclient_cert.p12
+  cert: classpath:config/apiclient_cert.p12

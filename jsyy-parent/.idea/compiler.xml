@@ -26,8 +26,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common-util" options="-parameters" />
+      <module name="jsyy-parent" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="rabbit-util" options="-parameters" />
+      <module name="service" options="-parameters" />
       <module name="service-cmn" options="-parameters" />
       <module name="service-cmn-client" options="-parameters" />
       <module name="service-gateway" options="-parameters" />
