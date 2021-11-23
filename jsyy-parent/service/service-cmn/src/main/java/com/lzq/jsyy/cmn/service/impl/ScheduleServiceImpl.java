@@ -11,7 +11,6 @@ import com.lzq.jsyy.model.cmn.Schedule;
 import com.lzq.jsyy.vo.cmn.add.ScheduleAddVo;
 import com.lzq.jsyy.vo.cmn.query.ScheduleQueryVo;
 import com.lzq.jsyy.vo.cmn.update.ScheduleUpdateVo;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -26,7 +25,7 @@ import java.util.Map;
  */
 @Service
 public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> implements ScheduleService {
-    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
+
     @Override
     public Page<Schedule> selectPage(Page<Schedule> pageParam, ScheduleQueryVo scheduleQueryVo) {
         if (ObjectUtils.isEmpty(scheduleQueryVo)) {

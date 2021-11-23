@@ -53,7 +53,6 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     @Autowired
     private RabbitService rabbitService;
 
-    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<OrderInfo> selectPage(Page<OrderInfo> pageParam, OrderInfoQueryVo orderInfoQueryVo) {
         if (ObjectUtils.isEmpty(orderInfoQueryVo)) {
@@ -152,7 +151,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         // 设置预约排班信息
         orderInfo.setBeginTime(schedule.getBeginTime());
         orderInfo.setEndTime(schedule.getEndTime());
-        orderInfo.setQuitTime(schedule.getQuitTime());
+        orderInfo.setQuitDate(schedule.getQuitTime());
         orderInfo.setAmount(schedule.getAmount());
         orderInfo.setWorkDate(schedule.getWorkDate());
         orderInfo.setLastPendingPermission(schedule.getLastPendingPermission());

@@ -110,7 +110,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return map;
     }
 
-    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<User> selectPage(Page<User> pageParam, UserQueryVo userQueryVo) {
         if (ObjectUtils.isEmpty(userQueryVo)) {
@@ -209,6 +208,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return user;
     }
 
+    @Cacheable(value = "binding", keyGenerator = "keyGenerator")
     @Override
     public Map<String, Object> binding(User user, BindingVo bindingVo) {
         Map<String, Object> map = new HashMap<>(2);

@@ -61,8 +61,8 @@ public class OrderInfo extends BaseEntity {
 
     @ApiModelProperty(value = "退预约截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @TableField("quit_time")
-    private String quitTime;
+    @TableField("quit_date")
+    private String quitDate;
 
     @ApiModelProperty(value = "订单状态")
     @TableField("order_status")

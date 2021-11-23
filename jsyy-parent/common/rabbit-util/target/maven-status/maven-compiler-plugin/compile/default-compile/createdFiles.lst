@@ -1,0 +1,3 @@
+com\lzq\jsyy\rabbit\config\MQConfig.class
+com\lzq\jsyy\rabbit\service\RabbitService.class
+com\lzq\jsyy\rabbit\constant\MqConst.class

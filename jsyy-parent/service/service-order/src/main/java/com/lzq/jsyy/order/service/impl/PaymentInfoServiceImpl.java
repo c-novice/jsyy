@@ -41,7 +41,6 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
     @Autowired
     private UserFeignClient userFeignClient;
 
-    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
     @Override
     public Page<PaymentInfo> selectPage(Page<PaymentInfo> pageParam, PaymentInfoQueryVo paymentInfoQuery) {
         if (ObjectUtils.isEmpty(paymentInfoQuery)) {

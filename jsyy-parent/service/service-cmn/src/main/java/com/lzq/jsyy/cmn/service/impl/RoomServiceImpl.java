@@ -10,7 +10,6 @@ import com.lzq.jsyy.model.cmn.Room;
 import com.lzq.jsyy.vo.cmn.add.RoomAddVo;
 import com.lzq.jsyy.vo.cmn.query.RoomQueryVo;
 import com.lzq.jsyy.vo.cmn.update.RoomUpdateVo;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -23,7 +22,7 @@ import java.util.Map;
  */
 @Service
 public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements RoomService {
-    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
+
     @Override
     public Page<Room> selectPage(Page<Room> pageParam, RoomQueryVo roomQueryVo) {
         if (ObjectUtils.isEmpty(roomQueryVo)) {

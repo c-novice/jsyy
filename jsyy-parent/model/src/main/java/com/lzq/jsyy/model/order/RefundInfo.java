@@ -53,7 +53,6 @@ public class RefundInfo extends BaseEntity {
     private String callbackTime;
 
     @ApiModelProperty(value = "回调信息")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField("callback_content")
     private String callbackContent;
 

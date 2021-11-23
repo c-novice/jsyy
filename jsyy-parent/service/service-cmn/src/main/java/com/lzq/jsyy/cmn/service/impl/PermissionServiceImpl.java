@@ -9,7 +9,6 @@ import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.model.cmn.Permission;
 import com.lzq.jsyy.vo.cmn.add.PermissionAddVo;
 import com.lzq.jsyy.vo.cmn.query.PermissionQueryVo;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -21,7 +20,7 @@ import java.util.Map;
  */
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
-    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
+
     @Override
     public Page<Permission> selectPage(Page<Permission> pageParam, PermissionQueryVo permissionQueryVo) {
         if (null == permissionQueryVo) {

@@ -14,7 +14,6 @@ import com.lzq.jsyy.vo.cmn.query.FacilityQueryVo;
 import com.lzq.jsyy.vo.cmn.query.RoomQueryVo;
 import com.lzq.jsyy.vo.cmn.update.FacilityUpdateVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -29,8 +28,7 @@ import java.util.Map;
 public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> implements FacilityService {
     @Autowired
     private RoomService roomService;
-
-    @Cacheable(value = "selectPage", keyGenerator = "keyGenerator")
+    
     @Override
     public Page<Facility> selectPage(Page<Facility> pageParam, FacilityQueryVo facilityQueryVo) {
         if (ObjectUtils.isEmpty(facilityQueryVo)) {
