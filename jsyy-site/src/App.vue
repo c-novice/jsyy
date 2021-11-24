@@ -6,9 +6,9 @@
 <script>
 export default {
   globalData: {
-    token: null,
+    token: "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJS8gqOjNQNDXYNUtJRSq0oULIyNDM2tzAwsDQ10FEqLU4t8kwBqjI0MbUwNDKwNDM1M7M0NDIyMLFUgkj7JeamghRYGJuamhgbGloYKdUCAOueVttcAAAA.tnb4rLBEHNhQPY_dRZQFJr598KEelfW0bNJUAsW2nOlrqkQaFjzwwaohcgHI0MVuS1944x2TAMMVaGOuEcQVvA",
     user: null,
-    loginStatus: false
+    loginStatus: true
   },
   onLaunch: function () {
   },

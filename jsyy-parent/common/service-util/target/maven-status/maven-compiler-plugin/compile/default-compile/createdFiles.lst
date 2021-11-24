@@ -1,7 +1,0 @@
-com\lzq\jsyy\common\helper\HttpRequestHelper.class
-com\lzq\jsyy\common\utils\WeekUtil.class
-com\lzq\jsyy\common\handler\GlobalExceptionHandler.class
-com\lzq\jsyy\common\utils\MD5.class
-com\lzq\jsyy\common\utils\HttpUtil.class
-com\lzq\jsyy\common\config\RedisConfig.class
-com\lzq\jsyy\common\config\Swagger2Config.class

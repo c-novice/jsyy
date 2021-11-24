@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";
-
 Vue.use(uView);
 
 Vue.config.productionTip = false
@@ -13,4 +12,4 @@ const app = new Vue({
 })
 app.$mount()
 
-Vue.prototype.$baseUrl="http://127.0.0.1/api"
+Vue.prototype.$baseUrl = "http://127.0.0.1/api"

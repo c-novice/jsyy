@@ -33,46 +33,36 @@ export default {
       this.token = getApp().globalData.token
     },
     submit() {
-      if (null != this.user) {
-        let headers = {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "token":getApp().globalData.token
-        }
-        let params = {
-          "username": this.user.username,
-          "password": this.password
-        }
-        uni.request({
-          url: `${this.$baseUrl}/user/auth/updatePassword`,
-          method: 'PUT',
-          data: params,
-          header: headers,
-          success: ({data}) => {
-            console.log(data)
-            if (data.code === 200) {
-              // 更新token
-              getApp().globalData.token = data.data.token
-              getApp().globalData.user = data.data.user
-              this.$refs.uToast.show({
-                title: '修改密码成功!',
-                type: 'success',
-                back: true
-              })
-            } else {
-              this.$refs.uToast.show({
-                title: data.message,
-                type: 'warning'
-              })
-            }
-          },
-          fail: (err) => {
+      let headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "token": getApp().globalData.token
+      }
+      let params = {
+        "username": this.user.username,
+        "password": this.password
+      }
+      uni.request({
+        url: `${this.$baseUrl}/user/auth/updatePassword`,
+        method: 'PUT',
+        data: params,
+        header: headers,
+        success: ({data}) => {
+          console.log(data)
+          if (data.code === 200) {
+            getApp().globalData.user = data.data.user
             this.$refs.uToast.show({
-              title: '修改密码失败',
+              title: '修改密码成功!',
+              type: 'success',
+              back: true
+            })
+          } else {
+            this.$refs.uToast.show({
+              title: data.message,
               type: 'warning'
             })
           }
-        })
-      }
+        }
+      })
     }
   }
 }

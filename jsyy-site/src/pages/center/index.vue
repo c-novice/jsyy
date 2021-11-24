@@ -9,7 +9,7 @@
         <text>登录 / 注册</text>
       </navigator>
       <text v-show="loginStatus">{{ user.username }}</text>
-      <u-image style="margin-left: 270rpx" width="55rpx" height="55rpx" src="@/static/shezhi.png"
+      <u-image style="margin-left: 240rpx" width="55rpx" height="55rpx" src="@/static/shezhi.png"
                @click="switchTo('setup/index')"></u-image>
     </view>
     <view class="normal">

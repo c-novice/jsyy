@@ -9,7 +9,11 @@
       <view slot="body" class="card">
         <view class="u-body-item u-flex u-row-between u-p-b-0">
           <u-image src="@/static/sheshi.png" width="60rpx" height="60rpx"></u-image>
-          <text>{{ item.name }}</text>
+          <text style="color: #fcbd71">{{ item.name }}</text>
+        </view>
+        <u-gap height="15"></u-gap>
+        <view style="font-size: 24rpx">
+          <text>设施描述：{{ item.description }}</text>
         </view>
       </view>
     </u-card>
@@ -38,7 +42,6 @@ export default {
   methods: {
     onShow() {
       this.loginStatus = getApp().globalData.loginStatus
-      console.log(this.loginStatus)
       if (this.loginStatus) this.page()
     },
     // 分页查询设施
@@ -48,19 +51,23 @@ export default {
         "token": getApp().globalData.token
       }
       uni.request({
-        url: `${this.$baseUrl}/cmn/facility/auth/1/1000`,
+        url: `${this.$baseUrl}/cmn/facility/auth/1/1000?name=` + this.keyword,
         method: 'GET',
         header: headers,
         success: ({data}) => {
           console.log(data)
           if (data.code === 200) {
             this.facilities = data.data.records
+          } else {
+            this.$refs.uToast.show({
+              title: data.message,
+              type: 'warning'
+            })
           }
         }
       })
     },
     select(id) {
-      if (!this.loginStatus) return
       uni.navigateTo({
         url: './room/index?facilityId=' + id
       })

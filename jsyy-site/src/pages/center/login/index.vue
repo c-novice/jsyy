@@ -93,15 +93,13 @@ export default {
       }
     },
     loginByCode() {
-
-    },
-    loginByPassword() {
       uni.request({
-        url: `${this.$baseUrl}/user/loginByPassword?username=` + this.username + `&password=` + this.password,
+        url: `${this.$baseUrl}/user/loginByCode?username=` + this.username + `&code=` + this.refCode,
         method: 'GET',
         success: ({data}) => {
           console.log(data)
           if (data.code === 200) {
+            // 记录token
             getApp().globalData.token = data.data.token
             getApp().globalData.user = data.data.user
             getApp().globalData.loginStatus = true
@@ -116,12 +114,31 @@ export default {
               type: 'warning'
             })
           }
-        },
-        fail: (err) => {
-          this.$refs.uToast.show({
-            title: '登陆失败',
-            type: 'warning'
-          })
+        }
+      })
+    },
+    loginByPassword() {
+      uni.request({
+        url: `${this.$baseUrl}/user/loginByPassword?username=` + this.username + `&password=` + this.password,
+        method: 'GET',
+        success: ({data}) => {
+          console.log(data)
+          if (data.code === 200) {
+            // 记录token
+            getApp().globalData.token = data.data.token
+            getApp().globalData.user = data.data.user
+            getApp().globalData.loginStatus = true
+            this.$refs.uToast.show({
+              title: '登录成功!',
+              type: 'success',
+              back: true
+            })
+          } else {
+            this.$refs.uToast.show({
+              title: data.message,
+              type: 'warning'
+            })
+          }
         }
       })
     }
