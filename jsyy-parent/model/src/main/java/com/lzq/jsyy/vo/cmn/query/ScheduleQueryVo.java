@@ -30,4 +30,7 @@ public class ScheduleQueryVo {
 
     @ApiModelProperty(value = "该预约订单的最高级审批权限")
     private String lastPendingPermission;
+
+    @ApiModelProperty(value = "是否已被预约")
+    private Integer isOrdered;
 }

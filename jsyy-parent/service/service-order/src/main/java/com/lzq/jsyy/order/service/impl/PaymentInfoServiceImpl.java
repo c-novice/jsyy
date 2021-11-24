@@ -158,7 +158,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         paymentInfo.setPaymentStatus(PaymentInfoStatusEnum.PAYED.getStatus());
         paymentInfo.setCallbackTime(String.valueOf(new Date()));
         paymentInfo.setTradeNo(resultMap.get("transaction_id"));
-        paymentInfo.setCallbackContent(resultMap.toString());
+        paymentInfo.setCallbackContent(resultMap.get("sign"));
         baseMapper.updateById(paymentInfo);
 
         // 更新订单记录

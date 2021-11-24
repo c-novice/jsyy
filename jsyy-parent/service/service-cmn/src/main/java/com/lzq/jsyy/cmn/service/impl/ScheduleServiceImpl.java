@@ -37,6 +37,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         Date workDate = scheduleQueryVo.getWorkDate();
         String id = scheduleQueryVo.getId();
         String lastPendingPermission = scheduleQueryVo.getLastPendingPermission();
+        Integer isOrdered = scheduleQueryVo.getIsOrdered();
 
         QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(facilityId)) {
@@ -53,6 +54,9 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         }
         if (!StringUtils.isEmpty(lastPendingPermission)) {
             wrapper.eq("last_pending_permission", lastPendingPermission);
+        }
+        if (!ObjectUtils.isEmpty(isOrdered)) {
+            wrapper.eq("is_ordered", isOrdered);
         }
 
         Page<Schedule> page = baseMapper.selectPage(pageParam, wrapper);
@@ -97,9 +101,10 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
             schedule.setWorkDate(workDate);
             schedule.setBeginTime(beginTime);
             schedule.setEndTime(endTime);
-            schedule.setQuitTime(scheduleAddVo.getQuitTime());
+            schedule.setQuitDate(scheduleAddVo.getQuitDate());
             schedule.setAmount(scheduleAddVo.getAmount());
             schedule.setLastPendingPermission(scheduleAddVo.getLastPendingPermission());
+            schedule.setIsOrdered(scheduleAddVo.getIsOrdered());
 
             map.put("schedule", schedule);
             baseMapper.insert(schedule);
@@ -125,6 +130,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         String endTime = scheduleUpdateVo.getEndTime();
         String id = scheduleUpdateVo.getId();
         String lastPendingPermission = scheduleUpdateVo.getLastPendingPermission();
+        Integer isOrdered = scheduleUpdateVo.getIsOrdered();
 
         QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(workDate)) {
@@ -138,6 +144,9 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         }
         if (!StringUtils.isEmpty(lastPendingPermission)) {
             wrapper.eq("last_pending_permission", lastPendingPermission);
+        }
+        if (!ObjectUtils.isEmpty(isOrdered)) {
+            wrapper.eq("is_ordered", isOrdered);
         }
         wrapper.ne("id", id);
 
@@ -153,7 +162,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
             schedule.setWorkDate(workDate);
             schedule.setBeginTime(beginTime);
             schedule.setEndTime(endTime);
-            schedule.setQuitTime(scheduleUpdateVo.getQuitTime());
+            schedule.setQuitDate(scheduleUpdateVo.getQuitDate());
             schedule.setAmount(scheduleUpdateVo.getAmount());
             schedule.setLastPendingPermission(scheduleUpdateVo.getLastPendingPermission());
 

@@ -43,11 +43,14 @@ public class ScheduleAddVo {
 
     @ApiModelProperty(value = "退预约截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private String quitTime;
+    private String quitDate;
 
     @ApiModelProperty(value = "预约费用")
     private BigDecimal amount;
 
     @ApiModelProperty(value = "该预约订单的最高级审批权限")
     private String lastPendingPermission;
+
+    @ApiModelProperty(value = "是否已被预约")
+    private Integer isOrdered;
 }

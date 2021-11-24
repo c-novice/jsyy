@@ -40,16 +40,16 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
             wrapper.eq("facility_id", facilityId);
         }
         if (!StringUtils.isEmpty(roomId)) {
-            wrapper.eq("room_id", roomId);
+            wrapper.like("room_id", roomId);
         }
         if (!StringUtils.isEmpty(type)) {
-            wrapper.eq("type", type);
+            wrapper.like("type", type);
         }
-        if (!StringUtils.isEmpty(seatingLow)) {
-            wrapper.ge("seating_low", seatingLow);
+        if (!ObjectUtils.isEmpty(seatingLow)) {
+            wrapper.ge("seating", seatingLow);
         }
-        if (!StringUtils.isEmpty(seatingHigh)) {
-            wrapper.le("seating_high", seatingHigh);
+        if (!ObjectUtils.isEmpty(seatingHigh)) {
+            wrapper.le("seating", seatingHigh);
         }
 
         Page<Room> page = baseMapper.selectPage(pageParam, wrapper);

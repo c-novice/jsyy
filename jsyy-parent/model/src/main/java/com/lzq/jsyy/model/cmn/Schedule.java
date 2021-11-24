@@ -58,8 +58,8 @@ public class Schedule extends BaseEntity {
 
     @ApiModelProperty(value = "退预约截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @TableField("quit_time")
-    private String quitTime;
+    @TableField("quit_date")
+    private String quitDate;
 
     @ApiModelProperty(value = "预约费用")
     @TableField("amount")
@@ -68,4 +68,8 @@ public class Schedule extends BaseEntity {
     @ApiModelProperty(value = "该预约订单的最高级审批权限")
     @TableField("last_pending_permission")
     private String lastPendingPermission;
+
+    @ApiModelProperty(value = "是否已被预约")
+    @TableField("is_ordered")
+    private Integer isOrdered;
 }

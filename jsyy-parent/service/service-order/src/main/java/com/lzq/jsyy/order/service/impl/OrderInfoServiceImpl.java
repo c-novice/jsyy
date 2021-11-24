@@ -130,13 +130,20 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             return map;
         }
 
+        // 当断当前是否已被预约
+        if (!schedule.getIsOrdered().equals(0)) {
+            map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
+            return map;
+        }
+
         // 查找该预约排班的预约记录
         QueryWrapper<OrderInfo> wrapper2 = new QueryWrapper<>();
         wrapper2.eq("schedule_id", orderInfoAddVo.getScheduleId());
         wrapper2.ne("order_status", OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
-        Integer orderInfo2 = baseMapper.selectCount(wrapper2);
+        OrderInfo orderInfo2 = baseMapper.selectOne(wrapper2);
 
-        if (orderInfo2 != 0) {
+        // 如果已存在预约记录则取消
+        if (!ObjectUtils.isEmpty(orderInfo2)) {
             map.put("state", ResultCodeEnum.ORDER_ADD_ERROR);
             return map;
         }
@@ -151,7 +158,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         // 设置预约排班信息
         orderInfo.setBeginTime(schedule.getBeginTime());
         orderInfo.setEndTime(schedule.getEndTime());
-        orderInfo.setQuitDate(schedule.getQuitTime());
+        orderInfo.setQuitDate(schedule.getQuitDate());
         orderInfo.setAmount(schedule.getAmount());
         orderInfo.setWorkDate(schedule.getWorkDate());
         orderInfo.setLastPendingPermission(schedule.getLastPendingPermission());

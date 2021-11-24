@@ -50,7 +50,7 @@ public class PaymentInfoApiController {
             @ApiResponse(code = 200, message = "data:{paymentInfo}")
     })
     @ApiOperation(value = "支付订单")
-    @GetMapping("/auth/pay")
+    @PostMapping("/auth/pay")
     public Result pay(String orderId) throws Exception {
         Map<String, Object> map = paymentInfoService.pay(orderId);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");

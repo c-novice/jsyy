@@ -33,5 +33,6 @@ spring:
           uri: lb://service-task
           predicates: Path=/*/task/**
 
-
-
+  # 允许预检请求
+  mvc:
+    dispatch-options-request: true
