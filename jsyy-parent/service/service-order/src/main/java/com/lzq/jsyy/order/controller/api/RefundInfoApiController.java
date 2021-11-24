@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lzq
  */
 @RestController
-@RequestMapping("/api/refund")
+@RequestMapping("/api/order/refund")
 @Api(tags = "退单操作API")
 public class RefundInfoApiController {
     @Autowired

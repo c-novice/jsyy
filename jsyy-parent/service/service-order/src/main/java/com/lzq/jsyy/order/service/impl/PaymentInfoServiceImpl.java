@@ -172,6 +172,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
             orderInfo.setOrderStatus(OrderInfoStatusEnum.PENDING.getStatus());
         }
         orderInfoService.updateById(orderInfo);
+
     }
 
     @Cacheable(value = "getByOutTradeNo", keyGenerator = "keyGenerator")

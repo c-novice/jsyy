@@ -21,5 +21,5 @@ public class RandomUtil {
     public static String getSixBitRandom() {
         return SIXDF.format(RANDOM.nextInt(1000000));
     }
-    
+
 }

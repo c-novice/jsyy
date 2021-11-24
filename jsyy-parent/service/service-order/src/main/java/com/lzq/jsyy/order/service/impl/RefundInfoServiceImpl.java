@@ -39,7 +39,7 @@ public class RefundInfoServiceImpl extends ServiceImpl<RefundInfoMapper, RefundI
 
     @Autowired
     private OrderInfoService orderInfoService;
-    
+
     @Override
     public Page<RefundInfo> selectPage(Page<RefundInfo> pageParam, RefundInfoQueryVo refundInfoQuery) {
         if (ObjectUtils.isEmpty(refundInfoQuery)) {

@@ -8,7 +8,7 @@
       </u-form-item>
     </u-form>
     <u-gap height="20"></u-gap>
-    <u-button :ripple="true" type="primary" size="medium" @click="submit">修改密码</u-button>
+    <u-button :ripple="true" size="medium" type="primary" @click="submit">修改密码</u-button>
   </view>
 </template>
 

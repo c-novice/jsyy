@@ -2,8 +2,8 @@
   <view>
     <u-toast ref="uToast"></u-toast>
     <view class="search">
-      <u-search placeholder="请输入房间名称关键字" :show-action="false"
-                @search="page" v-model="keyword" :focus="true" @click="page" @change="page"></u-search>
+      <u-search v-model="keyword" :focus="true"
+                :show-action="false" placeholder="请输入房间名称关键字" @change="page" @click="page" @search="page"></u-search>
     </view>
     <u-gap height="25"></u-gap>
     <view style="margin-left: 20rpx;margin-right: 20rpx">
@@ -15,23 +15,23 @@
         </u-tr>
         <u-tr>
           <u-td>
-            <u-input height="30" v-model="type" :clearable="false" :placeholder="type" input-align="center"></u-input>
+            <u-input v-model="type" :clearable="false" :placeholder="type" height="30" input-align="center"></u-input>
           </u-td>
           <u-td>
-            <u-input height="30" v-model="seatingLow" :clearable="false" :placeholder="seatingLow"
+            <u-input v-model="seatingLow" :clearable="false" :placeholder="seatingLow" height="30"
                      input-align="center"></u-input>
           </u-td>
           <u-td>
-            <u-input height="30" v-model="seatingHigh" :clearable="false" :placeholder="seatingHigh"
+            <u-input v-model="seatingHigh" :clearable="false" :placeholder="seatingHigh" height="30"
                      input-align="center"></u-input>
           </u-td>
         </u-tr>
       </u-table>
     </view>
-    <u-card :key="item.id" v-for="item in rooms" :show-head="false" :show-foot="false" @click="select(item)">
+    <u-card v-for="item in rooms" :key="item.id" :show-foot="false" :show-head="false" @click="select(item)">
       <view slot="body" class="card">
         <view class="u-body-item u-flex u-row-between u-p-b-0">
-          <u-image src="@/static/fangjian.png" width="60rpx" height="60rpx"></u-image>
+          <u-image height="60rpx" src="@/static/fangjian.png" width="60rpx"></u-image>
           <text style="color: #fcbd71">房间名称：{{ item.roomId }}</text>
         </view>
         <u-gap height="15"></u-gap>

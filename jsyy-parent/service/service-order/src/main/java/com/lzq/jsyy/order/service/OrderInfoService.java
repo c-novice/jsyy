@@ -60,9 +60,10 @@ public interface OrderInfoService extends IService<OrderInfo> {
      *
      * @param username
      * @param outTradeNo
+     * @param status
      * @return
      */
-    Map<String, Object> pending(String username, String outTradeNo);
+    Map<String, Object> pending(String username, String outTradeNo, Integer status);
 
     /**
      * 预约提醒

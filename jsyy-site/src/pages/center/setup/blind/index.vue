@@ -11,7 +11,7 @@
       </u-form-item>
     </u-form>
     <u-gap height="20"></u-gap>
-    <u-button :ripple="true" type="primary" size="medium" @click="submit">绑定校园信息</u-button>
+    <u-button :ripple="true" size="medium" type="primary" @click="submit">绑定校园信息</u-button>
   </view>
 </template>
 
@@ -30,7 +30,7 @@ export default {
         "token": getApp().globalData.token
       }
       let params = {
-        "userId" : getApp().globalData.user.userId,
+        "userId": getApp().globalData.user.userId,
         "studentNumber": this.studentNumber,
         "password": this.password
       }

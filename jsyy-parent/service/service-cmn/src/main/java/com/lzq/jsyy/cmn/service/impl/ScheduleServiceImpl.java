@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +33,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
 
         String facilityId = scheduleQueryVo.getFacilityId();
         String roomId = scheduleQueryVo.getRoomId();
-        Date workDate = scheduleQueryVo.getWorkDate();
+        String workDate = scheduleQueryVo.getWorkDate();
         String id = scheduleQueryVo.getId();
         String lastPendingPermission = scheduleQueryVo.getLastPendingPermission();
         Integer isOrdered = scheduleQueryVo.getIsOrdered();
@@ -46,7 +45,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         if (!StringUtils.isEmpty(roomId)) {
             wrapper.eq("room_id", roomId);
         }
-        if (!ObjectUtils.isEmpty(workDate)) {
+        if (!StringUtils.isEmpty(workDate)) {
             wrapper.eq("work_date", workDate);
         }
         if (!StringUtils.isEmpty(id)) {

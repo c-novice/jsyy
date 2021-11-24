@@ -22,7 +22,7 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/api/payment")
+@RequestMapping("/api/order/payment")
 @Api(tags = "支付操作API")
 public class PaymentInfoApiController {
     @Autowired
@@ -78,7 +78,7 @@ public class PaymentInfoApiController {
             return Result.fail();
         }
         if ("SUCCESS".equals(resultMap.get("trade_state"))) {
-            // 支付成功，更新支付记录
+            // 支付成功，更新记录
             paymentInfoService.success(outTradeNo, resultMap);
             return Result.ok();
         }

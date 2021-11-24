@@ -2,13 +2,13 @@
   <view>
     <u-toast ref="uToast"></u-toast>
     <view class="search">
-      <u-search placeholder="请输入设施名称关键字" :show-action="false"
-                @search="page" v-model="keyword" :focus="true" @click="page" @change="page"></u-search>
+      <u-search v-model="keyword" :focus="true"
+                :show-action="false" placeholder="请输入设施名称关键字" @change="page" @click="page" @search="page"></u-search>
     </view>
-    <u-card :key="item.id" v-for="item in facilities" :show-head="false" :show-foot="false" @click="select(item.id)">
+    <u-card v-for="item in facilities" :key="item.id" :show-foot="false" :show-head="false" @click="select(item.id)">
       <view slot="body" class="card">
         <view class="u-body-item u-flex u-row-between u-p-b-0">
-          <u-image src="@/static/sheshi.png" width="60rpx" height="60rpx"></u-image>
+          <u-image height="60rpx" src="@/static/sheshi.png" width="60rpx"></u-image>
           <text style="color: #fcbd71">{{ item.name }}</text>
         </view>
         <u-gap height="15"></u-gap>

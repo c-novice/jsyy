@@ -15,27 +15,27 @@
             <u-input v-model="username" placeholder="请输入手机号"/>
           </u-form-item>
           <u-form-item v-show="way" label="密码">
-            <u-input type="password" v-model="password" placeholder="请输入密码"/>
+            <u-input v-model="password" placeholder="请输入密码" type="password"/>
           </u-form-item>
           <u-form-item v-show="!way" label="验证码">
-            <u-input type="number" v-model="refCode" placeholder="请输入验证码"/>
+            <u-input v-model="refCode" placeholder="请输入验证码" type="number"/>
           </u-form-item>
         </u-form>
       </view>
       <view v-show="!way">
-        <u-verification-code :seconds="seconds" ref="uCode"
+        <u-verification-code ref="uCode" :seconds="seconds"
                              @change="codeChange"></u-verification-code>
         <view class="right">
-          <u-button size="medium" @click="getCode" :ripple="true" type="primary">{{ tips }}</u-button>
+          <u-button :ripple="true" size="medium" type="primary" @click="getCode">{{ tips }}</u-button>
         </view>
       </view>
       <u-gap height="20"></u-gap>
       <view class="bottom">
-        <u-button v-show="way" @click="loginByPassword" :ripple="true" type="warning">登录</u-button>
-        <u-button v-show="!way" @click="loginByCode" :ripple="true" type="warning">登录/注册</u-button>
+        <u-button v-show="way" :ripple="true" type="warning" @click="loginByPassword">登录</u-button>
+        <u-button v-show="!way" :ripple="true" type="warning" @click="loginByCode">登录/注册</u-button>
       </view>
       <view class="qiehuan">
-        <u-image width="40rpx" height="40rpx" src="/static/qiehuan.png" @click="this.way=!this.way"></u-image>
+        <u-image height="40rpx" src="/static/qiehuan.png" width="40rpx" @click="this.way=!this.way"></u-image>
         <text @click="this.way=!this.way">{{ way ? "切换验证码登录/注册" : "切换账号密码登录" }}</text>
       </view>
     </view>

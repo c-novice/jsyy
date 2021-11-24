@@ -28,7 +28,7 @@ import java.util.Map;
 public class FacilityServiceImpl extends ServiceImpl<FacilityMapper, Facility> implements FacilityService {
     @Autowired
     private RoomService roomService;
-    
+
     @Override
     public Page<Facility> selectPage(Page<Facility> pageParam, FacilityQueryVo facilityQueryVo) {
         if (ObjectUtils.isEmpty(facilityQueryVo)) {

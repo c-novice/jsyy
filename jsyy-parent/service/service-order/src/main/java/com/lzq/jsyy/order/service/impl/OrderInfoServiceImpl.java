@@ -246,7 +246,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     }
 
     @Override
-    public Map<String, Object> pending(String username, String outTradeNo) {
+    public Map<String, Object> pending(String username, String outTradeNo, Integer status) {
         Map<String, Object> map = new HashMap<>(2);
         if (StringUtils.isEmpty(outTradeNo)) {
             map.put("state", ResultCodeEnum.PENDING_ERROR);
@@ -260,15 +260,20 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
         // 设置订单状态
         orderInfo.setLastPendingUsername(username);
-        // 当前用户权限等于订单最终权限时，审批结束
-        // 获取用户权限
-        String permissionName = userFeignClient.getPermissionByUsername(username);
-        if (orderInfo.getLastPendingPermission().equals(permissionName)) {
-            orderInfo.setOrderStatus(OrderInfoStatusEnum.ORDERED.getStatus());
+        // 拒绝订单
+        if (status.equals(OrderInfoStatusEnum.REFUSED.getStatus())) {
+            orderInfo.setOrderStatus(status);
         } else {
-            // 查询当前用户的父权限
-            String father = permissionFeignClient.getFatherByName(permissionName);
-            orderInfo.setNextNeedPermission(father);
+            // 当前用户权限等于订单最终权限时，审批结束
+            // 获取用户权限
+            String permissionName = userFeignClient.getPermissionByUsername(username);
+            if (orderInfo.getLastPendingPermission().equals(permissionName)) {
+                orderInfo.setOrderStatus(OrderInfoStatusEnum.ORDERED.getStatus());
+            } else {
+                // 查询当前用户的父权限
+                String father = permissionFeignClient.getFatherByName(permissionName);
+                orderInfo.setNextNeedPermission(father);
+            }
         }
         baseMapper.updateById(orderInfo);
         map.put("orderInfo", orderInfo);

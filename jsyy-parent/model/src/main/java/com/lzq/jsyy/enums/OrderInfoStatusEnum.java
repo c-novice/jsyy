@@ -11,7 +11,7 @@ public enum OrderInfoStatusEnum {
     PAYING(2, "支付中"),
     PENDING(3, "审批中"),
     ORDERED(4, "已预约"),
-    ;
+    REFUSED(5, "被拒绝");
 
     private Integer status;
     private String name;

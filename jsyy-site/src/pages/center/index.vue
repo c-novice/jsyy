@@ -2,51 +2,51 @@
   <view>
     <u-toast ref="uToast"></u-toast>
     <view class="head">
-      <u-image style="margin-left: 20rpx;margin-right: 60rpx" width="80rpx" height="80rpx"
-               src="@/static/touxiang.png"></u-image>
+      <u-image height="80rpx" src="@/static/touxiang.png" style="margin-left: 20rpx;margin-right: 60rpx"
+               width="80rpx"></u-image>
       <!--      路由到登录/注册页面-->
-      <navigator :url="`/pages/center/login/index`" v-show="!loginStatus">
+      <navigator v-show="!loginStatus" :url="`/pages/center/login/index`">
         <text>登录 / 注册</text>
       </navigator>
       <text v-show="loginStatus">{{ user.username }}</text>
-      <u-image style="margin-left: 240rpx" width="55rpx" height="55rpx" src="@/static/shezhi.png"
+      <u-image height="55rpx" src="@/static/shezhi.png" style="margin-left: 240rpx" width="55rpx"
                @click="switchTo('setup/index')"></u-image>
     </view>
     <view class="normal">
-      <u-card :show-foot="false" title="预约服务" title-size="32" :full="true">
-        <u-grid :col="4" slot="body">
+      <u-card :full="true" :show-foot="false" title="预约服务" title-size="32">
+        <u-grid slot="body" :col="4">
           <u-grid-item>
-            <u-image width="60rpx" height="60rpx" src="@/static/yuyue2.png"></u-image>
+            <u-image height="60rpx" src="@/static/yuyue2.png" width="60rpx"></u-image>
             <view class="grid-text">当前预约</view>
           </u-grid-item>
           <u-grid-item>
-            <u-image width="60rpx" height="60rpx" src="@/static/shenhe.png"></u-image>
+            <u-image height="60rpx" src="@/static/shenhe.png" width="60rpx"></u-image>
             <view class="grid-text">正在审核</view>
           </u-grid-item>
           <u-grid-item>
-            <u-image width="60rpx" height="60rpx" src="@/static/shibai.png"></u-image>
+            <u-image height="60rpx" src="@/static/shibai.png" width="60rpx"></u-image>
             <view class="grid-text">预约失败</view>
           </u-grid-item>
           <u-grid-item>
-            <u-image width="60rpx" height="60rpx" src="@/static/jilu.png"></u-image>
+            <u-image height="60rpx" src="@/static/jilu.png" width="60rpx"></u-image>
             <view class="grid-text">预约记录</view>
           </u-grid-item>
         </u-grid>
       </u-card>
     </view>
     <view class="normal">
-      <u-card :show-foot="false" title="我的订单" title-size="32" :full="true">
-        <u-grid :col="3" slot="body">
+      <u-card :full="true" :show-foot="false" title="我的订单" title-size="32">
+        <u-grid slot="body" :col="3">
           <u-grid-item>
-            <u-image width="60rpx" height="60rpx" src="@/static/daizhifu.png"></u-image>
+            <u-image height="60rpx" src="@/static/daizhifu.png" width="60rpx"></u-image>
             <view class="grid-text">待支付</view>
           </u-grid-item>
           <u-grid-item>
-            <u-image width="60rpx" height="60rpx" src="@/static/yiwancheng.png"></u-image>
+            <u-image height="60rpx" src="@/static/yiwancheng.png" width="60rpx"></u-image>
             <view class="grid-text">已完成</view>
           </u-grid-item>
           <u-grid-item>
-            <u-image width="60rpx" height="60rpx" src="@/static/dingdan.png"></u-image>
+            <u-image height="60rpx" src="@/static/dingdan.png" width="60rpx"></u-image>
             <view class="grid-text">全部订单</view>
           </u-grid-item>
         </u-grid>

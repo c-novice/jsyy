@@ -24,6 +24,7 @@ let QRCode = {};
             return [c0, c1, c2];
         }
     }
+
     /**
      * 获取字符串的utf8编码字节串
      * @param {string} string
@@ -40,6 +41,7 @@ let QRCode = {};
         }
         return utf8codes;
     }
+
     /**
      * 二维码算法实现
      * @param {string} data              要编码的信息字符串
@@ -57,6 +59,7 @@ let QRCode = {};
         this.utf8bytes = getUTF8Bytes(data);
         this.make();
     }
+
     QRCodeAlg.prototype = {
         constructor: QRCodeAlg,
         /**
@@ -652,6 +655,7 @@ let QRCode = {};
             this.num[i] = num[i + offset];
         }
     }
+
     QRPolynomial.prototype = {
         get: function (index) {
             return this.num[index];
@@ -988,6 +992,7 @@ let QRCode = {};
         this.buffer = new Array();
         this.length = 0;
     }
+
     QRBitBuffer.prototype = {
         get: function (index) {
             var bufIndex = Math.floor(index / 8);
@@ -1009,7 +1014,6 @@ let QRCode = {};
             this.length++;
         }
     };
-
 
 
     // xzedit
@@ -1117,16 +1121,17 @@ let QRCode = {};
                 var y = Number(((ratioSize - ratioImgSize) / 2).toFixed(2));
                 drawRoundedRect(ctx, x, y, ratioImgSize, ratioImgSize, 2, 6, true, true)
                 ctx.drawImage(options.image, x, y, ratioImgSize, ratioImgSize);
+
                 // 画圆角矩形
                 function drawRoundedRect(ctxi, x, y, width, height, r, lineWidth, fill, stroke) {
                     ctxi.setLineWidth(lineWidth);
                     ctxi.setFillStyle(options.background);
                     ctxi.setStrokeStyle(options.background);
-                    ctxi.beginPath(); // draw top and top right corner 
+                    ctxi.beginPath(); // draw top and top right corner
                     ctxi.moveTo(x + r, y);
-                    ctxi.arcTo(x + width, y, x + width, y + r, r); // draw right side and bottom right corner 
-                    ctxi.arcTo(x + width, y + height, x + width - r, y + height, r); // draw bottom and bottom left corner 
-                    ctxi.arcTo(x, y + height, x, y + height - r, r); // draw left and top left corner 
+                    ctxi.arcTo(x + width, y, x + width, y + r, r); // draw right side and bottom right corner
+                    ctxi.arcTo(x + width, y + height, x + width - r, y + height, r); // draw bottom and bottom left corner
+                    ctxi.arcTo(x, y + height, x, y + height - r, r); // draw left and top left corner
                     ctxi.arcTo(x, y, x + r, y, r);
                     ctxi.closePath();
                     if (fill) {
@@ -1159,7 +1164,7 @@ let QRCode = {};
                                 }
                             },
                             complete: function () {
-                                if (options.showLoading){
+                                if (options.showLoading) {
                                     uni.hideLoading();
                                 }
                             },

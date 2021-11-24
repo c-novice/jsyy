@@ -22,7 +22,7 @@ import java.util.Map;
  * @author lzq
  */
 @RestController
-@RequestMapping("/api/order")
+@RequestMapping("/api/order/orderInfo")
 @Api(tags = "预约订单操作API")
 public class OrderInfoApiController {
     @Autowired
@@ -76,8 +76,8 @@ public class OrderInfoApiController {
     })
     @ApiOperation(value = "审批订单")
     @GetMapping("/auth/pending")
-    public Result pending(String username, String outTradeNo) {
-        Map<String, Object> map = orderInfoService.pending(username, outTradeNo);
+    public Result pending(String username, String outTradeNo, Integer status) {
+        Map<String, Object> map = orderInfoService.pending(username, outTradeNo, status);
         ResultCodeEnum resultCodeEnum = (ResultCodeEnum) map.get("state");
         map.remove("state");
         return Result.build(map, resultCodeEnum);

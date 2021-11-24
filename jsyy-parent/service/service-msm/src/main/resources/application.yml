@@ -13,9 +13,10 @@ spring:
   # mysql配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jsyy_user?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/jsyy_user?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
     password: lzq2686105
+
 
   # json数据配置
   jackson:
@@ -25,8 +26,9 @@ spring:
   # redis配置
   redis:
     database: 0
-    host: 101.35.181.165
+    host: 127.0.0.1
     port: 6379
+    timeout: 1000
 
   cloud:
     # nacos配置
