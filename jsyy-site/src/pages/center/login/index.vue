@@ -77,10 +77,16 @@ export default {
     },
     getCode() {
       if (this.$refs.uCode.canGetCode) {
-        // 模拟向后端请求验证码
+        // 向后端请求验证码
         uni.showLoading({
           title: '正在获取验证码'
         })
+        this.$u.get(`${this.$baseUrl}/msm/send/` + this.username)
+            .then(data => {
+              if (data.code === 200) {
+                console.log(data)
+              }
+            })
         setTimeout(() => {
           uni.hideLoading();
           // 这里此提示会被this.start()方法中的提示覆盖

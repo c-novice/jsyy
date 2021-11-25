@@ -57,6 +57,7 @@ public class User extends BaseEntity {
     private Integer isAuth;
 
     public User(String username, String password) {
+        this.isAuth = 0;
         this.username = username;
         this.password = password;
     }

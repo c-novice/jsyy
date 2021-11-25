@@ -30,7 +30,7 @@ export default {
         "token": getApp().globalData.token
       }
       let params = {
-        "userId": getApp().globalData.user.userId,
+        "userId": getApp().globalData.user.id,
         "studentNumber": this.studentNumber,
         "password": this.password
       }

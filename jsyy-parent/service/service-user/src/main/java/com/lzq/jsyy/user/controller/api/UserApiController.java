@@ -111,7 +111,7 @@ public class UserApiController {
             return null;
         }
         QueryWrapper<User> query = new QueryWrapper<>();
-        query.eq("username", username);
+        query.eq("name", username);
         User user = userService.getOne(query);
         return user == null ? null : user.getPermission();
     }

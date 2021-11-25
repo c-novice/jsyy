@@ -238,6 +238,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         user.setType(account.getType());
         user.setIsAuth(1);
+        user.setName(account.getName());
 
         map.put("state", ResultCodeEnum.SUCCESS);
         map.put("user", user);

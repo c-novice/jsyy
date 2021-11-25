@@ -21,7 +21,7 @@ spring:
   # mongodb配置
   data:
     mongodb:
-      host: 101.35.181.165
+      host: 127.0.0.1
       port: 27017
       database: jsyy
 

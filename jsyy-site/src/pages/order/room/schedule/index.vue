@@ -193,7 +193,7 @@ export default {
         "token": getApp().globalData.token
       }
       let params = {
-        username: getApp().globalData.user.username,
+        username: getApp().globalData.user.name,
         facilityId: this.facilityId,
         roomId: this.roomId,
         scheduleId: this.selectItem.id,
