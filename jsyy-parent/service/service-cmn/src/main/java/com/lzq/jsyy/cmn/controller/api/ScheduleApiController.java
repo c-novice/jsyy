@@ -70,4 +70,15 @@ public class ScheduleApiController {
         }
         return scheduleService.getById(id);
     }
+
+    @ApiIgnore()
+    @ApiOperation("更新预约记录：可预约->已被预约")
+    @GetMapping("/inner/updateOrdered")
+    public void updateOrdered(String scheduleId) {
+        Schedule schedule = scheduleService.getById(scheduleId);
+        if (!ObjectUtils.isEmpty(schedule)) {
+            schedule.setIsOrdered(1);
+            scheduleService.updateById(schedule);
+        }
+    }
 }

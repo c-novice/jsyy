@@ -89,5 +89,6 @@ public class PaymentInfoApiController {
         }
         return Result.fail(ResultCodeEnum.PAYING);
     }
+    
 
 }

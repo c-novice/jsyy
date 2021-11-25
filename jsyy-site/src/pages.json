@@ -62,6 +62,18 @@
       "style": {
         "navigationBarTitleText": "预约排班"
       }
+    },
+    {
+      "path": "pages/center/orderInfo/index",
+      "style": {
+        "navigationBarTitleText": "预约记录"
+      }
+    },
+    {
+      "path": "pages/center/paymentInfo/index",
+      "style": {
+        "navigationBarTitleText": "订单记录"
+      }
     }
   ],
   "tabBar": {

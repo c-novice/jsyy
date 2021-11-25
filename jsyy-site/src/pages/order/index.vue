@@ -1,7 +1,7 @@
 <template>
   <view>
     <u-toast ref="uToast"></u-toast>
-    <view class="search">
+    <view class="search" v-show="loginStatus">
       <u-search v-model="keyword" :focus="true"
                 :show-action="false" placeholder="请输入设施名称关键字" @change="page" @click="page" @search="page"></u-search>
     </view>

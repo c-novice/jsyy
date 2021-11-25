@@ -4,6 +4,7 @@ package com.lzq.jsyy.order.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lzq.jsyy.cmn.client.ScheduleFeignClient;
 import com.lzq.jsyy.common.exception.JsyyException;
 import com.lzq.jsyy.common.result.ResultCodeEnum;
 import com.lzq.jsyy.enums.OrderInfoStatusEnum;
@@ -40,6 +41,9 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
 
     @Autowired
     private UserFeignClient userFeignClient;
+
+    @Autowired
+    private ScheduleFeignClient scheduleFeignClient;
 
     @Override
     public Page<PaymentInfo> selectPage(Page<PaymentInfo> pageParam, PaymentInfoQueryVo paymentInfoQuery) {
@@ -111,9 +115,6 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
             return map;
         }
 
-        // 修改支付记录：待支付->支付中
-        paymentInfo.setPaymentStatus(PaymentInfoStatusEnum.PAYING.getStatus());
-        baseMapper.updateById(paymentInfo);
         map.put("paymentInfo", paymentInfo);
         map.put("native", native2);
         map.put("state", ResultCodeEnum.SUCCESS);
@@ -128,7 +129,7 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         }
         QueryWrapper<PaymentInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("out_trade_no", outTradeNo);
-        wrapper.eq("payment_status", PaymentInfoStatusEnum.PAYING.getStatus());
+        wrapper.eq("payment_status", PaymentInfoStatusEnum.REMAINING.getStatus());
         PaymentInfo paymentInfo = baseMapper.selectOne(wrapper);
 
         if (ObjectUtils.isEmpty(paymentInfo)) {
@@ -173,6 +174,8 @@ public class PaymentInfoServiceImpl extends ServiceImpl<PaymentInfoMapper, Payme
         }
         orderInfoService.updateById(orderInfo);
 
+        // 更新预约排班
+        scheduleFeignClient.updateOrdered(orderInfo.getScheduleId());
     }
 
     @Cacheable(value = "getByOutTradeNo", keyGenerator = "keyGenerator")

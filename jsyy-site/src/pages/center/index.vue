@@ -15,19 +15,19 @@
     <view class="normal">
       <u-card :full="true" :show-foot="false" title="预约服务" title-size="32">
         <u-grid slot="body" :col="4">
-          <u-grid-item>
+          <u-grid-item @click="switchTo('orderInfo/index?orderStatus=4')">
             <u-image height="60rpx" src="@/static/yuyue2.png" width="60rpx"></u-image>
             <view class="grid-text">当前预约</view>
           </u-grid-item>
-          <u-grid-item>
+          <u-grid-item @click="switchTo('orderInfo/index?orderStatus=3')">
             <u-image height="60rpx" src="@/static/shenhe.png" width="60rpx"></u-image>
             <view class="grid-text">正在审核</view>
           </u-grid-item>
-          <u-grid-item>
+          <u-grid-item @click="switchTo('orderInfo/index?orderStatus=5')">
             <u-image height="60rpx" src="@/static/shibai.png" width="60rpx"></u-image>
             <view class="grid-text">预约失败</view>
           </u-grid-item>
-          <u-grid-item>
+          <u-grid-item @click="switchTo('orderInfo/index')">
             <u-image height="60rpx" src="@/static/jilu.png" width="60rpx"></u-image>
             <view class="grid-text">预约记录</view>
           </u-grid-item>
@@ -37,15 +37,15 @@
     <view class="normal">
       <u-card :full="true" :show-foot="false" title="我的订单" title-size="32">
         <u-grid slot="body" :col="3">
-          <u-grid-item>
+          <u-grid-item @click="switchTo('paymentInfo/index?paymentStatus=6')">
             <u-image height="60rpx" src="@/static/daizhifu.png" width="60rpx"></u-image>
             <view class="grid-text">待支付</view>
           </u-grid-item>
-          <u-grid-item>
+          <u-grid-item @click="switchTo('paymentInfo/index?paymentStatus=6')">
             <u-image height="60rpx" src="@/static/yiwancheng.png" width="60rpx"></u-image>
             <view class="grid-text">已完成</view>
           </u-grid-item>
-          <u-grid-item>
+          <u-grid-item @click="switchTo('paymentInfo/index')">
             <u-image height="60rpx" src="@/static/dingdan.png" width="60rpx"></u-image>
             <view class="grid-text">全部订单</view>
           </u-grid-item>

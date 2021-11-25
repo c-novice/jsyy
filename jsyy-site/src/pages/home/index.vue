@@ -1,86 +1,40 @@
-<!--<template>-->
-<!--  <view>-->
-<!--    <u-toast ref="uToast"></u-toast>-->
-<!--    <text class="main">校园统一挂号平台</text>-->
-<!--    <u-swiper :effect3d="true" :list="list" height="400"></u-swiper>-->
-<!--  </view>-->
-<!--</template>-->
-
-<!--<script>-->
-<!--import USwiper from "../../uview-ui/components/u-swiper/u-swiper";-->
-
-<!--export default {-->
-<!--  components: {USwiper},-->
-<!--  data() {-->
-<!--    return {-->
-<!--      native: "weixin://wxpay/bizpayurl?pr=Ul09xIUzz",-->
-<!--      paying: true,-->
-<!--      list: [-->
-<!--        {image: '/static/lb1.jpg', title: 'hello world'},-->
-<!--        {image: '/static/lb2.jpg', title: 'hello world'},-->
-<!--        {image: '/static/lb3.jpg', title: 'hello world'}-->
-<!--      ]-->
-<!--    }-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
-
-<!--<style lang="scss" scoped>-->
-<!--.main {-->
-<!--  margin-left: 20rpx;-->
-<!--  margin-top: 20rpx;-->
-<!--  margin-bottom: 20rpx;-->
-<!--  font-size: 16px;-->
-<!--  color: grey;-->
-<!--  display: flex;-->
-<!--  align-items: center;-->
-<!--  justify-content: center;-->
-<!--  font-weight: bolder;-->
-<!--}-->
-<!--</style>-->
-
 <template>
   <view>
-    <u-popup width="450" height="auto" v-model="show" mode="center">
-      <view>
-        <u-image class="main" mode="widthFix" width="50%" src="@/static/WePayLogo.png"></u-image>
-        <canvas id="qrcode" canvas-id="qrcode" style="height: 450rpx"/>
-      </view>
-    </u-popup>
+    <u-toast ref="uToast"></u-toast>
+    <text class="main">校园统一挂号平台</text>
+    <u-swiper :effect3d="true" :list="list" height="400"></u-swiper>
   </view>
 </template>
 
 <script>
-import uQRCode from '@/components/uqrcode/common/uqrcode.js'
+import USwiper from "../../uview-ui/components/u-swiper/u-swiper";
 
 export default {
+  components: {USwiper},
   data() {
     return {
-      show: true
+      native: "weixin://wxpay/bizpayurl?pr=Ul09xIUzz",
+      paying: true,
+      list: [
+        {image: '/static/lb1.jpg', title: 'hello world'},
+        {image: '/static/lb2.jpg', title: 'hello world'},
+        {image: '/static/lb3.jpg', title: 'hello world'}
+      ]
     }
-  },
-  onReady() {
-    uQRCode.make({
-      canvasId: 'qrcode',
-      componentInstance: this,
-      size: 220,
-      margin: 10,
-      text: 'weixin://wxpay/bizpayurl?pr=XLsUE4Kzz',
-      backgroundColor: '#ffffff',
-      foregroundColor: 'green',
-      fileType: 'png',
-      errorCorrectLevel: uQRCode.errorCorrectLevel.H
-    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .main {
-  margin-top: 10rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 16px;
+  color: grey;
   display: flex;
-  text-align: center;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  font-weight: bolder;
 }
 </style>

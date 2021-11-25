@@ -85,22 +85,10 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         if (!StringUtils.isEmpty(lastPendingPermission)) {
             wrapper.eq("last_pending_permission", lastPendingPermission);
         }
-
-        // 每次查询时检查是否过期，只检查可能作为查询结果的记录
-        Page<OrderInfo> page = baseMapper.selectPage(pageParam, wrapper);
-        for (int i = 0; i < page.getRecords().size(); ++i) {
-            OrderInfo orderInfo = page.getRecords().get(i);
-            Integer orderStatus2 = orderInfo.getOrderStatus();
-            String beginTime = orderInfo.getBeginTime();
-            String endTime = orderInfo.getEndTime();
-            // 过期检测
-            if (updateOverTimeStatus(orderStatus2, beginTime, endTime)) {
-                orderInfo.setOrderStatus(OrderInfoStatusEnum.LOSE_EFFICACY.getStatus());
-                baseMapper.updateById(orderInfo);
-            }
+        if (!ObjectUtils.isEmpty(orderStatus)) {
+            wrapper.eq("order_status", orderStatus);
         }
 
-        wrapper.eq("order_status", orderStatus);
         return baseMapper.selectPage(pageParam, wrapper);
     }
 

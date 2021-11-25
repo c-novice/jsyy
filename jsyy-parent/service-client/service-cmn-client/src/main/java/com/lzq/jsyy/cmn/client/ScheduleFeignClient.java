@@ -22,4 +22,12 @@ public interface ScheduleFeignClient {
      */
     @GetMapping("/api/cmn/schedule/inner/getById")
     Schedule getById(@RequestParam String id);
+
+    /**
+     * 更新预约记录：可预约->已被预约
+     *
+     * @param scheduleId
+     */
+    @GetMapping("/api/cmn/schedule/inner/updateOrdered")
+    void updateOrdered(@RequestParam String scheduleId);
 }

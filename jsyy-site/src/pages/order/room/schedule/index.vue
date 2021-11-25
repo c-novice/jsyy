@@ -6,7 +6,8 @@
         <u-gap height="20"></u-gap>
         <u-image class="logo" mode="widthFix" width="50%" src="@/static/WePayLogo.png"></u-image>
         <canvas id="qrcode" canvas-id="qrcode" style="height: 450rpx"/>
-        <u-count-down class="logo" ref="uCountDown" :timestamp="7200" :autoplay="false" @change="changeTime"></u-count-down>
+        <u-count-down class="logo" ref="uCountDown" :timestamp="7200" :autoplay="false"
+                      @change="changeTime"></u-count-down>
       </view>
     </u-popup>
     <u-modal :show-title="false" :zoom="false" cancel-color="	#606266" confirm-color="#2979ff" v-model="show"
@@ -115,19 +116,18 @@ export default {
       workDate: null,
       show4: false,
       paymentInfo: null,
-      isPaying: false
     }
   },
   methods: {
     runPay() {
-      this.show2 = this.isPaying = true
+      this.show2  = true
       setTimeout(() => {
         this.$refs.uCountDown.start()
       })
     },
     // 事件触发，每秒一次
     changeTime(timestamp) {
-      if (!this.isPaying) return
+      if (!this.show2) return
       let headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         "token": getApp().globalData.token
@@ -139,12 +139,12 @@ export default {
           .then(data => {
             if (data.code === 200) {
               console.log(data)
-              this.isPaying = false
               this.show2 = false
               this.$refs.uToast.show({
                 title: "支付成功",
                 type: 'success'
               })
+              this.page()
             }
           })
     },
@@ -193,8 +193,7 @@ export default {
         "token": getApp().globalData.token
       }
       let params = {
-        // username: getApp().globalData.user.username,
-        username: '18355431182',
+        username: getApp().globalData.user.username,
         facilityId: this.facilityId,
         roomId: this.roomId,
         scheduleId: this.selectItem.id,
@@ -267,8 +266,6 @@ export default {
       let headers = {
         "token": getApp().globalData.token
       }
-      // let workDate = this.workDate
-
       let lastPendingPermission = ''
       if (this.options2 !== null) lastPendingPermission = this.options2[this.value2 - 1].label
       if (lastPendingPermission === '全部') lastPendingPermission = ''
