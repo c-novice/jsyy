@@ -24,11 +24,11 @@ public class MsmReceiver {
      *
      * @param msmVo
      */
-    @RabbitListener(
-            bindings = @QueueBinding(value = @Queue(value = MqConst.QUEUE_MSM_ITEM, durable = "true"),
-                    exchange = @Exchange(value = MqConst.EXCHANGE_DIRECT_MSM),
-                    key = {MqConst.ROUTING_MSM_ITEM}
-            ))
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = MqConst.QUEUE_MSM_ITEM, durable = "true"),
+            exchange = @Exchange(value = MqConst.EXCHANGE_DIRECT_MSM),
+            key = {MqConst.ROUTING_MSM_ITEM}
+    ))
     public void send(MsmVo msmVo) {
         msmService.send(msmVo);
     }
