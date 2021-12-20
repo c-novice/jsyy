@@ -16,8 +16,8 @@ export default {
       native: "weixin://wxpay/bizpayurl?pr=Ul09xIUzz",
       paying: true,
       list: [
-        {image: '/static/lb1.jpg', title: 'hello world'},
-        {image: '/static/lb2.jpg', title: 'hello world'},
+        {image: '/static/lb3.jpg', title: 'hello world'},
+        {image: '/static/lb3.jpg', title: 'hello world'},
         {image: '/static/lb3.jpg', title: 'hello world'}
       ]
     }
